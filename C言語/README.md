@@ -1,14 +1,14 @@
 # C言語
 
 ## 目次
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-- [１．ライブラリについて](#%EF%BC%91%EF%BC%8E%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)
-  - [◆ 静的ライブラリ](#%E2%97%86-%E9%9D%99%E7%9A%84%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA)
-  - [◆ 共有ライブラリ](#%E2%97%86-%E5%85%B1%E6%9C%89%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA)
-  - [◆ 動的ライブラリ(≒共有ライブラリ)](#%E2%97%86-%E5%8B%95%E7%9A%84%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E2%89%92%E5%85%B1%E6%9C%89%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA)
+<!-- TOC -->
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+- [１．ライブラリについて](#１．ライブラリについて)
+    - [◆ 静的ライブラリ](#◆-静的ライブラリ)
+    - [◆ 共有ライブラリ](#◆-共有ライブラリ)
+    - [◆ 動的ライブラリ(≒共有ライブラリ)](#◆-動的ライブラリ≒共有ライブラリ)
+
+<!-- /TOC -->
 <br>
 
 ### １．ライブラリについて
