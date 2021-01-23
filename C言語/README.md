@@ -11,9 +11,11 @@
 <!-- /TOC -->
 <br>
 
+<a id="markdown-１．ライブラリについて" name="１．ライブラリについて"></a>
 ### １．ライブラリについて
 ---
 
+<a id="markdown-◆-静的ライブラリ" name="◆-静的ライブラリ"></a>
 #### ◆ 静的ライブラリ
 プログラムの構築時に組み込まれるライブラリ。(拡張子は .a)  
 <br>
@@ -54,6 +56,7 @@ $ ./main
 Hello, World!
 ```
 
+<a id="markdown-◆-共有ライブラリ" name="◆-共有ライブラリ"></a>
 #### ◆ 共有ライブラリ
 プログラム実行と同時にメモリ上に展開されるライブラリ(拡張子は .so)  
 ①共有ライブラリの作成
@@ -63,5 +66,6 @@ $ file libgreet.so
 libgreet.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=8ca16b06f3784a2040f58528f711677b877c74a4, not stripped
 ```
 
+<a id="markdown-◆-動的ライブラリ≒共有ライブラリ" name="◆-動的ライブラリ≒共有ライブラリ"></a>
 #### ◆ 動的ライブラリ(≒共有ライブラリ)
 プログラム実行中の任意の時点で読み込まれるライブラリ。
