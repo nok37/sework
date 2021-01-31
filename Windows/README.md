@@ -12,12 +12,16 @@
     - [◆ find](#◆-find)
     - [◆ findstr](#◆-findstr)
     - [◆ fc](#◆-fc)
+    - [◆ net](#◆-net)
+    - [◆ pushd / popd](#◆-pushd--popd)
     - [◆ curl](#◆-curl)
     - [◆ doskey](#◆-doskey)
 - [３．バッチファイル(bat)](#３．バッチファイルbat)
-    - [◆ hoge](#◆-hoge-1)
+    - [◆ 全般・設定](#◆-全般・設定)
 - [４．プログラムから実行(win + r)](#４．プログラムから実行win--r)
-    - [◆ ファイル操作系](#◆-ファイル操作系)
+    - [◆ まとめ](#◆-まとめ)
+- [５．その他ショートカット](#５．その他ショートカット)
+    - [◆ win](#◆-win)
 
 <!-- /TOC -->
 <br>
@@ -40,9 +44,6 @@
 | F7 | 履歴の表示 |
 | hostname | ホスト名の表示 |
 | systeminfo | システム情報の表示★★★ |
-
-
-
 
 <a id="markdown-◆-tree" name="◆-tree"></a>
 #### ◆ tree
@@ -141,6 +142,33 @@ rem バイナリ比較
 FC: 相違点は検出されませんでした
 ```
 
+<a id="markdown-◆-net" name="◆-net"></a>
+#### ◆ net
+ネットワーク関係の設定や現在の状態を表示する。
+
+```cmd
+rem ネットワークドライブの割当・削除
+>net use p: \\192.168.11.2\share1\VIDEO
+>net use p: /delete
+
+rem 認証ありの場合
+>net use p: \\192.168.11.2\share password /user:naoki
+```
+
+<a id="markdown-◆-pushd--popd" name="◆-pushd--popd"></a>
+#### ◆ pushd / popd
+一時的にカレントディレクトリを変更する。  
+拡張機能では一時的にネットワークドライブの作成が可能。
+
+```cmd
+>pushd \\192.168.11.2\share1\VIDEO
+
+Z:\VIDEO>
+Z:\VIDEO>popd
+
+C:\Users\naoki>
+```
+
 <a id="markdown-◆-curl" name="◆-curl"></a>
 #### ◆ curl
 サーバへデータ転送を行う。
@@ -181,10 +209,8 @@ C:\Users\naoki\Desktop\test\sub\TEST4.xlsx
 rem マクロの表示
 >doskey /macros
 ls=dir $*
-```
 
 rem マクロの読み込み
-```cmd
 >doskey /macrofile=c:\test\macros.txt
 ```
 <br>
@@ -193,8 +219,10 @@ rem マクロの読み込み
 ### ３．バッチファイル(bat)
 ---
 
-<a id="markdown-◆-hoge-1" name="◆-hoge-1"></a>
-#### ◆ hoge
+<a id="markdown-◆-全般・設定" name="◆-全般・設定"></a>
+#### ◆ 全般・設定
+| コマンド | メモ |
+| --- | --- |
 
 <br>
 
@@ -202,48 +230,53 @@ rem マクロの読み込み
 ### ４．プログラムから実行(win + r)
 ---
 
-<a id="markdown-◆-ファイル操作系" name="◆-ファイル操作系"></a>
-#### ◆ ファイル操作系
+<a id="markdown-◆-まとめ" name="◆-まとめ"></a>
+#### ◆ まとめ
 | コマンド | メモ |
 | --- | --- |
+| cmd | Ctrl + Shift + Enterで管理者として実行 |
+| cmd.exe /k ini.bat | バッチファイルを実行して起動※１ |
 | shell:startup | スタートアップ |
 | shell:Desktop | デスクトップ |
-| cmd | Ctrl + Shift + Enterで管理者として実行 |
 | winver | Windowsのバージョン情報 |
 | mstsc | リモートデスクトップ接続 |
 | taskmgr | タスクマネージャー |
 | control | コントロールパネル |
 | control printers | プリンターとFAX |
-| control /name Microsoft.CredentialManager | 資格情報マネージャー |
-| inetcpl.cpl | インターネットオプション |
 | ncpa.cpl | ネットワーク接続 |
-| ms-settings:windowsupdate | Windows Update |
+| msinfo32 | システム情報 |
 
-※エイリアスをスタートアップにおいておくと便利！  
-```cmd
-rem エイリアスファイル作成マクロ
-echo @echo off> app.bat
-echo start appwiz.cpl>> app.bat
-echo @echo off> cm.bat
-echo start control /name Microsoft.CredentialManager>> cm.bat
-echo @echo off> fw.bat
-echo start firewall.cpl>> fw.bat
-echo @echo off> inet.bat
-echo start inetcpl.cpl>> inet.bat
-echo @echo off> proxy.bat
-echo start ms-settings:network-proxy>> proxy.bat
-echo @echo off> sendto2.bat
-echo start shell:sendto>> sendto2.bat
-echo @echo off> startup.bat
-echo start shell:startup>> startup.bat
-echo @echo off> sv.bat
-echo start services.msc>> sv.bat
-echo @echo off> sysver.bat
-echo start msinfo32>> sysver.bat
-echo @echo off> tm.bat
-echo start taskmgr>> tm.bat
-echo @echo off> ts.bat
-echo start control schedtasks>> ts.bat
-echo @echo off> wu.bat
-echo start ms-settings:windowsupdate>> wu.bat
+
+<br>
+※１　初期バッチファイルの例
+
+```bat
+@echo off
+rem ini.bat(sjisで保存すること)
+doskey app=appwiz.cpl
+doskey cm=control /name Microsoft.CredentialManager
+doskey fw=firewall.cpl
+doskey inet=inetcpl.cpl
+doskey wu=start ms-settings:windowsupdate
+doskey about=start ms-settings:about
+
+echo *****ショートカット一覧*****
+echo プログラムと機能[app]
+echo 資格情報マネージャー[cm]
+echo ファイヤーウォール[fw]
+echo インターネットオプション[inet]
+echo Windowsアップデート[wu]
+echo システムバージョン情報[about]
 ```
+
+<br>
+
+<a id="markdown-５．その他ショートカット" name="５．その他ショートカット"></a>
+### ５．その他ショートカット
+---
+<a id="markdown-◆-win" name="◆-win"></a>
+#### ◆ win
+| コマンド | メモ |
+| --- | --- |
+| win + 1（～9） | タスクバーのアプリを実行 |
+|  |  |
