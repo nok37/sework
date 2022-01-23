@@ -1,0 +1,644 @@
+# Linux
+
+## 目次
+<!-- TOC -->
+
+- [１．設定 ・ 豆知識](#１．設定-・-豆知識)
+    - [◆ コマンドの実行パス](#◆-コマンドの実行パス)
+    - [◆ ssh接続時に表示される文言](#◆-ssh接続時に表示される文言)
+    - [◆ bash設定](#◆-bash設定)
+    - [◆ cron](#◆-cron)
+- [２．コマンド](#２．コマンド)
+    - [◆◆ 基本コマンド ◆◆](#◆◆-基本コマンド-◆◆)
+    - [◆ chmod](#◆-chmod)
+    - [◆ umask](#◆-umask)
+    - [◆◆ ファイル編集 ◆◆](#◆◆-ファイル編集-◆◆)
+    - [◆ vim](#◆-vim)
+    - [◆ sed](#◆-sed)
+    - [◆◆ バイナリ操作 ◆◆](#◆◆-バイナリ操作-◆◆)
+    - [◆ od](#◆-od)
+    - [◆ xxd](#◆-xxd)
+    - [◆◆ 計算 ◆◆](#◆◆-計算-◆◆)
+    - [◆ bc](#◆-bc)
+    - [◆ dc](#◆-dc)
+    - [◆◆ 設定 ◆◆](#◆◆-設定-◆◆)
+    - [◆ yum](#◆-yum)
+    - [◆◆ 通信 ◆◆](#◆◆-通信-◆◆)
+    - [◆ curl](#◆-curl)
+    - [◆ route](#◆-route)
+    - [◆ ifconfig](#◆-ifconfig)
+    - [◆◆ その他 ◆◆](#◆◆-その他-◆◆)
+    - [◆ プリンタ](#◆-プリンタ)
+    - [◆ ac](#◆-ac)
+    - [◆ last](#◆-last)
+- [３．シェル](#３．シェル)
+    - [◆ 用語説明](#◆-用語説明)
+    - [◆ 引数／特殊変数](#◆-引数／特殊変数)
+- [４．便利コマンド](#４．便利コマンド)
+
+<!-- /TOC -->
+<br>
+
+
+<a id="markdown-１．設定-・-豆知識" name="１．設定-・-豆知識"></a>
+### １．設定 ・ 豆知識
+---
+<a id="markdown-◆-コマンドの実行パス" name="◆-コマンドの実行パス"></a>
+#### ◆ コマンドの実行パス
+コマンド実行時は左から順にパスを確認しコマンド実行する。  
+・ パスの確認
+
+```bash
+$ echo $PATH
+/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+```
+
+・ パスの追加
+
+```bash
+$ export PATH=$NODE_HOME/bin:$PATH
+```
+
+<br>
+
+<a id="markdown-◆-ssh接続時に表示される文言" name="◆-ssh接続時に表示される文言"></a>
+#### ◆ ssh接続時に表示される文言
+Message of the dayの略
+```bash
+/etc/motd
+```
+<br>
+
+<a id="markdown-◆-bash設定" name="◆-bash設定"></a>
+#### ◆ bash設定
+・.bash_profile  
+→ ログイン時にのみ実行される  
+→ 環境変数を設定する (export する変数)  
+
+```bash
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+```
+
+・.bashrc  
+→ シェルを起動する度に実行される  
+→ エイリアスを定義する  
+```bash
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+```
+まとめると  
+・ログインシェル→ .bash_profile(→ .bashrc)  
+・インタラクティブシェル→ .bashrc  
+・非インタラクティブシェル→ なし
+<br>
+
+<a id="markdown-◆-cron" name="◆-cron"></a>
+#### ◆ cron
+
+```bash
+# /etc/crontab システムジョブ(root権限で実行される)
+# /var/spool/cron/[user] ユーザジョブ
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb...
+# |  |  |  |  .---- day of week (0 - 6) OR sun,mon...
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+# 例）毎日0時にrootメールを削除する
+0 0 * * * cat /dev/null > /var/spool/mail/root
+```
+
+<br>
+
+<a id="markdown-２．コマンド" name="２．コマンド"></a>
+### ２．コマンド
+---
+<a id="markdown-◆◆-基本コマンド-◆◆" name="◆◆-基本コマンド-◆◆"></a>
+#### ◆◆ 基本コマンド ◆◆  
+
+<a id="markdown-◆-chmod" name="◆-chmod"></a>
+#### ◆ chmod
+ファイルの権限を変更する。
+
+```bash
+# ユーザに実行権限を付与する
+$ chmod u+x file
+
+#グループに書き込み権限をその他のユーザーにはすべて禁止する
+$ chmod g+w,o= test
+
+# 再帰的に変更する（ディレクトリも含めて）
+$ chmod -R 766 dir
+```
+
+
+<a id="markdown-◆-umask" name="◆-umask"></a>
+#### ◆ umask
+ファイルやディレクトリを新規作成する際に、デフォルトの権限を決定する。
+
+```bash
+$ umask 022
+# ディレクトリの場合、777 - 022 = 755
+# ファイルの場合、666 - 022 = 644
+# umaskから引いた値がデフォルト権限となる
+drwxr-xr-x. 2 taka taka   6  8月 11 23:12 dir
+-rw-r--r--. 1 taka taka   0  8月 11 23:12 file
+
+# /etc/bashrcに記載されている
+if [ $UID -gt 199 ] && [ "`/usr/bin/id -gn`" = "`/usr/bin/id -un`" ]; then
+   umask 002
+else
+   umask 022
+fi
+```
+
+<a id="markdown-◆◆-ファイル編集-◆◆" name="◆◆-ファイル編集-◆◆"></a>
+#### ◆◆ ファイル編集 ◆◆  
+
+<a id="markdown-◆-vim" name="◆-vim"></a>
+#### ◆ vim
+高機能なテキストエディタ  
+
+・オプション  
+```bash
+#行数表示
+set number
+se nu
+
+#色付け
+:set syntax=ON
+
+#タブ整形
+set ts=4
+
+#大文字小文字区別なくす（ignorecase）
+:set ic
+:set noic
+
+#ファイル名表示
+ctrl + g
+```
+
+```bash
+# vimrc
+"-----検索系------
+"インクリメンタルサーチを有効
+set incsearch
+"大文字小文字を区別しない
+set ignorecase
+"大文字で検索されたら対象を大文字限定にする
+set smartcase
+"検索終わりで先頭に戻らない
+set nowrapscan
+
+"-----Format------
+"行数表示
+set number
+"タブをスペースに置換
+set ts=4
+"ルーラーの設定
+set ruler
+"カーソルラインを表示する
+set cursorline
+"pcファイルをcファイルで読み込む
+autocmd BufRead,BufNewFile *.pc setfiletype c
+
+"ステータスラインにコマンドを表示
+set showcmd
+"ステータスラインを常に表示
+set laststatus=2
+"ファイル名表示
+set statusline+=%<%F
+"文字コード表示
+set statusline+=[%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
+"ファイルタイプ表示
+set statusline+=%y
+"ここからツールバー右側
+set statusline+=%=
+"現在行が全体行の何%か表示
+set statusline+=[%p%%]
+```
+
+
+<a id="markdown-◆-sed" name="◆-sed"></a>
+#### ◆ sed
+文字操作
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+|  e  |  スクリプトコマンド実行  |
+|  r  |  拡張正規表現でスクリプトコマンド実行<br>※スクリプトコマンド例（s:/置換前/置換後/g）  |
+|  i  |  ファイルを直接編集  |
+|  i拡張子  |  ファイルを直接編集し、拡張子の退避ファイル作成  |
+<br>
+
+・コマンド実行例
+```bash
+#標準出力の編集
+$ echo "2020/07/11" | sed -e 's/\///g'
+20200711
+
+#ファイルの編集
+$ grep user *sh
+test1.sh:echo "user1"
+test2.sh:echo "user1"
+$ sed -i -e 's/user1/user2/g' ./*.sh
+$ grep user *sh
+test1.sh:echo "user2"
+test2.sh:echo "user2"
+
+#スペース削除と任意箇所切り取り
+$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+/usr/bin/vi
+/usr/bin/view -> vi
+/usr/bin/vim
+/usr/bin/vimdiff -> vim
+/usr/bin/vimtutor
+/usr/bin/vinagre
+
+#バイナリファイルの編集
+$ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
+```
+
+<a id="markdown-◆◆-バイナリ操作-◆◆" name="◆◆-バイナリ操作-◆◆"></a>
+#### ◆◆ バイナリ操作 ◆◆  
+
+<a id="markdown-◆-od" name="◆-od"></a>
+#### ◆ od  
+8進数やその他の形式でダンプする
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+| -t   | オプションで出力フォーマット指定 |  
+|  c   | ASCII 文字または \ エスケープ文字で表示する |  
+|  x   | 16進数2バイトで表示する（x2と同じ） |  
+|  d   | 10進数2バイトで表示する |  
+<br>
+・コマンド実行例
+
+```bash
+#１行目にASCII表示
+#２行目に16進数1バイト表示(x1)
+#３行目に10進数1バイト表示(x1)
+$ echo '10AZaz-!'|od -tcx1d1
+0000000    1    0    A    Z    a    z    -    !   \n
+          31   30   41   5a   61   7a   2d   21   0a
+          49   48   65   90   97  122   45   33   10
+0000011
+
+#SJIS
+$ echo '09AZｱ'
+0000000 30 39 41 5a b1 0a
+0000010
+#UTF8
+#ef bdはBOM(バイトオーダーマーク)
+$ echo '09AZｱ'
+0000000 30 39 41 5a ef bd b1 0a
+0000010
+```
+
+<a id="markdown-◆-xxd" name="◆-xxd"></a>
+#### ◆ xxd
+2進数でダンプする  
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+| -b | オプションでバイナリ（2進数）表示 |
+| -c | オプションで表示数変更 |
+| -p | ポストスクリプト形式の 16 進ダンプを出力する。 |
+| -r | 元に戻す: 16 進ダンプからバイナリ形式に変換 
+<br>
+・コマンド実行例
+
+```bash
+# 2進数ダンプ
+$ echo '10abAB' |xxd -b -c 8
+0000000: 00110001 00110000 01100001 01100010 01000001 01000010 00001010           10abAB.
+$ echo '10abAC' |xxd -b -c 8
+0000000: 00110001 00110000 01100001 01100010 01000001 01000011 00001010           10abAC.
+
+# 16進数ダンプ
+$ echo "AZaz09ｱア" |xxd -p
+415a617a3039efbdb1e382a20a
+
+# 16進数を元に戻す
+$ echo '415a617a3039efbdb1e382a20a' |xxd -p -r
+AZaz09ｱア
+
+# EBCDICファイルの確認方法
+$ xxd -E -g1 ./EBCDIC
+
+0000000: f2 f0 f2 f0 f0 f9 f2 f9 40 40 40 40 40 40 40 40 20200929
+※EBCDICのf2⇒数値の2
+```
+
+<a id="markdown-◆◆-計算-◆◆" name="◆◆-計算-◆◆"></a>
+#### ◆◆ 計算 ◆◆  
+
+<a id="markdown-◆-bc" name="◆-bc"></a>
+#### ◆ bc
+任意精度の計算言語
+
+```bash
+#単純な計算　1+2+3+4+5
+$ bc
+bc 1.06.95
+Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'.
+1+2+3+4+5
+15
+```
+
+<a id="markdown-◆-dc" name="◆-dc"></a>
+#### ◆ dc
+逆ポーランド形式の無限精度の計算が行える卓上計算機
+
+```bash
+#複雑な計算　(27/(1+2)^2)*2
+$ dc
+27 1 2 + 2 ^ / 2 * 
+p
+6
+```
+
+
+
+<a id="markdown-◆◆-設定-◆◆" name="◆◆-設定-◆◆"></a>
+#### ◆◆ 設定 ◆◆  
+
+<a id="markdown-◆-yum" name="◆-yum"></a>
+#### ◆ yum
+RedHat系で利用されるパッケージ管理ツール
+※yumはパイソンで動いている
+
+```bash
+$ head -n 1 /usr/bin/yum
+#!/usr/bin/python
+```
+
+<a id="markdown-◆◆-通信-◆◆" name="◆◆-通信-◆◆"></a>
+#### ◆◆ 通信 ◆◆  
+
+<a id="markdown-◆-curl" name="◆-curl"></a>
+#### ◆ curl  
+
+
+```bash
+# 基本
+$ curl 'http://localhost:5050/api/' 
+
+# POSTでよく使う
+$ curl -v -X POST 'http://localhost:5050/api/' -H 'Content-Type: application/json' -H 'Authorization: Bearer XXXX' -d '{"name":"hello", "id":"100"}'
+
+# 詳細表示
+$ curl -v -X GET 'https://api.github.com/zen'
+Note: Unnecessary use of -X or --request, GET is already inferred.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 18.179.245.253:443...
+* Connected to api.github.com (18.179.245.253) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+  CApath: none
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [19 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [2362 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [78 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.com
+*  start date: Mar 25 00:00:00 2021 GMT
+*  expire date: Mar 30 23:59:59 2022 GMT
+*  subjectAltName: host "api.github.com" matched certs "*.github.com"
+*  issuer: C=US; O=DigiCert, Inc.; CN=DigiCert High Assurance TLS Hybrid ECC SHA256 2020 CA1
+*  SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+} [5 bytes data]
+* Using Stream ID: 1 (easy handle 0x265e070)
+} [5 bytes data]
+> GET /zen HTTP/2
+> Host: api.github.com
+> user-agent: curl/7.71.1
+> accept: */*
+>
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [57 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [57 bytes data]
+* old SSL session ID is stale, removing
+{ [5 bytes data]
+* Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+} [5 bytes data]
+< HTTP/2 200
+< server: GitHub.com
+< date: Sun, 23 Jan 2022 10:46:05 GMT
+< content-type: text/plain;charset=utf-8
+< access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
+< access-control-allow-origin: *
+< strict-transport-security: max-age=31536000; includeSubdomains; preload
+< x-frame-options: deny
+< x-content-type-options: nosniff
+< x-xss-protection: 0
+< referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+< content-security-policy: default-src 'none'
+< vary: Accept-Encoding, Accept, X-Requested-With
+< x-ratelimit-limit: 60
+< x-ratelimit-remaining: 53
+< x-ratelimit-reset: 1642938185
+< x-ratelimit-resource: core
+< x-ratelimit-used: 7
+< accept-ranges: bytes
+< content-length: 43
+< x-github-request-id: BB4E:5A97:18115BA:1B25EA7:61ED31EC
+<
+{ [43 bytes data]
+100    43  100    43    0     0    123      0 --:--:-- --:--:-- --:--:--   123Half measures are as bad as nothing at all.
+* Connection #0 to host api.github.com left intact  
+
+# ヘッダ指定
+$ curl -X POST 'http://localhost:5050/api/' -H 'Content-Type: application/json' -H 'Authorization: Bearer XXXX'
+
+# ボディ指定
+$ curl -X POST 'http://localhost:5050/api/' -d '{"name":"hello", "id":"100"}'
+
+# SSL証明書エラーを無視
+$ curl --insecure -X POST 'http://localhost:5050/api/'
+$ curl -k -X POST 'http://localhost:5050/api/'
+
+# 証明書を指定
+$ curl --cacert ./server.crt -X POST 'http://localhost:5050/api/'
+
+# プロキシを指定
+$ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
+```
+
+<a id="markdown-◆-route" name="◆-route"></a>
+#### ◆ route
+ルーティングテーブルの管理
+```bash
+$ route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         gateway         0.0.0.0         UG    100    0        0 enp0s3
+10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
+```
+
+<a id="markdown-◆-ifconfig" name="◆-ifconfig"></a>
+#### ◆ ifconfig
+ネットワークインターフェースの管理
+```bash
+$ ifconfig -a
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:b2:bf:b7  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+<a id="markdown-◆◆-その他-◆◆" name="◆◆-その他-◆◆"></a>
+#### ◆◆ その他 ◆◆  
+
+<a id="markdown-◆-プリンタ" name="◆-プリンタ"></a>
+#### ◆ プリンタ
+
+```bash
+# キュー全削除（※root権限）
+$ cancel -a TESTPRT
+
+# プリンタ無効化（※root権限）
+$ cupsdisable TESTPRT
+
+# プリンタ有効化（※root権限）
+$ cupsenable TESTPRT
+```
+
+<a id="markdown-◆-ac" name="◆-ac"></a>
+#### ◆ ac
+ユーザのログイン時間を表示する。  
+「/var/log/wtmp 」を参照している。
+
+```bash
+$ ac -p
+        takahana                            81.90
+        root                                 0.01
+        total       81.91
+```
+
+<a id="markdown-◆-last" name="◆-last"></a>
+#### ◆ last
+ログイン履歴を表示する
+
+```bash
+# ホスト名を最後に表示
+$ last -a
+takahana pts/0        Wed Sep  1 23:36   still logged in    gateway
+reboot   system boot  Wed Sep  1 23:35 - 23:36  (00:01)     3.10.0-1127.19.1.el7.x86_64
+
+wtmp begins Sat Oct 24 00:56:05 2020
+
+# リモートログイン時、ログイン元のIPを表示
+$ last -ai
+
+# リモートログイン時、ログイン元のIPをホスト名に変換
+$ last -ad
+```
+
+<br>
+
+<a id="markdown-３．シェル" name="３．シェル"></a>
+### ３．シェル
+---
+<a id="markdown-◆-用語説明" name="◆-用語説明"></a>
+#### ◆ 用語説明
+・シェバン  
+シェルの1行目に記載し、このシェルは「bin/bash」で動かしますの意味
+```bash
+#!/bin/bash
+```
+・セカンダリプロンプト  
+行末の「\」のことで、まだコマンドは終了していないことを意味する
+```bash
+echo \
+"Hello, World!"
+```
+<a id="markdown-◆-引数／特殊変数" name="◆-引数／特殊変数"></a>
+#### ◆ 引数／特殊変数
+
+```bash
+$ ./test.sh 1 2 3
+#「$0」は特殊な引数で、シェル名が格納されてる
+$0 = ./test.sh
+#「$1」は引数の値で「位置パラメータ」という
+$1 = 1
+$2 = 2
+$3 = 3
+#「$#」は引数の個数
+$# = 3
+#「$$」は現在実行しているプロセスID
+$$ = 3854
+#「#@」はすべての位置パラメータ("$1" "$2" ..."$N")
+$@ = 1 2 3
+#「#*」はすべての位置パラメータ("$1 $2 $N")
+$* = 1 2 3
+#「$?」直前コマンドの「終了ステータス（正常=0）」
+$? = 0
+```
+
+<a id="markdown-４．便利コマンド" name="４．便利コマンド"></a>
+### ４．便利コマンド
+---
+
+```bash
+# ファイルを読み込み、1行ずつ処理する
+while read line; do md5sum $line;done <bkup.txt
+```
