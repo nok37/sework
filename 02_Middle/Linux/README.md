@@ -9,32 +9,28 @@
     - [◆ bash設定](#◆-bash設定)
     - [◆ cron](#◆-cron)
 - [２．コマンド](#２．コマンド)
-    - [◆◆ 基本コマンド ◆◆](#◆◆-基本コマンド-◆◆)
-    - [◆ chmod](#◆-chmod)
-    - [◆ umask](#◆-umask)
-    - [◆◆ ファイル編集 ◆◆](#◆◆-ファイル編集-◆◆)
-    - [◆ vim](#◆-vim)
-    - [◆ sed](#◆-sed)
-    - [◆◆ バイナリ操作 ◆◆](#◆◆-バイナリ操作-◆◆)
-    - [◆ od](#◆-od)
-    - [◆ xxd](#◆-xxd)
-    - [◆◆ 計算 ◆◆](#◆◆-計算-◆◆)
-    - [◆ bc](#◆-bc)
-    - [◆ dc](#◆-dc)
-    - [◆◆ 設定 ◆◆](#◆◆-設定-◆◆)
-    - [◆ yum](#◆-yum)
-    - [◆◆ 通信 ◆◆](#◆◆-通信-◆◆)
-    - [◆ curl](#◆-curl)
-    - [◆ route](#◆-route)
-    - [◆ ifconfig](#◆-ifconfig)
-    - [◆◆ その他 ◆◆](#◆◆-その他-◆◆)
-    - [◆ プリンタ](#◆-プリンタ)
-    - [◆ ac](#◆-ac)
-    - [◆ last](#◆-last)
+    - [◆ ac　#ユーザのログイン時間を表示する](#◆-ac　ユーザのログイン時間を表示する)
+    - [◆ bc　#任意精度の計算言語](#◆-bc　任意精度の計算言語)
+    - [◆ cancel　#印刷ジョブを取り消す](#◆-cancel　印刷ジョブを取り消す)
+    - [◆ cupsdisabl　#プリンタ無効化](#◆-cupsdisabl　プリンタ無効化)
+    - [◆ cupsenable　#プリンタ有効化](#◆-cupsenable　プリンタ有効化)
+    - [◆ chmod　#ファイルの権限を変更する](#◆-chmod　ファイルの権限を変更する)
+    - [◆ curl  #HTTPなどの通信プロトコルでデータを転送する](#◆-curl--httpなどの通信プロトコルでデータを転送する)
+    - [◆ dc　#無限精度の計算が行える卓上計算機](#◆-dc　無限精度の計算が行える卓上計算機)
+    - [◆ ifconfig　#ネットワークインターフェースの管理](#◆-ifconfig　ネットワークインターフェースの管理)
+    - [◆ last　#ログイン履歴を表示する](#◆-last　ログイン履歴を表示する)
+    - [◆ od　#8進数やその他の形式でダンプする](#◆-od　8進数やその他の形式でダンプする)
+    - [◆ route　#ルーティングテーブルの管理](#◆-route　ルーティングテーブルの管理)
+    - [◆ sed　#文字列置換などのテキスト処理](#◆-sed　文字列置換などのテキスト処理)
+    - [◆ umask　#デフォルトの権限を決定する](#◆-umask　デフォルトの権限を決定する)
+    - [◆ vim　#高機能なテキストエディタ](#◆-vim　高機能なテキストエディタ)
+    - [◆ yum　#RedHat系で利用されるパッケージ管理ツール](#◆-yum　redhat系で利用されるパッケージ管理ツール)
+    - [◆ xxd　#2進数でダンプする](#◆-xxd　2進数でダンプする)
 - [３．シェル](#３．シェル)
     - [◆ 用語説明](#◆-用語説明)
     - [◆ 引数／特殊変数](#◆-引数／特殊変数)
 - [４．便利コマンド](#４．便利コマンド)
+    - [繰り返し処理](#繰り返し処理)
 
 <!-- /TOC -->
 <br>
@@ -140,231 +136,20 @@ fi
 <a id="markdown-２．コマンド" name="２．コマンド"></a>
 ### ２．コマンド
 ---
-<a id="markdown-◆◆-基本コマンド-◆◆" name="◆◆-基本コマンド-◆◆"></a>
-#### ◆◆ 基本コマンド ◆◆  
 
-<a id="markdown-◆-chmod" name="◆-chmod"></a>
-#### ◆ chmod
-ファイルの権限を変更する。
+<a id="markdown-◆-ac　ユーザのログイン時間を表示する" name="◆-ac　ユーザのログイン時間を表示する"></a>
+#### ◆ ac　#ユーザのログイン時間を表示する
+※「/var/log/wtmp 」を参照している。
 
 ```bash
-# ユーザに実行権限を付与する
-$ chmod u+x file
-
-#グループに書き込み権限をその他のユーザーにはすべて禁止する
-$ chmod g+w,o= test
-
-# 再帰的に変更する（ディレクトリも含めて）
-$ chmod -R 766 dir
+$ ac -p
+        takahana                            81.90
+        root                                 0.01
+        total       81.91
 ```
 
-
-<a id="markdown-◆-umask" name="◆-umask"></a>
-#### ◆ umask
-ファイルやディレクトリを新規作成する際に、デフォルトの権限を決定する。
-
-```bash
-$ umask 022
-# ディレクトリの場合、777 - 022 = 755
-# ファイルの場合、666 - 022 = 644
-# umaskから引いた値がデフォルト権限となる
-drwxr-xr-x. 2 taka taka   6  8月 11 23:12 dir
--rw-r--r--. 1 taka taka   0  8月 11 23:12 file
-
-# /etc/bashrcに記載されている
-if [ $UID -gt 199 ] && [ "`/usr/bin/id -gn`" = "`/usr/bin/id -un`" ]; then
-   umask 002
-else
-   umask 022
-fi
-```
-
-<a id="markdown-◆◆-ファイル編集-◆◆" name="◆◆-ファイル編集-◆◆"></a>
-#### ◆◆ ファイル編集 ◆◆  
-
-<a id="markdown-◆-vim" name="◆-vim"></a>
-#### ◆ vim
-高機能なテキストエディタ  
-
-・オプション  
-```bash
-#行数表示
-set number
-se nu
-
-#色付け
-:set syntax=ON
-
-#タブ整形
-set ts=4
-
-#大文字小文字区別なくす（ignorecase）
-:set ic
-:set noic
-
-#ファイル名表示
-ctrl + g
-```
-
-```bash
-# vimrc
-"-----検索系------
-"インクリメンタルサーチを有効
-set incsearch
-"大文字小文字を区別しない
-set ignorecase
-"大文字で検索されたら対象を大文字限定にする
-set smartcase
-"検索終わりで先頭に戻らない
-set nowrapscan
-
-"-----Format------
-"行数表示
-set number
-"タブをスペースに置換
-set ts=4
-"ルーラーの設定
-set ruler
-"カーソルラインを表示する
-set cursorline
-"pcファイルをcファイルで読み込む
-autocmd BufRead,BufNewFile *.pc setfiletype c
-
-"ステータスラインにコマンドを表示
-set showcmd
-"ステータスラインを常に表示
-set laststatus=2
-"ファイル名表示
-set statusline+=%<%F
-"文字コード表示
-set statusline+=[%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
-"ファイルタイプ表示
-set statusline+=%y
-"ここからツールバー右側
-set statusline+=%=
-"現在行が全体行の何%か表示
-set statusline+=[%p%%]
-```
-
-
-<a id="markdown-◆-sed" name="◆-sed"></a>
-#### ◆ sed
-文字操作
-
-|  オプション  |  詳細  |
-| ---- | ---- |
-|  e  |  スクリプトコマンド実行  |
-|  r  |  拡張正規表現でスクリプトコマンド実行<br>※スクリプトコマンド例（s:/置換前/置換後/g）  |
-|  i  |  ファイルを直接編集  |
-|  i拡張子  |  ファイルを直接編集し、拡張子の退避ファイル作成  |
-<br>
-
-・コマンド実行例
-```bash
-#標準出力の編集
-$ echo "2020/07/11" | sed -e 's/\///g'
-20200711
-
-#ファイルの編集
-$ grep user *sh
-test1.sh:echo "user1"
-test2.sh:echo "user1"
-$ sed -i -e 's/user1/user2/g' ./*.sh
-$ grep user *sh
-test1.sh:echo "user2"
-test2.sh:echo "user2"
-
-#スペース削除と任意箇所切り取り
-$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
-/usr/bin/vi
-/usr/bin/view -> vi
-/usr/bin/vim
-/usr/bin/vimdiff -> vim
-/usr/bin/vimtutor
-/usr/bin/vinagre
-
-#バイナリファイルの編集
-$ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
-```
-
-<a id="markdown-◆◆-バイナリ操作-◆◆" name="◆◆-バイナリ操作-◆◆"></a>
-#### ◆◆ バイナリ操作 ◆◆  
-
-<a id="markdown-◆-od" name="◆-od"></a>
-#### ◆ od  
-8進数やその他の形式でダンプする
-
-|  オプション  |  詳細  |
-| ---- | ---- |
-| -t   | オプションで出力フォーマット指定 |  
-|  c   | ASCII 文字または \ エスケープ文字で表示する |  
-|  x   | 16進数2バイトで表示する（x2と同じ） |  
-|  d   | 10進数2バイトで表示する |  
-<br>
-・コマンド実行例
-
-```bash
-#１行目にASCII表示
-#２行目に16進数1バイト表示(x1)
-#３行目に10進数1バイト表示(x1)
-$ echo '10AZaz-!'|od -tcx1d1
-0000000    1    0    A    Z    a    z    -    !   \n
-          31   30   41   5a   61   7a   2d   21   0a
-          49   48   65   90   97  122   45   33   10
-0000011
-
-#SJIS
-$ echo '09AZｱ'
-0000000 30 39 41 5a b1 0a
-0000010
-#UTF8
-#ef bdはBOM(バイトオーダーマーク)
-$ echo '09AZｱ'
-0000000 30 39 41 5a ef bd b1 0a
-0000010
-```
-
-<a id="markdown-◆-xxd" name="◆-xxd"></a>
-#### ◆ xxd
-2進数でダンプする  
-
-|  オプション  |  詳細  |
-| ---- | ---- |
-| -b | オプションでバイナリ（2進数）表示 |
-| -c | オプションで表示数変更 |
-| -p | ポストスクリプト形式の 16 進ダンプを出力する。 |
-| -r | 元に戻す: 16 進ダンプからバイナリ形式に変換 
-<br>
-・コマンド実行例
-
-```bash
-# 2進数ダンプ
-$ echo '10abAB' |xxd -b -c 8
-0000000: 00110001 00110000 01100001 01100010 01000001 01000010 00001010           10abAB.
-$ echo '10abAC' |xxd -b -c 8
-0000000: 00110001 00110000 01100001 01100010 01000001 01000011 00001010           10abAC.
-
-# 16進数ダンプ
-$ echo "AZaz09ｱア" |xxd -p
-415a617a3039efbdb1e382a20a
-
-# 16進数を元に戻す
-$ echo '415a617a3039efbdb1e382a20a' |xxd -p -r
-AZaz09ｱア
-
-# EBCDICファイルの確認方法
-$ xxd -E -g1 ./EBCDIC
-
-0000000: f2 f0 f2 f0 f0 f9 f2 f9 40 40 40 40 40 40 40 40 20200929
-※EBCDICのf2⇒数値の2
-```
-
-<a id="markdown-◆◆-計算-◆◆" name="◆◆-計算-◆◆"></a>
-#### ◆◆ 計算 ◆◆  
-
-<a id="markdown-◆-bc" name="◆-bc"></a>
-#### ◆ bc
-任意精度の計算言語
+<a id="markdown-◆-bc　任意精度の計算言語" name="◆-bc　任意精度の計算言語"></a>
+#### ◆ bc　#任意精度の計算言語
 
 ```bash
 #単純な計算　1+2+3+4+5
@@ -377,39 +162,46 @@ For details type `warranty'.
 15
 ```
 
-<a id="markdown-◆-dc" name="◆-dc"></a>
-#### ◆ dc
-逆ポーランド形式の無限精度の計算が行える卓上計算機
+<a id="markdown-◆-cancel　印刷ジョブを取り消す" name="◆-cancel　印刷ジョブを取り消す"></a>
+#### ◆ cancel　#印刷ジョブを取り消す
 
 ```bash
-#複雑な計算　(27/(1+2)^2)*2
-$ dc
-27 1 2 + 2 ^ / 2 * 
-p
-6
+# キュー全削除（※root権限）
+$ cancel -a TESTPRT
 ```
 
-
-
-<a id="markdown-◆◆-設定-◆◆" name="◆◆-設定-◆◆"></a>
-#### ◆◆ 設定 ◆◆  
-
-<a id="markdown-◆-yum" name="◆-yum"></a>
-#### ◆ yum
-RedHat系で利用されるパッケージ管理ツール
-※yumはパイソンで動いている
+<a id="markdown-◆-cupsdisabl　プリンタ無効化" name="◆-cupsdisabl　プリンタ無効化"></a>
+#### ◆ cupsdisabl　#プリンタ無効化
 
 ```bash
-$ head -n 1 /usr/bin/yum
-#!/usr/bin/python
+# ※root権限
+$ cupsdisable TESTPRT
 ```
 
-<a id="markdown-◆◆-通信-◆◆" name="◆◆-通信-◆◆"></a>
-#### ◆◆ 通信 ◆◆  
+<a id="markdown-◆-cupsenable　プリンタ有効化" name="◆-cupsenable　プリンタ有効化"></a>
+#### ◆ cupsenable　#プリンタ有効化
 
-<a id="markdown-◆-curl" name="◆-curl"></a>
-#### ◆ curl  
+```bash
+# ※root権限
+$ cupsenable TESTPRT
+```
 
+<a id="markdown-◆-chmod　ファイルの権限を変更する" name="◆-chmod　ファイルの権限を変更する"></a>
+#### ◆ chmod　#ファイルの権限を変更する
+
+```bash
+# ユーザに実行権限を付与する
+$ chmod u+x file
+
+#グループに書き込み権限をその他のユーザーにはすべて禁止する
+$ chmod g+w,o= test
+
+# 再帰的に変更する（ディレクトリも含めて）
+$ chmod -R 777 dir
+```
+
+<a id="markdown-◆-curl--httpなどの通信プロトコルでデータを転送する" name="◆-curl--httpなどの通信プロトコルでデータを転送する"></a>
+#### ◆ curl  #HTTPなどの通信プロトコルでデータを転送する
 
 ```bash
 # 基本
@@ -519,21 +311,21 @@ $ curl --cacert ./server.crt -X POST 'http://localhost:5050/api/'
 $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
 ```
 
-<a id="markdown-◆-route" name="◆-route"></a>
-#### ◆ route
-ルーティングテーブルの管理
+<a id="markdown-◆-dc　無限精度の計算が行える卓上計算機" name="◆-dc　無限精度の計算が行える卓上計算機"></a>
+#### ◆ dc　#無限精度の計算が行える卓上計算機
+※逆ポーランド形式
+
 ```bash
-$ route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         gateway         0.0.0.0         UG    100    0        0 enp0s3
-10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
-192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
+#複雑な計算　(27/(1+2)^2)*2
+$ dc
+27 1 2 + 2 ^ / 2 * 
+p
+6
 ```
 
-<a id="markdown-◆-ifconfig" name="◆-ifconfig"></a>
-#### ◆ ifconfig
-ネットワークインターフェースの管理
+<a id="markdown-◆-ifconfig　ネットワークインターフェースの管理" name="◆-ifconfig　ネットワークインターフェースの管理"></a>
+#### ◆ ifconfig　#ネットワークインターフェースの管理
+
 ```bash
 $ ifconfig -a
 virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
@@ -545,38 +337,8 @@ virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-<a id="markdown-◆◆-その他-◆◆" name="◆◆-その他-◆◆"></a>
-#### ◆◆ その他 ◆◆  
-
-<a id="markdown-◆-プリンタ" name="◆-プリンタ"></a>
-#### ◆ プリンタ
-
-```bash
-# キュー全削除（※root権限）
-$ cancel -a TESTPRT
-
-# プリンタ無効化（※root権限）
-$ cupsdisable TESTPRT
-
-# プリンタ有効化（※root権限）
-$ cupsenable TESTPRT
-```
-
-<a id="markdown-◆-ac" name="◆-ac"></a>
-#### ◆ ac
-ユーザのログイン時間を表示する。  
-「/var/log/wtmp 」を参照している。
-
-```bash
-$ ac -p
-        takahana                            81.90
-        root                                 0.01
-        total       81.91
-```
-
-<a id="markdown-◆-last" name="◆-last"></a>
-#### ◆ last
-ログイン履歴を表示する
+<a id="markdown-◆-last　ログイン履歴を表示する" name="◆-last　ログイン履歴を表示する"></a>
+#### ◆ last　#ログイン履歴を表示する
 
 ```bash
 # ホスト名を最後に表示
@@ -591,6 +353,215 @@ $ last -ai
 
 # リモートログイン時、ログイン元のIPをホスト名に変換
 $ last -ad
+```
+
+<a id="markdown-◆-od　8進数やその他の形式でダンプする" name="◆-od　8進数やその他の形式でダンプする"></a>
+#### ◆ od　#8進数やその他の形式でダンプする
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+| -t   | オプションで出力フォーマット指定 |  
+|  c   | ASCII 文字または \ エスケープ文字で表示する |  
+|  x   | 16進数2バイトで表示する（x2と同じ） |  
+|  d   | 10進数2バイトで表示する |  
+<br>
+・コマンド実行例
+
+```bash
+#１行目にASCII表示
+#２行目に16進数1バイト表示(x1)
+#３行目に10進数1バイト表示(x1)
+$ echo '10AZaz-!'|od -tcx1d1
+0000000    1    0    A    Z    a    z    -    !   \n
+          31   30   41   5a   61   7a   2d   21   0a
+          49   48   65   90   97  122   45   33   10
+0000011
+
+#SJIS
+$ echo '09AZｱ'
+0000000 30 39 41 5a b1 0a
+0000010
+#UTF8
+#ef bdはBOM(バイトオーダーマーク)
+$ echo '09AZｱ'
+0000000 30 39 41 5a ef bd b1 0a
+0000010
+```
+
+<a id="markdown-◆-route　ルーティングテーブルの管理" name="◆-route　ルーティングテーブルの管理"></a>
+#### ◆ route　#ルーティングテーブルの管理
+
+```bash
+$ route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         gateway         0.0.0.0         UG    100    0        0 enp0s3
+10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
+```
+
+<a id="markdown-◆-sed　文字列置換などのテキスト処理" name="◆-sed　文字列置換などのテキスト処理"></a>
+#### ◆ sed　#文字列置換などのテキスト処理
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+|  e  |  スクリプトコマンド実行  |
+|  r  |  拡張正規表現でスクリプトコマンド実行<br>※スクリプトコマンド例（s:/置換前/置換後/g）  |
+|  i  |  ファイルを直接編集  |
+|  i拡張子  |  ファイルを直接編集し、拡張子の退避ファイル作成  |
+<br>
+
+・コマンド実行例
+```bash
+#標準出力の編集
+$ echo "2020/07/11" | sed -e 's/\///g'
+20200711
+
+#ファイルの編集
+$ grep user *sh
+test1.sh:echo "user1"
+test2.sh:echo "user1"
+$ sed -i -e 's/user1/user2/g' ./*.sh
+$ grep user *sh
+test1.sh:echo "user2"
+test2.sh:echo "user2"
+
+#スペース削除と任意箇所切り取り
+$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+/usr/bin/vi
+/usr/bin/view -> vi
+/usr/bin/vim
+/usr/bin/vimdiff -> vim
+/usr/bin/vimtutor
+/usr/bin/vinagre
+
+#バイナリファイルの編集
+$ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
+```
+
+<a id="markdown-◆-umask　デフォルトの権限を決定する" name="◆-umask　デフォルトの権限を決定する"></a>
+#### ◆ umask　#デフォルトの権限を決定する
+
+```bash
+$ umask 022
+# ディレクトリの場合、777 - 022 = 755
+# ファイルの場合、666 - 022 = 644
+# umaskから引いた値がデフォルト権限となる
+drwxr-xr-x. 2 taka taka   6  8月 11 23:12 dir
+-rw-r--r--. 1 taka taka   0  8月 11 23:12 file
+
+# /etc/bashrcに記載されている
+if [ $UID -gt 199 ] && [ "`/usr/bin/id -gn`" = "`/usr/bin/id -un`" ]; then
+   umask 002
+else
+   umask 022
+fi
+```
+
+<a id="markdown-◆-vim　高機能なテキストエディタ" name="◆-vim　高機能なテキストエディタ"></a>
+#### ◆ vim　#高機能なテキストエディタ  
+
+・オプション  
+```bash
+#行数表示
+set number
+se nu
+
+#色付け
+:set syntax=ON
+
+#タブ整形
+set ts=4
+
+#大文字小文字区別なくす（ignorecase）
+:set ic
+:set noic
+
+#ファイル名表示
+ctrl + g
+```
+
+```bash
+# vimrc
+"-----検索系------
+"インクリメンタルサーチを有効
+set incsearch
+"大文字小文字を区別しない
+set ignorecase
+"大文字で検索されたら対象を大文字限定にする
+set smartcase
+"検索終わりで先頭に戻らない
+set nowrapscan
+
+"-----Format------
+"行数表示
+set number
+"タブをスペースに置換
+set ts=4
+"ルーラーの設定
+set ruler
+"カーソルラインを表示する
+set cursorline
+"pcファイルをcファイルで読み込む
+autocmd BufRead,BufNewFile *.pc setfiletype c
+
+"ステータスラインにコマンドを表示
+set showcmd
+"ステータスラインを常に表示
+set laststatus=2
+"ファイル名表示
+set statusline+=%<%F
+"文字コード表示
+set statusline+=[%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
+"ファイルタイプ表示
+set statusline+=%y
+"ここからツールバー右側
+set statusline+=%=
+"現在行が全体行の何%か表示
+set statusline+=[%p%%]
+```
+
+<a id="markdown-◆-yum　redhat系で利用されるパッケージ管理ツール" name="◆-yum　redhat系で利用されるパッケージ管理ツール"></a>
+#### ◆ yum　#RedHat系で利用されるパッケージ管理ツール
+
+```bash
+# yumはパイソンで動いている
+$ head -n 1 /usr/bin/yum
+#!/usr/bin/python
+```
+
+<a id="markdown-◆-xxd　2進数でダンプする" name="◆-xxd　2進数でダンプする"></a>
+#### ◆ xxd　#2進数でダンプする  
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+| -b | オプションでバイナリ（2進数）表示 |
+| -c | オプションで表示数変更 |
+| -p | ポストスクリプト形式の 16 進ダンプを出力する。 |
+| -r | 元に戻す: 16 進ダンプからバイナリ形式に変換 
+<br>
+・コマンド実行例
+
+```bash
+# 2進数ダンプ
+$ echo '10abAB' |xxd -b -c 8
+0000000: 00110001 00110000 01100001 01100010 01000001 01000010 00001010           10abAB.
+$ echo '10abAC' |xxd -b -c 8
+0000000: 00110001 00110000 01100001 01100010 01000001 01000011 00001010           10abAC.
+
+# 16進数ダンプ
+$ echo "AZaz09ｱア" |xxd -p
+415a617a3039efbdb1e382a20a
+
+# 16進数を元に戻す
+$ echo '415a617a3039efbdb1e382a20a' |xxd -p -r
+AZaz09ｱア
+
+# EBCDICファイルの確認方法
+$ xxd -E -g1 ./EBCDIC
+
+0000000: f2 f0 f2 f0 f0 f9 f2 f9 40 40 40 40 40 40 40 40 20200929
+※EBCDICのf2⇒数値の2
 ```
 
 <br>
@@ -638,7 +609,13 @@ $? = 0
 ### ４．便利コマンド
 ---
 
+<a id="markdown-繰り返し処理" name="繰り返し処理"></a>
+#### 繰り返し処理
+
 ```bash
 # ファイルを読み込み、1行ずつ処理する
 while read line; do md5sum $line;done <bkup.txt
+
+# 無限ループ
+while true; do date; echo "hello !"; sleep 1s; done
 ```
