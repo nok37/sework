@@ -4,7 +4,8 @@
 <!-- TOC -->
 
 - [１．設定／全般／環境](#１．設定／全般／環境)
-- [２．基本](#２．基本)
+- [２．基本クラス](#２．基本クラス)
+    - [◆豆知識](#◆豆知識)
     - [◆Integerクラス](#◆integerクラス)
     - [◆Stringクラス](#◆stringクラス)
     - [◆StringBufferクラス](#◆stringbufferクラス)
@@ -26,9 +27,18 @@
 
 <br>
 
-<a id="markdown-２．基本" name="２．基本"></a>
-### ２．基本
+<a id="markdown-２．基本クラス" name="２．基本クラス"></a>
+### ２．基本クラス
 ---
+
+<a id="markdown-◆豆知識" name="◆豆知識"></a>
+#### ◆豆知識
+```java
+// 型の確認
+Object.getClass().getSimpleName()
+
+```
+
 <a id="markdown-◆integerクラス" name="◆integerクラス"></a>
 #### ◆Integerクラス  
 プリミティブ型intの値をオブジェクトにラップする。  
