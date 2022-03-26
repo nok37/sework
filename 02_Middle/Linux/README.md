@@ -1,46 +1,48 @@
 # Linux
 
-## 目次
 <!-- TOC -->
 
 - [１．設定 ・ 豆知識](#１．設定-・-豆知識)
-    - [◆ コマンドの実行パス](#◆-コマンドの実行パス)
-    - [◆ ssh接続時に表示される文言](#◆-ssh接続時に表示される文言)
-    - [◆ bash設定](#◆-bash設定)
-    - [◆ cron](#◆-cron)
+    - [コマンドの実行パス](#コマンドの実行パス)
+    - [ssh接続時に表示される文言](#ssh接続時に表示される文言)
+    - [bash設定](#bash設定)
+    - [cron](#cron)
 - [２．コマンド](#２．コマンド)
-    - [◆ ac　#ユーザのログイン時間を表示する](#◆-ac　ユーザのログイン時間を表示する)
-    - [◆ bc　#任意精度の計算言語](#◆-bc　任意精度の計算言語)
-    - [◆ cancel　#印刷ジョブを取り消す](#◆-cancel　印刷ジョブを取り消す)
-    - [◆ cupsdisabl　#プリンタ無効化](#◆-cupsdisabl　プリンタ無効化)
-    - [◆ cupsenable　#プリンタ有効化](#◆-cupsenable　プリンタ有効化)
-    - [◆ chmod　#ファイルの権限を変更する](#◆-chmod　ファイルの権限を変更する)
-    - [◆ curl  #HTTPなどの通信プロトコルでデータを転送する](#◆-curl--httpなどの通信プロトコルでデータを転送する)
-    - [◆ dc　#無限精度の計算が行える卓上計算機](#◆-dc　無限精度の計算が行える卓上計算機)
-    - [◆ ifconfig　#ネットワークインターフェースの管理](#◆-ifconfig　ネットワークインターフェースの管理)
-    - [◆ last　#ログイン履歴を表示する](#◆-last　ログイン履歴を表示する)
-    - [◆ od　#8進数やその他の形式でダンプする](#◆-od　8進数やその他の形式でダンプする)
-    - [◆ route　#ルーティングテーブルの管理](#◆-route　ルーティングテーブルの管理)
-    - [◆ sed　#文字列置換などのテキスト処理](#◆-sed　文字列置換などのテキスト処理)
-    - [◆ umask　#デフォルトの権限を決定する](#◆-umask　デフォルトの権限を決定する)
-    - [◆ vim　#高機能なテキストエディタ](#◆-vim　高機能なテキストエディタ)
-    - [◆ yum　#RedHat系で利用されるパッケージ管理ツール](#◆-yum　redhat系で利用されるパッケージ管理ツール)
-    - [◆ xxd　#2進数でダンプする](#◆-xxd　2進数でダンプする)
+    - [ac　#ユーザのログイン時間を表示する](#ac　ユーザのログイン時間を表示する)
+    - [bc　#任意精度の計算言語](#bc　任意精度の計算言語)
+    - [cancel　#印刷ジョブを取り消す](#cancel　印刷ジョブを取り消す)
+    - [chmod　#ファイルの権限を変更する](#chmod　ファイルの権限を変更する)
+    - [cupsdisabl　#プリンタ無効化](#cupsdisabl　プリンタ無効化)
+    - [cupsenable　#プリンタ有効化](#cupsenable　プリンタ有効化)
+    - [curl  #HTTPなどの通信プロトコルでデータを転送する](#curl--httpなどの通信プロトコルでデータを転送する)
+    - [dc　#無限精度の計算が行える卓上計算機](#dc　無限精度の計算が行える卓上計算機)
+    - [ifconfig　#ネットワークインターフェースの管理](#ifconfig　ネットワークインターフェースの管理)
+    - [last　#ログイン履歴を表示する](#last　ログイン履歴を表示する)
+    - [od　#8進数やその他の形式でダンプする](#od　8進数やその他の形式でダンプする)
+    - [route　#ルーティングテーブルの管理](#route　ルーティングテーブルの管理)
+    - [sed　#文字列置換などのテキスト処理](#sed　文字列置換などのテキスト処理)
+    - [umask　#デフォルトの権限を決定する](#umask　デフォルトの権限を決定する)
+    - [vim　#高機能なテキストエディタ](#vim　高機能なテキストエディタ)
+    - [yum　#RedHat系で利用されるパッケージ管理ツール](#yum　redhat系で利用されるパッケージ管理ツール)
+    - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
 - [３．シェル](#３．シェル)
-    - [◆ 用語説明](#◆-用語説明)
-    - [◆ 引数／特殊変数](#◆-引数／特殊変数)
+    - [用語説明](#用語説明)
+        - [シェバン](#シェバン)
+        - [セカンダリプロンプト](#セカンダリプロンプト)
+        - [引数／特殊変数](#引数／特殊変数)
 - [４．便利コマンド](#４．便利コマンド)
     - [繰り返し処理](#繰り返し処理)
 
 <!-- /TOC -->
+---
 <br>
 
 
 <a id="markdown-１．設定-・-豆知識" name="１．設定-・-豆知識"></a>
-### １．設定 ・ 豆知識
+## １．設定 ・ 豆知識
 ---
-<a id="markdown-◆-コマンドの実行パス" name="◆-コマンドの実行パス"></a>
-#### ◆ コマンドの実行パス
+<a id="markdown-コマンドの実行パス" name="コマンドの実行パス"></a>
+### コマンドの実行パス
 コマンド実行時は左から順にパスを確認しコマンド実行する。  
 ・ パスの確認
 
@@ -57,16 +59,16 @@ $ export PATH=$NODE_HOME/bin:$PATH
 
 <br>
 
-<a id="markdown-◆-ssh接続時に表示される文言" name="◆-ssh接続時に表示される文言"></a>
-#### ◆ ssh接続時に表示される文言
+<a id="markdown-ssh接続時に表示される文言" name="ssh接続時に表示される文言"></a>
+### ssh接続時に表示される文言
 Message of the dayの略
 ```bash
 /etc/motd
 ```
 <br>
 
-<a id="markdown-◆-bash設定" name="◆-bash設定"></a>
-#### ◆ bash設定
+<a id="markdown-bash設定" name="bash設定"></a>
+### bash設定
 ・.bash_profile  
 → ログイン時にのみ実行される  
 → 環境変数を設定する (export する変数)  
@@ -111,8 +113,8 @@ fi
 ・非インタラクティブシェル→ なし
 <br>
 
-<a id="markdown-◆-cron" name="◆-cron"></a>
-#### ◆ cron
+<a id="markdown-cron" name="cron"></a>
+### cron
 
 ```bash
 # /etc/crontab システムジョブ(root権限で実行される)
@@ -134,12 +136,12 @@ fi
 <br>
 
 <a id="markdown-２．コマンド" name="２．コマンド"></a>
-### ２．コマンド
+## ２．コマンド
 ---
 
-<a id="markdown-◆-ac　ユーザのログイン時間を表示する" name="◆-ac　ユーザのログイン時間を表示する"></a>
-#### ◆ ac　#ユーザのログイン時間を表示する
-※「/var/log/wtmp 」を参照している。
+<a id="markdown-ac　ユーザのログイン時間を表示する" name="ac　ユーザのログイン時間を表示する"></a>
+### ac　#ユーザのログイン時間を表示する
+※/var/log/wtmp 」を参照している
 
 ```bash
 $ ac -p
@@ -148,8 +150,8 @@ $ ac -p
         total       81.91
 ```
 
-<a id="markdown-◆-bc　任意精度の計算言語" name="◆-bc　任意精度の計算言語"></a>
-#### ◆ bc　#任意精度の計算言語
+<a id="markdown-bc　任意精度の計算言語" name="bc　任意精度の計算言語"></a>
+### bc　#任意精度の計算言語
 
 ```bash
 #単純な計算　1+2+3+4+5
@@ -162,32 +164,16 @@ For details type `warranty'.
 15
 ```
 
-<a id="markdown-◆-cancel　印刷ジョブを取り消す" name="◆-cancel　印刷ジョブを取り消す"></a>
-#### ◆ cancel　#印刷ジョブを取り消す
+<a id="markdown-cancel　印刷ジョブを取り消す" name="cancel　印刷ジョブを取り消す"></a>
+### cancel　#印刷ジョブを取り消す
 
 ```bash
 # キュー全削除（※root権限）
 $ cancel -a TESTPRT
 ```
 
-<a id="markdown-◆-cupsdisabl　プリンタ無効化" name="◆-cupsdisabl　プリンタ無効化"></a>
-#### ◆ cupsdisabl　#プリンタ無効化
-
-```bash
-# ※root権限
-$ cupsdisable TESTPRT
-```
-
-<a id="markdown-◆-cupsenable　プリンタ有効化" name="◆-cupsenable　プリンタ有効化"></a>
-#### ◆ cupsenable　#プリンタ有効化
-
-```bash
-# ※root権限
-$ cupsenable TESTPRT
-```
-
-<a id="markdown-◆-chmod　ファイルの権限を変更する" name="◆-chmod　ファイルの権限を変更する"></a>
-#### ◆ chmod　#ファイルの権限を変更する
+<a id="markdown-chmod　ファイルの権限を変更する" name="chmod　ファイルの権限を変更する"></a>
+### chmod　#ファイルの権限を変更する
 
 ```bash
 # ユーザに実行権限を付与する
@@ -200,8 +186,24 @@ $ chmod g+w,o= test
 $ chmod -R 777 dir
 ```
 
-<a id="markdown-◆-curl--httpなどの通信プロトコルでデータを転送する" name="◆-curl--httpなどの通信プロトコルでデータを転送する"></a>
-#### ◆ curl  #HTTPなどの通信プロトコルでデータを転送する
+<a id="markdown-cupsdisabl　プリンタ無効化" name="cupsdisabl　プリンタ無効化"></a>
+### cupsdisabl　#プリンタ無効化
+
+```bash
+# ※root権限
+$ cupsdisable TESTPRT
+```
+
+<a id="markdown-cupsenable　プリンタ有効化" name="cupsenable　プリンタ有効化"></a>
+### cupsenable　#プリンタ有効化
+
+```bash
+# ※root権限
+$ cupsenable TESTPRT
+```
+
+<a id="markdown-curl--httpなどの通信プロトコルでデータを転送する" name="curl--httpなどの通信プロトコルでデータを転送する"></a>
+### curl  #HTTPなどの通信プロトコルでデータを転送する
 
 ```bash
 # 基本
@@ -311,8 +313,8 @@ $ curl --cacert ./server.crt -X POST 'http://localhost:5050/api/'
 $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
 ```
 
-<a id="markdown-◆-dc　無限精度の計算が行える卓上計算機" name="◆-dc　無限精度の計算が行える卓上計算機"></a>
-#### ◆ dc　#無限精度の計算が行える卓上計算機
+<a id="markdown-dc　無限精度の計算が行える卓上計算機" name="dc　無限精度の計算が行える卓上計算機"></a>
+### dc　#無限精度の計算が行える卓上計算機
 ※逆ポーランド形式
 
 ```bash
@@ -323,8 +325,8 @@ p
 6
 ```
 
-<a id="markdown-◆-ifconfig　ネットワークインターフェースの管理" name="◆-ifconfig　ネットワークインターフェースの管理"></a>
-#### ◆ ifconfig　#ネットワークインターフェースの管理
+<a id="markdown-ifconfig　ネットワークインターフェースの管理" name="ifconfig　ネットワークインターフェースの管理"></a>
+### ifconfig　#ネットワークインターフェースの管理
 
 ```bash
 $ ifconfig -a
@@ -337,8 +339,8 @@ virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-<a id="markdown-◆-last　ログイン履歴を表示する" name="◆-last　ログイン履歴を表示する"></a>
-#### ◆ last　#ログイン履歴を表示する
+<a id="markdown-last　ログイン履歴を表示する" name="last　ログイン履歴を表示する"></a>
+### last　#ログイン履歴を表示する
 
 ```bash
 # ホスト名を最後に表示
@@ -355,8 +357,8 @@ $ last -ai
 $ last -ad
 ```
 
-<a id="markdown-◆-od　8進数やその他の形式でダンプする" name="◆-od　8進数やその他の形式でダンプする"></a>
-#### ◆ od　#8進数やその他の形式でダンプする
+<a id="markdown-od　8進数やその他の形式でダンプする" name="od　8進数やその他の形式でダンプする"></a>
+### od　#8進数やその他の形式でダンプする
 
 |  オプション  |  詳細  |
 | ---- | ---- |
@@ -365,7 +367,6 @@ $ last -ad
 |  x   | 16進数2バイトで表示する（x2と同じ） |  
 |  d   | 10進数2バイトで表示する |  
 <br>
-・コマンド実行例
 
 ```bash
 #１行目にASCII表示
@@ -388,8 +389,8 @@ $ echo '09AZｱ'
 0000010
 ```
 
-<a id="markdown-◆-route　ルーティングテーブルの管理" name="◆-route　ルーティングテーブルの管理"></a>
-#### ◆ route　#ルーティングテーブルの管理
+<a id="markdown-route　ルーティングテーブルの管理" name="route　ルーティングテーブルの管理"></a>
+### route　#ルーティングテーブルの管理
 
 ```bash
 $ route
@@ -400,8 +401,8 @@ default         gateway         0.0.0.0         UG    100    0        0 enp0s3
 192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
 ```
 
-<a id="markdown-◆-sed　文字列置換などのテキスト処理" name="◆-sed　文字列置換などのテキスト処理"></a>
-#### ◆ sed　#文字列置換などのテキスト処理
+<a id="markdown-sed　文字列置換などのテキスト処理" name="sed　文字列置換などのテキスト処理"></a>
+### sed　#文字列置換などのテキスト処理
 
 |  オプション  |  詳細  |
 | ---- | ---- |
@@ -439,8 +440,8 @@ $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
 $ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
 ```
 
-<a id="markdown-◆-umask　デフォルトの権限を決定する" name="◆-umask　デフォルトの権限を決定する"></a>
-#### ◆ umask　#デフォルトの権限を決定する
+<a id="markdown-umask　デフォルトの権限を決定する" name="umask　デフォルトの権限を決定する"></a>
+### umask　#デフォルトの権限を決定する
 
 ```bash
 $ umask 022
@@ -458,8 +459,8 @@ else
 fi
 ```
 
-<a id="markdown-◆-vim　高機能なテキストエディタ" name="◆-vim　高機能なテキストエディタ"></a>
-#### ◆ vim　#高機能なテキストエディタ  
+<a id="markdown-vim　高機能なテキストエディタ" name="vim　高機能なテキストエディタ"></a>
+### vim　#高機能なテキストエディタ  
 
 ・オプション  
 ```bash
@@ -521,8 +522,8 @@ set statusline+=%=
 set statusline+=[%p%%]
 ```
 
-<a id="markdown-◆-yum　redhat系で利用されるパッケージ管理ツール" name="◆-yum　redhat系で利用されるパッケージ管理ツール"></a>
-#### ◆ yum　#RedHat系で利用されるパッケージ管理ツール
+<a id="markdown-yum　redhat系で利用されるパッケージ管理ツール" name="yum　redhat系で利用されるパッケージ管理ツール"></a>
+### yum　#RedHat系で利用されるパッケージ管理ツール
 
 ```bash
 # yumはパイソンで動いている
@@ -530,8 +531,8 @@ $ head -n 1 /usr/bin/yum
 #!/usr/bin/python
 ```
 
-<a id="markdown-◆-xxd　2進数でダンプする" name="◆-xxd　2進数でダンプする"></a>
-#### ◆ xxd　#2進数でダンプする  
+<a id="markdown-xxd　2進数でダンプする" name="xxd　2進数でダンプする"></a>
+### xxd　#2進数でダンプする  
 
 |  オプション  |  詳細  |
 | ---- | ---- |
@@ -567,23 +568,27 @@ $ xxd -E -g1 ./EBCDIC
 <br>
 
 <a id="markdown-３．シェル" name="３．シェル"></a>
-### ３．シェル
+## ３．シェル
 ---
-<a id="markdown-◆-用語説明" name="◆-用語説明"></a>
-#### ◆ 用語説明
-・シェバン  
+<a id="markdown-用語説明" name="用語説明"></a>
+### 用語説明
+
+<a id="markdown-シェバン" name="シェバン"></a>
+#### シェバン  
 シェルの1行目に記載し、このシェルは「bin/bash」で動かしますの意味
 ```bash
 #!/bin/bash
 ```
-・セカンダリプロンプト  
+<a id="markdown-セカンダリプロンプト" name="セカンダリプロンプト"></a>
+#### セカンダリプロンプト  
 行末の「\」のことで、まだコマンドは終了していないことを意味する
 ```bash
 echo \
 "Hello, World!"
 ```
-<a id="markdown-◆-引数／特殊変数" name="◆-引数／特殊変数"></a>
-#### ◆ 引数／特殊変数
+
+<a id="markdown-引数／特殊変数" name="引数／特殊変数"></a>
+#### 引数／特殊変数
 
 ```bash
 $ ./test.sh 1 2 3
@@ -606,11 +611,11 @@ $? = 0
 ```
 
 <a id="markdown-４．便利コマンド" name="４．便利コマンド"></a>
-### ４．便利コマンド
+## ４．便利コマンド
 ---
 
 <a id="markdown-繰り返し処理" name="繰り返し処理"></a>
-#### 繰り返し処理
+### 繰り返し処理
 
 ```bash
 # ファイルを読み込み、1行ずつ処理する
@@ -618,4 +623,7 @@ while read line; do md5sum $line;done <bkup.txt
 
 # 無限ループ
 while true; do date; echo "hello !"; sleep 1s; done
+
+# git最新化（※Envフォルダを除く）
+for f in */.git;do (f=${f%/*}; if [ $f != "Env" ]; then cd $f;echo ===$f; git pull; fi);done;
 ```

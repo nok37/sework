@@ -19,4 +19,6 @@
 
 ### ３．ツール
 ---
-- [ツール](/03_Tool/README.md)
+- [Eclipse](/03_Tool/Eclipse/README.md)
+- [サクラエディタ](/03_Tool/Sakura/README.md)
+- [Excel](/03_Tool/Excel/README.md)
