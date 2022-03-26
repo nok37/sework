@@ -12,16 +12,17 @@
     - [fc　#ファイルの比較を行う](#fc　ファイルの比較を行う)
     - [find　#ファイル内の文字列を検索する](#find　ファイル内の文字列を検索する)
     - [findstr　#findの多機能版](#findstr　findの多機能版)
-    - [net　ネットワーク関係の設定や現在の状態を表示する](#net　ネットワーク関係の設定や現在の状態を表示する)
+    - [net　#ネットワーク関係の設定や現在の状態を表示する](#net　ネットワーク関係の設定や現在の状態を表示する)
     - [netsh　#ネットワーク関係のパラメータの設定](#netsh　ネットワーク関係のパラメータの設定)
     - [pushd / popd　#カレントディレクトリを変更](#pushd--popd　カレントディレクトリを変更)
     - [tree　#配下のファイルをツリー階層で取得](#tree　配下のファイルをツリー階層で取得)
 - [３．バッチファイル(bat)](#３．バッチファイルbat)
     - [全般・設定](#全般・設定)
 - [４．プログラムから実行(win + r)](#４．プログラムから実行win--r)
-    - [まとめ](#まとめ)
+    - [設定](#設定)
+    - [アプリ起動](#アプリ起動)
 - [５．PowerShell](#５．powershell)
-    - [tnc](#tnc)
+    - [tnc # テスト接続Test-NetConnection](#tnc--テスト接続test-netconnection)
 - [６．その他ショートカット](#６．その他ショートカット)
     - [win](#win)
 
@@ -36,7 +37,7 @@
 <a id="markdown-プロキシ" name="プロキシ"></a>
 ### プロキシ
 
-```cmd
+```bat
 rem ユーザ／パスワードの設定
 set HTTP_PROXY=http://username:password@proxyhost:port
 set HTTPS_PROXY=http://username:password@proxyhost:port
@@ -44,7 +45,7 @@ set HTTPS_PROXY=http://username:password@proxyhost:port
 
 ※WinHTTPを利用したHTTP通信が発生する場合
 
-```cmd
+```bat
 rem IEからプロキシ設定を読み込む
 > netsh winhttp import proxy source=ie
 
@@ -70,7 +71,7 @@ rem 手書きで設定する
 <a id="markdown-curl　サーバへデータ転送を行う" name="curl　サーバへデータ転送を行う"></a>
 ### curl　#サーバへデータ転送を行う
 
-```cmd
+```bat
 rem メソッドの指定
 >curl -X GET "http://localhost:8080/api?ymd=202012
 [
@@ -89,13 +90,12 @@ Content-Length: 404
 Access-Control-Allow-Origin: *
 Server: Werkzeug/1.0.1 Python/3.8.3
 Date: Sun, 31 Jan 2021 08:25:10 GMT
-
 ```
 
 <a id="markdown-dir　配下のファイルを一覧で取得" name="dir　配下のファイルを一覧で取得"></a>
 ### dir　#配下のファイルを一覧で取得
 
-```cmd
+```bat
 rem ディレクトリのみ、ファイル名のみ
 >dir /AD /B
 sub
@@ -112,7 +112,7 @@ C:\Users\naoki\Desktop\test\sub\TEST4.xlsx
 <a id="markdown-doskey　マクロエイリアスの登録" name="doskey　マクロエイリアスの登録"></a>
 ### doskey　#マクロ（エイリアス）の登録
 
-```cmd
+```bat
 rem マクロの登録
 >doskey ls=dir $*
 >ls /S /B
@@ -134,7 +134,7 @@ rem マクロの読み込み
 ### fc　#ファイルの比較を行う
 ※デフォルトはASCII
 
-```cmd
+```bat
 rem 行数表示
 >fc /N debug.log debug3.log
 ファイル debug.log と DEBUG3.LOG を比較しています
@@ -157,7 +157,7 @@ FC: 相違点は検出されませんでした
 <a id="markdown-find　ファイル内の文字列を検索する" name="find　ファイル内の文字列を検索する"></a>
 ### find　#ファイル内の文字列を検索する
 
-```cmd
+```bat
 rem 指定した単語の検索（grepに相当）
 >find "ERROR" < debug.log
 [0122/072347.188:ERROR:]
@@ -179,7 +179,7 @@ rem ファイルの行数を表示（wc -lに相当）
 <a id="markdown-findstr　findの多機能版" name="findstr　findの多機能版"></a>
 ### findstr　#findの多機能版
 
-```cmd
+```bat
 rem OR検索
 >systeminfo | findstr "Host OS"
 Host Name:                 ******
@@ -198,9 +198,9 @@ OS Name:                   Microsoft Windows 10 Pro
 ```
 
 <a id="markdown-net　ネットワーク関係の設定や現在の状態を表示する" name="net　ネットワーク関係の設定や現在の状態を表示する"></a>
-### net　ネットワーク関係の設定や現在の状態を表示する
+### net　#ネットワーク関係の設定や現在の状態を表示する
 
-```cmd
+```bat
 rem ネットワークドライブの割当・削除
 >net use p: \\192.168.11.2\share1\VIDEO
 >net use p: /delete
@@ -212,7 +212,7 @@ rem 認証ありの場合
 <a id="markdown-netsh　ネットワーク関係のパラメータの設定" name="netsh　ネットワーク関係のパラメータの設定"></a>
 ### netsh　#ネットワーク関係のパラメータの設定
 
-```cmd
+```bat
 rem 変数設定
 >set interface_name=イーサネット
 >set ip_address=192.xx
@@ -241,7 +241,7 @@ netsh interface ip show config
 ### pushd / popd　#カレントディレクトリを変更
 拡張機能では一時的にネットワークドライブの作成が可能。
 
-```cmd
+```bat
 >pushd \\192.168.11.2\share1\VIDEO
 
 Z:\VIDEO>
@@ -253,7 +253,7 @@ C:\Users\naoki>
 <a id="markdown-tree　配下のファイルをツリー階層で取得" name="tree　配下のファイルをツリー階層で取得"></a>
 ### tree　#配下のファイルをツリー階層で取得
 
-```cmd
+```bat
 > tree /f
 C:.
 │  TEST1.xlsx
@@ -281,43 +281,46 @@ C:.
 <a id="markdown-４．プログラムから実行win--r" name="４．プログラムから実行win--r"></a>
 ## ４．プログラムから実行(win + r)
 
-<a id="markdown-まとめ" name="まとめ"></a>
-### まとめ
+<a id="markdown-設定" name="設定"></a>
+### 設定
+
 | コマンド | メモ |
 | --- | --- |
-| cmd | Ctrl + Shift + Enterで管理者として実行 |
-| cmd.exe /k ini.bat | バッチファイルを実行して起動※１ |
-| shell:startup | スタートアップ |
-| shell:Desktop | デスクトップ |
 | winver | Windowsのバージョン情報 |
-| mstsc | リモートデスクトップ接続 |
-| taskmgr | タスクマネージャー |
 | control | コントロールパネル |
+| taskmgr | タスクマネージャー |
 | control printers | プリンターとFAX |
 | ncpa.cpl | ネットワーク接続 |
 | msinfo32 | システム情報 |
 
+<a id="markdown-アプリ起動" name="アプリ起動"></a>
+### アプリ起動
+
+| コマンド | メモ |
+| --- | --- |
+| cmd | Ctrl + Shift + Enterで管理者として実行 |
+| cmd.exe /k ini.bat | バッチファイルを実行して起動
+| shell:startup | スタートアップ※PC起動で実行される |
+| mstsc | リモートデスクトップ接続 |
 
 <br>
-※１　初期バッチファイルの例
+
+初期バッチファイルの例
 
 ```bat
 @echo off
 rem ini.bat(sjisで保存すること)
-doskey app=appwiz.cpl
-doskey cm=control /name Microsoft.CredentialManager
-doskey fw=firewall.cpl
-doskey inet=inetcpl.cpl
-doskey wu=start ms-settings:windowsupdate
-doskey about=start ms-settings:about
 
-echo *****ショートカット一覧*****
-echo プログラムと機能[app]
-echo 資格情報マネージャー[cm]
-echo ファイヤーウォール[fw]
-echo インターネットオプション[inet]
-echo Windowsアップデート[wu]
-echo システムバージョン情報[about]
+rem プログラムと機能[app]
+doskey app=appwiz.cpl
+rem 資格情報マネージャー[cm]
+doskey cm=control /name Microsoft.CredentialManager
+rem ファイヤーウォール[fw]
+doskey fw=firewall.cpl
+rem インターネットオプション[inet]
+doskey inet=inetcpl.cpl
+rem Windowsアップデート[wu]
+doskey wu=start ms-settings:windowsupdate
 ```
 
 <br>
@@ -326,9 +329,8 @@ echo システムバージョン情報[about]
 <a id="markdown-５．powershell" name="５．powershell"></a>
 ## ５．PowerShell
 
-<a id="markdown-tnc" name="tnc"></a>
-### tnc
-Test-NetConnection
+<a id="markdown-tnc--テスト接続test-netconnection" name="tnc--テスト接続test-netconnection"></a>
+### tnc # テスト接続Test-NetConnection
 
 ```ps
 > tnc 127.0.0.1 -p 443
