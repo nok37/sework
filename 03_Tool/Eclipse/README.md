@@ -9,16 +9,16 @@
 <!-- /TOC -->
 ---
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
----
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-２．ショートカット" name="２．ショートカット"></a>
 ## ２．ショートカット
----
 <a id="markdown-ファイル操作系" name="ファイル操作系"></a>
 ### ファイル操作系
 
@@ -48,4 +48,5 @@ ctrl + o
 ctrl + t
 ```
 
-
+<br>
+<!-- NEXT INDENT -->

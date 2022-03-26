@@ -14,11 +14,10 @@
 <!-- /TOC -->
 ---
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
----
-<br>
 
 <a id="markdown-トピックツリー" name="トピックツリー"></a>
 ### トピックツリー
@@ -34,10 +33,11 @@
 ・リスト
 ```
 
+<br>
+<!-- NEXT INDENT -->
+
 <a id="markdown-２．マクロ" name="２．マクロ"></a>
 ## ２．マクロ
----
-<br>
 
 <a id="markdown-よく使うやつ" name="よく使うやつ"></a>
 ### よく使うやつ
@@ -75,10 +75,10 @@ ExecCommand('cmd_exe "$C"', 0);
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-３．便利な使い方" name="３．便利な使い方"></a>
 ## ３．便利な使い方
----
 
-
-
+<br>
+<!-- NEXT INDENT -->

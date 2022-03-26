@@ -7,6 +7,7 @@
         - [スキーマの確認](#スキーマの確認)
         - [拡張機能の確認](#拡張機能の確認)
 - [２．関数](#２．関数)
+    - [日付／時刻](#日付／時刻)
     - [文字列関数と演算子](#文字列関数と演算子)
         - [CHR（文字コードからASCIIコードを返却）](#chr文字コードからasciiコードを返却)
 - [３．解析用](#３．解析用)
@@ -14,12 +15,12 @@
         - [稼働統計情報ビュー(pg_stat_activity)](#稼働統計情報ビューpg_stat_activity)
 
 <!-- /TOC -->
-
+---
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
----
 
 <a id="markdown-情報表示オプションd" name="情報表示オプションd"></a>
 ### 情報表示オプション(d)
@@ -47,8 +48,26 @@ postgres=# \dx
 (2 行)
 ```
 
+<br>
+<!-- NEXT INDENT -->
+
 <a id="markdown-２．関数" name="２．関数"></a>
 ## ２．関数
+
+<a id="markdown-日付／時刻" name="日付／時刻"></a>
+### 日付／時刻
+
+```postgres
+--トランザクションの時刻
+SELECT CURRENT_TIMESTAMP;
+SELECT NOW();
+ 
+--現在時刻
+SELECT CLOCK_TIMESTAMP();
+
+--フォーマット
+SELECT CAST(CURRENT_TIMESTAMP AS DATE);
+```
 
 <a id="markdown-文字列関数と演算子" name="文字列関数と演算子"></a>
 ### 文字列関数と演算子
@@ -62,19 +81,20 @@ postgres=# SELECT CHR(65);
  chr
 -----
  A
-
 --CR（キャリッジリターン）
 postgres=# SELECT CHR(13);
  chr
 -----
  \r
-
 --LF（ラインフィード）
 postgres=# SELECT CHR(10);
  chr
 -----
     +
 ```
+
+<br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-３．解析用" name="３．解析用"></a>
 ## ３．解析用
@@ -114,3 +134,6 @@ postgres=# show max_connections;
  100
  
 ```
+
+<br>
+<!-- NEXT INDENT -->

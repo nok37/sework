@@ -36,11 +36,11 @@
 <!-- /TOC -->
 ---
 <br>
-
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定-・-豆知識" name="１．設定-・-豆知識"></a>
 ## １．設定 ・ 豆知識
----
+
 <a id="markdown-コマンドの実行パス" name="コマンドの実行パス"></a>
 ### コマンドの実行パス
 コマンド実行時は左から順にパスを確認しコマンド実行する。  
@@ -57,15 +57,12 @@ $ echo $PATH
 $ export PATH=$NODE_HOME/bin:$PATH
 ```
 
-<br>
-
 <a id="markdown-ssh接続時に表示される文言" name="ssh接続時に表示される文言"></a>
 ### ssh接続時に表示される文言
 Message of the dayの略
 ```bash
 /etc/motd
 ```
-<br>
 
 <a id="markdown-bash設定" name="bash設定"></a>
 ### bash設定
@@ -111,7 +108,6 @@ fi
 ・ログインシェル→ .bash_profile(→ .bashrc)  
 ・インタラクティブシェル→ .bashrc  
 ・非インタラクティブシェル→ なし
-<br>
 
 <a id="markdown-cron" name="cron"></a>
 ### cron
@@ -134,10 +130,10 @@ fi
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-２．コマンド" name="２．コマンド"></a>
 ## ２．コマンド
----
 
 <a id="markdown-ac　ユーザのログイン時間を表示する" name="ac　ユーザのログイン時間を表示する"></a>
 ### ac　#ユーザのログイン時間を表示する
@@ -566,22 +562,25 @@ $ xxd -E -g1 ./EBCDIC
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-３．シェル" name="３．シェル"></a>
 ## ３．シェル
----
+
 <a id="markdown-用語説明" name="用語説明"></a>
 ### 用語説明
 
 <a id="markdown-シェバン" name="シェバン"></a>
 #### シェバン  
 シェルの1行目に記載し、このシェルは「bin/bash」で動かしますの意味
+
 ```bash
 #!/bin/bash
 ```
 <a id="markdown-セカンダリプロンプト" name="セカンダリプロンプト"></a>
 #### セカンダリプロンプト  
 行末の「\」のことで、まだコマンドは終了していないことを意味する
+
 ```bash
 echo \
 "Hello, World!"
@@ -610,9 +609,11 @@ $* = 1 2 3
 $? = 0
 ```
 
+<br>
+<!-- NEXT INDENT -->
+
 <a id="markdown-４．便利コマンド" name="４．便利コマンド"></a>
 ## ４．便利コマンド
----
 
 <a id="markdown-繰り返し処理" name="繰り返し処理"></a>
 ### 繰り返し処理
@@ -627,3 +628,6 @@ while true; do date; echo "hello !"; sleep 1s; done
 # git最新化（※Envフォルダを除く）
 for f in */.git;do (f=${f%/*}; if [ $f != "Env" ]; then cd $f;echo ===$f; git pull; fi);done;
 ```
+
+<br>
+<!-- NEXT INDENT -->

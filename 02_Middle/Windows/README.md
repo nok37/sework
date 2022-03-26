@@ -1,45 +1,47 @@
 # Windows
 
-## 目次
 <!-- TOC -->
 
 - [１．設定](#１．設定)
-    - [◆ プロキシ](#◆-プロキシ)
+    - [プロキシ](#プロキシ)
 - [２．コマンドプロンプト(cmd)](#２．コマンドプロンプトcmd)
-    - [◆ 全般](#◆-全般)
-    - [◆ curl　#サーバへデータ転送を行う](#◆-curl　サーバへデータ転送を行う)
-    - [◆ dir　#配下のファイルを一覧で取得](#◆-dir　配下のファイルを一覧で取得)
-    - [◆ doskey　#マクロ（エイリアス）の登録](#◆-doskey　マクロエイリアスの登録)
-    - [◆ fc　#ファイルの比較を行う](#◆-fc　ファイルの比較を行う)
-    - [◆ find　#ファイル内の文字列を検索する](#◆-find　ファイル内の文字列を検索する)
-    - [◆ findstr　#findの多機能版](#◆-findstr　findの多機能版)
-    - [◆ net　ネットワーク関係の設定や現在の状態を表示する](#◆-net　ネットワーク関係の設定や現在の状態を表示する)
-    - [◆ netsh　#ネットワーク関係のパラメータの設定](#◆-netsh　ネットワーク関係のパラメータの設定)
-    - [◆ pushd / popd　#カレントディレクトリを変更](#◆-pushd--popd　カレントディレクトリを変更)
-    - [◆ tree　#配下のファイルをツリー階層で取得](#◆-tree　配下のファイルをツリー階層で取得)
+    - [全般](#全般)
+    - [curl　#サーバへデータ転送を行う](#curl　サーバへデータ転送を行う)
+    - [dir　#配下のファイルを一覧で取得](#dir　配下のファイルを一覧で取得)
+    - [doskey　#マクロ（エイリアス）の登録](#doskey　マクロエイリアスの登録)
+    - [fc　#ファイルの比較を行う](#fc　ファイルの比較を行う)
+    - [find　#ファイル内の文字列を検索する](#find　ファイル内の文字列を検索する)
+    - [findstr　#findの多機能版](#findstr　findの多機能版)
+    - [net　ネットワーク関係の設定や現在の状態を表示する](#net　ネットワーク関係の設定や現在の状態を表示する)
+    - [netsh　#ネットワーク関係のパラメータの設定](#netsh　ネットワーク関係のパラメータの設定)
+    - [pushd / popd　#カレントディレクトリを変更](#pushd--popd　カレントディレクトリを変更)
+    - [tree　#配下のファイルをツリー階層で取得](#tree　配下のファイルをツリー階層で取得)
 - [３．バッチファイル(bat)](#３．バッチファイルbat)
-    - [◆ 全般・設定](#◆-全般・設定)
+    - [全般・設定](#全般・設定)
 - [４．プログラムから実行(win + r)](#４．プログラムから実行win--r)
-    - [◆ まとめ](#◆-まとめ)
+    - [まとめ](#まとめ)
 - [５．PowerShell](#５．powershell)
-    - [◆ tnc](#◆-tnc)
+    - [tnc](#tnc)
 - [６．その他ショートカット](#６．その他ショートカット)
-    - [◆ win](#◆-win)
+    - [win](#win)
 
 <!-- /TOC -->
+---
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定" name="１．設定"></a>
-### １．設定
----
-<a id="markdown-◆-プロキシ" name="◆-プロキシ"></a>
-#### ◆ プロキシ
+## １．設定
+
+<a id="markdown-プロキシ" name="プロキシ"></a>
+### プロキシ
 
 ```cmd
 rem ユーザ／パスワードの設定
 set HTTP_PROXY=http://username:password@proxyhost:port
 set HTTPS_PROXY=http://username:password@proxyhost:port
 ```
+
 ※WinHTTPを利用したHTTP通信が発生する場合
 
 ```cmd
@@ -51,13 +53,13 @@ rem 手書きで設定する
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-２．コマンドプロンプトcmd" name="２．コマンドプロンプトcmd"></a>
-### ２．コマンドプロンプト(cmd)
----
+## ２．コマンドプロンプト(cmd)
 
-<a id="markdown-◆-全般" name="◆-全般"></a>
-#### ◆ 全般
+<a id="markdown-全般" name="全般"></a>
+### 全般
 | コマンド | メモ |
 | --- | --- |
 | F7 | 履歴の表示 |
@@ -65,8 +67,8 @@ rem 手書きで設定する
 | winver | Windowsのバージョン情報 |
 | systeminfo | システム情報の表示 |
 
-<a id="markdown-◆-curl　サーバへデータ転送を行う" name="◆-curl　サーバへデータ転送を行う"></a>
-#### ◆ curl　#サーバへデータ転送を行う
+<a id="markdown-curl　サーバへデータ転送を行う" name="curl　サーバへデータ転送を行う"></a>
+### curl　#サーバへデータ転送を行う
 
 ```cmd
 rem メソッドの指定
@@ -90,8 +92,8 @@ Date: Sun, 31 Jan 2021 08:25:10 GMT
 
 ```
 
-<a id="markdown-◆-dir　配下のファイルを一覧で取得" name="◆-dir　配下のファイルを一覧で取得"></a>
-#### ◆ dir　#配下のファイルを一覧で取得
+<a id="markdown-dir　配下のファイルを一覧で取得" name="dir　配下のファイルを一覧で取得"></a>
+### dir　#配下のファイルを一覧で取得
 
 ```cmd
 rem ディレクトリのみ、ファイル名のみ
@@ -107,8 +109,8 @@ C:\Users\naoki\Desktop\test\sub\TEST3.xlsx
 C:\Users\naoki\Desktop\test\sub\TEST4.xlsx
 ```
 
-<a id="markdown-◆-doskey　マクロエイリアスの登録" name="◆-doskey　マクロエイリアスの登録"></a>
-#### ◆ doskey　#マクロ（エイリアス）の登録
+<a id="markdown-doskey　マクロエイリアスの登録" name="doskey　マクロエイリアスの登録"></a>
+### doskey　#マクロ（エイリアス）の登録
 
 ```cmd
 rem マクロの登録
@@ -128,8 +130,8 @@ rem マクロの読み込み
 >doskey /macrofile=c:\test\macros.txt
 ```
 
-<a id="markdown-◆-fc　ファイルの比較を行う" name="◆-fc　ファイルの比較を行う"></a>
-#### ◆ fc　#ファイルの比較を行う
+<a id="markdown-fc　ファイルの比較を行う" name="fc　ファイルの比較を行う"></a>
+### fc　#ファイルの比較を行う
 ※デフォルトはASCII
 
 ```cmd
@@ -152,8 +154,8 @@ rem バイナリ比較
 FC: 相違点は検出されませんでした
 ```
 
-<a id="markdown-◆-find　ファイル内の文字列を検索する" name="◆-find　ファイル内の文字列を検索する"></a>
-#### ◆ find　#ファイル内の文字列を検索する
+<a id="markdown-find　ファイル内の文字列を検索する" name="find　ファイル内の文字列を検索する"></a>
+### find　#ファイル内の文字列を検索する
 
 ```cmd
 rem 指定した単語の検索（grepに相当）
@@ -174,8 +176,8 @@ rem ファイルの行数を表示（wc -lに相当）
 10
 ```
 
-<a id="markdown-◆-findstr　findの多機能版" name="◆-findstr　findの多機能版"></a>
-#### ◆ findstr　#findの多機能版
+<a id="markdown-findstr　findの多機能版" name="findstr　findの多機能版"></a>
+### findstr　#findの多機能版
 
 ```cmd
 rem OR検索
@@ -195,10 +197,8 @@ Host Name:                 ******
 OS Name:                   Microsoft Windows 10 Pro
 ```
 
-
-
-<a id="markdown-◆-net　ネットワーク関係の設定や現在の状態を表示する" name="◆-net　ネットワーク関係の設定や現在の状態を表示する"></a>
-#### ◆ net　ネットワーク関係の設定や現在の状態を表示する
+<a id="markdown-net　ネットワーク関係の設定や現在の状態を表示する" name="net　ネットワーク関係の設定や現在の状態を表示する"></a>
+### net　ネットワーク関係の設定や現在の状態を表示する
 
 ```cmd
 rem ネットワークドライブの割当・削除
@@ -209,8 +209,8 @@ rem 認証ありの場合
 >net use p: \\192.168.11.2\share password /user:naoki
 ```
 
-<a id="markdown-◆-netsh　ネットワーク関係のパラメータの設定" name="◆-netsh　ネットワーク関係のパラメータの設定"></a>
-#### ◆ netsh　#ネットワーク関係のパラメータの設定
+<a id="markdown-netsh　ネットワーク関係のパラメータの設定" name="netsh　ネットワーク関係のパラメータの設定"></a>
+### netsh　#ネットワーク関係のパラメータの設定
 
 ```cmd
 rem 変数設定
@@ -237,8 +237,8 @@ rem 状態確認
 netsh interface ip show config
 ```
 
-<a id="markdown-◆-pushd--popd　カレントディレクトリを変更" name="◆-pushd--popd　カレントディレクトリを変更"></a>
-#### ◆ pushd / popd　#カレントディレクトリを変更
+<a id="markdown-pushd--popd　カレントディレクトリを変更" name="pushd--popd　カレントディレクトリを変更"></a>
+### pushd / popd　#カレントディレクトリを変更
 拡張機能では一時的にネットワークドライブの作成が可能。
 
 ```cmd
@@ -250,8 +250,8 @@ Z:\VIDEO>popd
 C:\Users\naoki>
 ```
 
-<a id="markdown-◆-tree　配下のファイルをツリー階層で取得" name="◆-tree　配下のファイルをツリー階層で取得"></a>
-#### ◆ tree　#配下のファイルをツリー階層で取得
+<a id="markdown-tree　配下のファイルをツリー階層で取得" name="tree　配下のファイルをツリー階層で取得"></a>
+### tree　#配下のファイルをツリー階層で取得
 
 ```cmd
 > tree /f
@@ -265,24 +265,24 @@ C:.
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-３．バッチファイルbat" name="３．バッチファイルbat"></a>
-### ３．バッチファイル(bat)
----
+## ３．バッチファイル(bat)
 
-<a id="markdown-◆-全般・設定" name="◆-全般・設定"></a>
-#### ◆ 全般・設定
+<a id="markdown-全般・設定" name="全般・設定"></a>
+### 全般・設定
 | コマンド | メモ |
 | --- | --- |
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-４．プログラムから実行win--r" name="４．プログラムから実行win--r"></a>
-### ４．プログラムから実行(win + r)
----
+## ４．プログラムから実行(win + r)
 
-<a id="markdown-◆-まとめ" name="◆-まとめ"></a>
-#### ◆ まとめ
+<a id="markdown-まとめ" name="まとめ"></a>
+### まとめ
 | コマンド | メモ |
 | --- | --- |
 | cmd | Ctrl + Shift + Enterで管理者として実行 |
@@ -321,13 +321,13 @@ echo システムバージョン情報[about]
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-５．powershell" name="５．powershell"></a>
-### ５．PowerShell
----
+## ５．PowerShell
 
-<a id="markdown-◆-tnc" name="◆-tnc"></a>
-#### ◆ tnc
+<a id="markdown-tnc" name="tnc"></a>
+### tnc
 Test-NetConnection
 
 ```ps
@@ -343,15 +343,17 @@ TcpTestSucceeded       : False
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-６．その他ショートカット" name="６．その他ショートカット"></a>
-### ６．その他ショートカット  
----
+## ６．その他ショートカット  
 
-<a id="markdown-◆-win" name="◆-win"></a>
-#### ◆ win
+<a id="markdown-win" name="win"></a>
+### win
 | コマンド | メモ |
 | --- | --- |
 | win + 1（～9） | タスクバーのアプリを実行 |
 | ctrl + win + o | スクリーンキーボード開く |
 
+<br>
+<!-- NEXT INDENT -->

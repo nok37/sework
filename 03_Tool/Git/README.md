@@ -12,16 +12,16 @@
 <!-- /TOC -->
 ---
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
----
+
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-２．ショートカット" name="２．ショートカット"></a>
 ## ２．ショートカット
----
-<br>
 
 <a id="markdown-アクセスキー一覧" name="アクセスキー一覧"></a>
 ### アクセスキー一覧
@@ -45,8 +45,10 @@
 | ---- | ---- |
 | ALT → I → B | 改ページの挿入 |
 
+<br>
+<!-- NEXT INDENT -->
+
 <a id="markdown-３．マクロ" name="３．マクロ"></a>
 ## ３．マクロ
----
 <br>
-
+<!-- NEXT INDENT -->
