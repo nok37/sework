@@ -1,59 +1,60 @@
 # JavaScript
 
-## 目次
 <!-- TOC -->
 
 - [１．概要](#１．概要)
 - [２．変数宣言／データ型](#２．変数宣言／データ型)
-    - [◆ 変数宣言](#◆-変数宣言)
-    - [◆ データ型](#◆-データ型)
+    - [変数宣言](#変数宣言)
+    - [データ型](#データ型)
 - [３．関数／クラス](#３．関数／クラス)
-    - [◆ 関数の定義](#◆-関数の定義)
-    - [◆ 関数のさまざまな引数](#◆-関数のさまざまな引数)
-    - [◆ クラスの定義](#◆-クラスの定義)
+    - [関数の定義](#関数の定義)
+    - [関数のさまざまな引数](#関数のさまざまな引数)
+    - [クラスの定義](#クラスの定義)
 - [４．その他構文](#４．その他構文)
-    - [◆ ラッパーオブジェクト](#◆-ラッパーオブジェクト)
-    - [◆ 等価／厳密等価](#◆-等価／厳密等価)
-    - [◆ 分割代入／スプレッド構文](#◆-分割代入／スプレッド構文)
-    - [◆ 繰り返し処理](#◆-繰り返し処理)
-    - [◆ オブジェクトのマージとコピー](#◆-オブジェクトのマージとコピー)
-    - [◆ プロトタイプ](#◆-プロトタイプ)
-    - [◆ 同期／非同期とプロミス](#◆-同期／非同期とプロミス)
+    - [ラッパーオブジェクト](#ラッパーオブジェクト)
+    - [等価／厳密等価](#等価／厳密等価)
+    - [分割代入／スプレッド構文](#分割代入／スプレッド構文)
+    - [繰り返し処理](#繰り返し処理)
+    - [オブジェクトのマージとコピー](#オブジェクトのマージとコピー)
+    - [プロトタイプ](#プロトタイプ)
+    - [同期／非同期とプロミス](#同期／非同期とプロミス)
 - [５．Node.js](#５．nodejs)
-    - [◆ 概要](#◆-概要)
-    - [◆ npm／yarn](#◆-npm／yarn)
-    - [◆ package.jsonの記載方法](#◆-packagejsonの記載方法)
+    - [概要](#概要)
+    - [npm／yarn](#npm／yarn)
+    - [package.jsonの記載方法](#packagejsonの記載方法)
 - [６．React](#６．react)
-    - [◆Reactの歴史](#◆reactの歴史)
-    - [◆Reactの特徴](#◆reactの特徴)
-    - [◆他のフレームワークとの比較](#◆他のフレームワークとの比較)
-    - [◆create-react-appによるひな型作成](#◆create-react-appによるひな型作成)
-    - [◆Virtual DOM（仮想DOM）](#◆virtual-dom仮想dom)
-    - [◆Reactの仕組み](#◆reactの仕組み)
-    - [◆関数型コンポーネント](#◆関数型コンポーネント)
-    - [◆クラス型コンポーネント](#◆クラス型コンポーネント)
-    - [◆その他](#◆その他)
+    - [Reactの歴史](#reactの歴史)
+    - [Reactの特徴](#reactの特徴)
+    - [他のフレームワークとの比較](#他のフレームワークとの比較)
+    - [create-react-appによるひな型作成](#create-react-appによるひな型作成)
+    - [Virtual DOM（仮想DOM）](#virtual-dom仮想dom)
+    - [Reactの仕組み](#reactの仕組み)
+    - [関数型コンポーネント](#関数型コンポーネント)
+    - [クラス型コンポーネント](#クラス型コンポーネント)
+    - [その他](#その他)
 - [７．Web技術トレンド](#７．web技術トレンド)
-    - [◆ CSR(Client Side Rendering)](#◆-csrclient-side-rendering)
-    - [◆ SPA(Single Page Application)](#◆-spasingle-page-application)
-    - [◆ SSR(Server Side Rendering)](#◆-ssrserver-side-rendering)
-    - [◆ SSG(Static Site Generator)](#◆-ssgstatic-site-generator)
+    - [CSR(Client Side Rendering)](#csrclient-side-rendering)
+    - [SPA(Single Page Application)](#spasingle-page-application)
+    - [SSR(Server Side Rendering)](#ssrserver-side-rendering)
+    - [SSG(Static Site Generator)](#ssgstatic-site-generator)
 
 <!-- /TOC -->
+---
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．概要" name="１．概要"></a>
-### １．概要
----
+## １．概要
 言語仕様はECMAScriptによって標準化され、実装は各種のJavaScriptエンジンによって提供されている。（Google ChromeのV8など）
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-２．変数宣言／データ型" name="２．変数宣言／データ型"></a>
-### ２．変数宣言／データ型
----
-<a id="markdown-◆-変数宣言" name="◆-変数宣言"></a>
-#### ◆ 変数宣言
+## ２．変数宣言／データ型
+
+<a id="markdown-変数宣言" name="変数宣言"></a>
+###  変数宣言
 var / let / constとあるが、varは以下の理由から使ってはいけない。※昔は変数宣言で使えるのはvarのみだったが、今は基本的にconstを使用する。  
 
 1. 再宣言が可能
@@ -111,8 +112,8 @@ var / let / constとあるが、varは以下の理由から使ってはいけな
     console.log(m);  // 100
     ```
 
-<a id="markdown-◆-データ型" name="◆-データ型"></a>
-#### ◆ データ型
+<a id="markdown-データ型" name="データ型"></a>
+###  データ型
 Javascriptは動的型付言語であり、データ型は「プリミティブ型」と「オブジェクト型」に大別される。  
 
 **・プリミティブ型（基本型）**
@@ -164,12 +165,13 @@ Javascriptは動的型付言語であり、データ型は「プリミティブ�
     ※詳細割愛
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-３．関数／クラス" name="３．関数／クラス"></a>
-### ３．関数／クラス
----
-<a id="markdown-◆-関数の定義" name="◆-関数の定義"></a>
-#### ◆ 関数の定義
+## ３．関数／クラス
+
+<a id="markdown-関数の定義" name="関数の定義"></a>
+###  関数の定義
 JavaScriptの関数は第一級オブジェクトであり、関数を第一級オブジェクトとして扱うことができる言語の性質を第一級関数ともいう。
 * 第一級関数とは  
 変数へ代入したり、他の関数の引数として渡したりできる関数のこと。（基本的な操作を制限なしに使用できる）
@@ -203,8 +205,8 @@ JavaScriptの関数は第一級オブジェクトであり、関数を第一級�
   > sum3(1,2) // 3
   ```
 
-<a id="markdown-◆-関数のさまざまな引数" name="◆-関数のさまざまな引数"></a>
-#### ◆ 関数のさまざまな引数
+<a id="markdown-関数のさまざまな引数" name="関数のさまざまな引数"></a>
+###  関数のさまざまな引数
 * デフォルト引数  
 デフォルト引数は省略可能で、省略された場合はデフォルト値が適用される。  
 
@@ -236,8 +238,8 @@ JavaScriptの関数は第一級オブジェクトであり、関数を第一級�
   [ 'ta', 'ka', 'ha', 'shi' ]
   ```
 
-<a id="markdown-◆-クラスの定義" name="◆-クラスの定義"></a>
-#### ◆ クラスの定義
+<a id="markdown-クラスの定義" name="クラスの定義"></a>
+###  クラスの定義
 * 一般的なクラス
 
   ```javascript
@@ -267,13 +269,13 @@ JavaScriptの関数は第一級オブジェクトであり、関数を第一級�
   ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-４．その他構文" name="４．その他構文"></a>
-### ４．その他構文
----
+## ４．その他構文
 
-<a id="markdown-◆-ラッパーオブジェクト" name="◆-ラッパーオブジェクト"></a>
-#### ◆ ラッパーオブジェクト
+<a id="markdown-ラッパーオブジェクト" name="ラッパーオブジェクト"></a>
+###  ラッパーオブジェクト
 nullとundefinedを除くプリミティブ型には、それらの値を包括するラッパーオブジェクトが存在する。プリミティブ型の値に対してプロパティアクセスするとき、自動で対応するラッパーオブジェクトに変換される。
 
 ```javascript
@@ -285,8 +287,8 @@ nullとundefinedを除くプリミティブ型には、それらの値を包括�
 > (new String('hoge')).toUpperCase()
 ```
 
-<a id="markdown-◆-等価／厳密等価" name="◆-等価／厳密等価"></a>
-#### ◆ 等価／厳密等価
+<a id="markdown-等価／厳密等価" name="等価／厳密等価"></a>
+###  等価／厳密等価
 * 等価演算子（==）  
  → 型が異なる場合には型の変換を試みてから比較を行う　　
   1. 数値と文字列を比較する場合、文字列を数値に変換
@@ -315,8 +317,8 @@ false
 true
 ```
 
-<a id="markdown-◆-分割代入／スプレッド構文" name="◆-分割代入／スプレッド構文"></a>
-#### ◆ 分割代入／スプレッド構文
+<a id="markdown-分割代入／スプレッド構文" name="分割代入／スプレッド構文"></a>
+###  分割代入／スプレッド構文
 
 ```javascript
 // オブジェクトの基本的な表現方法
@@ -366,8 +368,8 @@ true
 [ { id: 1, name: 'Taka' }, { id: 2, name: 'Nao' } ]
 ```
 
-<a id="markdown-◆-繰り返し処理" name="◆-繰り返し処理"></a>
-#### ◆ 繰り返し処理
+<a id="markdown-繰り返し処理" name="繰り返し処理"></a>
+###  繰り返し処理
 
 ```javascript
 const iterable = [10, 20, 30];
@@ -386,8 +388,8 @@ for (var i = 0; i < iterable.length; i++) {
 ```
 
 
-<a id="markdown-◆-オブジェクトのマージとコピー" name="◆-オブジェクトのマージとコピー"></a>
-#### ◆ オブジェクトのマージとコピー
+<a id="markdown-オブジェクトのマージとコピー" name="オブジェクトのマージとコピー"></a>
+###  オブジェクトのマージとコピー
 
 * Object.assign()メソッド
   ```javascript
@@ -439,8 +441,8 @@ for (var i = 0; i < iterable.length; i++) {
   { id: 1, name: 'Taka', address: { town: 'Tokyo' } }  // オリジナルも更新してしまう 
   ```
 
-<a id="markdown-◆-プロトタイプ" name="◆-プロトタイプ"></a>
-#### ◆ プロトタイプ
+<a id="markdown-プロトタイプ" name="プロトタイプ"></a>
+###  プロトタイプ
 オブジェクトは直接、他のオブジェクトを継承し、その継承元となったオブジェクトをプロトタイプという。JavaScriptではあらゆるオブジェクトは何らかのプロトタイプを継承していて、その「プロトタイプチェーン」は最終的に空オブジェクトを経てnullに到達する。  
 ※classは単なるシンタックスシュガー  
 ※昔はclass表現がなく、プロトタイプをいじくり回してclassを表現していた
@@ -457,8 +459,8 @@ for (var i = 0; i < iterable.length; i++) {
 
 ```
 
-<a id="markdown-◆-同期／非同期とプロミス" name="◆-同期／非同期とプロミス"></a>
-#### ◆ 同期／非同期とプロミス
+<a id="markdown-同期／非同期とプロミス" name="同期／非同期とプロミス"></a>
+###  同期／非同期とプロミス
 * Promise  
 Promiseオブジェクトは非同期処理の最終的な完了処理 (もしくは失敗) およびその結果の値を表現する。  
   * pending: 未解決 (処理が終わるのを待っている状態)
@@ -525,17 +527,18 @@ await演算子は、async関数によってPromiseが返されるのを待機す
   ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-５．nodejs" name="５．nodejs"></a>
-### ５．Node.js
----
-<a id="markdown-◆-概要" name="◆-概要"></a>
-#### ◆ 概要
+## ５．Node.js
+
+<a id="markdown-概要" name="概要"></a>
+###  概要
 サーバサイドのJavaScriptのこと。
 これまでブラウザ上で動かしていたものを、サーバサイドで動かせるようにしたプラットフォーム。
 
-<a id="markdown-◆-npm／yarn" name="◆-npm／yarn"></a>
-#### ◆ npm／yarn
+<a id="markdown-npm／yarn" name="npm／yarn"></a>
+###  npm／yarn
 * npm（Node Package Manager）  
 Node.jsのモジュール管理ツール。
 フロントエンドで使用するJavascriptのパッケージのインストールとバージョン管理に使う。
@@ -608,8 +611,8 @@ Facebook製のnpm改良版コマンドで、npmより高速でタイピング数
   > npx create-react-app hello-world
   ```
 
-<a id="markdown-◆-packagejsonの記載方法" name="◆-packagejsonの記載方法"></a>
-#### ◆ package.jsonの記載方法
+<a id="markdown-packagejsonの記載方法" name="packagejsonの記載方法"></a>
+###  package.jsonの記載方法
 
 * バージョンの見方  
 **1.2.3**  
@@ -664,12 +667,13 @@ Facebook製のnpm改良版コマンドで、npmより高速でタイピング数
   ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-６．react" name="６．react"></a>
-### ６．React
----
-<a id="markdown-◆reactの歴史" name="◆reactの歴史"></a>
-#### ◆Reactの歴史
+## ６．React
+
+<a id="markdown-reactの歴史" name="reactの歴史"></a>
+### Reactの歴史
   - Google マップショック  
   従来のサーバーサイドの地図サービス（静的リンクで読み込み待ちがストレスフルなもの）に対して、2005年にGoogle がインタラクティブな地図サービスを提供。非同期通信を行いながら、動的にページを更新するAjax (Asynchronous JavaScript And XML) とよばれる技術が使われた。
   - フロントエンド第一世代  
@@ -679,8 +683,8 @@ Facebook製のnpm改良版コマンドで、npmより高速でタイピング数
 - React の誕生  
   2011年Google のエンジニアから「HTML をプログラマブルに拡張し、開発者が自ら作成したカスタムタグを読み込んで使えるようにする**Web Components** という技術をWeb 標準の仕様として広くブラウザに実装しよう」という内容の提唱があった。これは従来用いられていたような、ひとつの長大なHTML と全体に適用されるこれまた長大なCSS を、これらの技術を用いることでカプセル化された**再利用可能なコンポーネント**に分割し、それらの組み合わせでWeb コンテンツを表現するしくみを作ろうというGoogle からの夢の提案だった。Web Components の理想自体は多くの人が共感するものだったが、実装に時間がかかる中でFacebook によるReact が誕生する。もともと社内のMVCフレームワークを改善し、FaxJS（後にReact に改名されるプロトタイプ零号機のようなもの）を作成。さらにXHP（PHP のコード内でXML リテラルを記述してUI を作成するフレームワーク）をJavaScript に移植したjs-xml-literal というプロダクトをフォークしてJSX 作り、React をオープンソース化するための下準備となった。2012年にInstagram を買収し現在のロゴが作成され、2013年にバージョン0.3.0でオープンソース化した。
 
-<a id="markdown-◆reactの特徴" name="◆reactの特徴"></a>
-#### ◆Reactの特徴
+<a id="markdown-reactの特徴" name="reactの特徴"></a>
+### Reactの特徴
 - Declarative（宣言的なView）  
   最終的な出力を得るために、時系列に沿って直前の状態に依存しながら命令を順番に記述していく「**命令型プログラミング**」に対して、出力の性質やあるべき状態を記述する「**宣言型プログラミング**」がある。従来の命令型DOM 操作に対して、React は各状態に対応するシンプルなView を設計するだけでデータの変更を検知し、関連するコンポーネントだけを効率的に更新、描画できる。
 - Component-Based（コンポーネントベース）  
@@ -695,16 +699,16 @@ Facebook製のnpm改良版コマンドで、npmより高速でタイピング数
     - React Native for Windows + macOS ： Windows  / macOS のネイティブアプリ
     - React-pdf ： PDF ドキュメント
 
-<a id="markdown-◆他のフレームワークとの比較" name="◆他のフレームワークとの比較"></a>
-#### ◆他のフレームワークとの比較
+<a id="markdown-他のフレームワークとの比較" name="他のフレームワークとの比較"></a>
+### 他のフレームワークとの比較
 - Angula  
     React が公開された翌年にAngularJS チームがこれまでと互換性のない新しいフレームワーク作成を発表した。React は進化が速いため、プロダクトの性質や将来性を考慮して適切なライブラリを選定する必要があるのに対して、Angular はフルスタックなフレームワークで、ファーストリリースから基本的な枠組みが変わってないので安定している。
 - Vue.js  
     Angular の下位互換性を捨てたアップグレードに対して不満をかかえたコミュニティベースで開発された。React と同じくらい人気のあるフレームワークであるが、開発者が中国人という組織的な色合いが強いとの見方もある。AngularJS の直感性を残しつつ、Reactのコンポーネントベースを取り入れた『いいとこ取り』のフレームワークだが、結局はMVVM デザインパターンのオールドタイプの技術であると言える。
 
 
-<a id="markdown-◆create-react-appによるひな型作成" name="◆create-react-appによるひな型作成"></a>
-#### ◆create-react-appによるひな型作成
+<a id="markdown-create-react-appによるひな型作成" name="create-react-appによるひな型作成"></a>
+### create-react-appによるひな型作成
 
 ```cmd
 > npx create-react-app sample
@@ -825,8 +829,8 @@ function App() {
 export default App;
 ```
 
-<a id="markdown-◆virtual-dom仮想dom" name="◆virtual-dom仮想dom"></a>
-#### ◆Virtual DOM（仮想DOM）
+<a id="markdown-virtual-dom仮想dom" name="virtual-dom仮想dom"></a>
+### Virtual DOM（仮想DOM）
 ※DOMとは  
 「Document Object Model」の略。  
 JavaScriptがHTMLの要素を操作する際、このDOMを通して画面上の要素をJavaScriptのオブジェクトとして扱っている。  
@@ -835,30 +839,21 @@ JavaScriptのDOM操作はレンダリングの負荷が高くなるので、Reac
 
 
 
-<a id="markdown-◆reactの仕組み" name="◆reactの仕組み"></a>
-#### ◆Reactの仕組み
+<a id="markdown-reactの仕組み" name="reactの仕組み"></a>
+### Reactの仕組み
 Reactは仮想DOMをリアルなDOMにレンダリングすることでWebアプリケーションとして動作する。その仮想DOMを構成するのがReact Elements。React Elementsはコンポーネントを任意のpropsでコールするための実行リンクのようなもの。また、コンポーネントが持つ状態のことをstateという。
 
 JSX
 HTML to JSX
 
+<a id="markdown-関数型コンポーネント" name="関数型コンポーネント"></a>
+### 関数型コンポーネント
 
+<a id="markdown-クラス型コンポーネント" name="クラス型コンポーネント"></a>
+### クラス型コンポーネント
 
-
-<a id="markdown-◆関数型コンポーネント" name="◆関数型コンポーネント"></a>
-#### ◆関数型コンポーネント
-
-<a id="markdown-◆クラス型コンポーネント" name="◆クラス型コンポーネント"></a>
-#### ◆クラス型コンポーネント
-
-<a id="markdown-◆virtual-dom仮想dom" name="◆virtual-
-dom仮想dom"></a>
-
-
-
-
-<a id="markdown-◆その他" name="◆その他"></a>
-#### ◆その他
+<a id="markdown-その他" name="その他"></a>
+### その他
 
 
 コンポーネントライフサイクル
@@ -867,13 +862,14 @@ React Hook
 FluxとRedux
 ユニットテスト方法
 
+<br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-７．web技術トレンド" name="７．web技術トレンド"></a>
-### ７．Web技術トレンド
----
+## ７．Web技術トレンド
 
-<a id="markdown-◆-csrclient-side-rendering" name="◆-csrclient-side-rendering"></a>
-#### ◆ CSR(Client Side Rendering)
+<a id="markdown-csrclient-side-rendering" name="csrclient-side-rendering"></a>
+###  CSR(Client Side Rendering)
 ブラウザからリクエストされると、サーバーはJS のビルドされたファイルと必要最小限のHTML要素しか含まれないHTMLファイルを返却する。HTMLファイルの中身はほぼないので、初期表示は何も表示されない。それから、ブラウザ上でAPIなどを使い、初期データを取得して、HTML 要素をレンダリングする。  
 * メリット  
   * ユーザーに優れた UX 提供が可能（ページ遷移ごとにリクエストしないため、）ページ遷移が高速  
@@ -885,12 +881,12 @@ FluxとRedux
   * 動的なOGP(Open Graph Protocol:オープン・グラフ・プロトコル)対応ができない場合がある  
   ※オープン・グラフ・プロトコルとは、Facebook、TwitterなどのSNS上でシェアされた時やシェアされたい時に、ページのタイトル、URL、概要、画像（サムネイル）を正しく伝えるためにHTMLソースに記述するタグ情報です。
 
-<a id="markdown-◆-spasingle-page-application" name="◆-spasingle-page-application"></a>
-#### ◆ SPA(Single Page Application)
+<a id="markdown-spasingle-page-application" name="spasingle-page-application"></a>
+###  SPA(Single Page Application)
 CSRと同じ意味
 
-<a id="markdown-◆-ssrserver-side-rendering" name="◆-ssrserver-side-rendering"></a>
-#### ◆ SSR(Server Side Rendering)
+<a id="markdown-ssrserver-side-rendering" name="ssrserver-side-rendering"></a>
+###  SSR(Server Side Rendering)
 SPAと対比して、ブラウザ上で初期データをレンダリングするのではなく、サーバー側でデータ取得、レンダリングまでを行い、HTMLファイルを配信する。
 ただし、初期データ以外のデータはAPIなどを用いて取得を行い、SPA同様に、ブラウザ上でレンダリングを行う。
 
@@ -904,8 +900,8 @@ SPAと対比して、ブラウザ上で初期データをレンダリングす�
 Nuxt.js、Next.js
 
 
-<a id="markdown-◆-ssgstatic-site-generator" name="◆-ssgstatic-site-generator"></a>
-#### ◆ SSG(Static Site Generator)
+<a id="markdown-ssgstatic-site-generator" name="ssgstatic-site-generator"></a>
+###  SSG(Static Site Generator)
 アプリケーションのビルド時に、APIなどからデータを取得し、HTMLを最初に生成しておく。サーバーへのリクエストがあった場合には、この生成されたHTMLファイルを返却する。
 このように、ブラウザではなく、サーバーで先にビルド時にデータを取得してレンダリングを行っておくことを「プリレンダリング」という。また、生成された各 HTML はそのページに必要な最小限の JavaScript コードと関連づけられる。  
 ブラウザによってページが読み込まれると、そのページの JavaScript コードが実行される。（このプロセスは ハイドレーション と呼ばれる。）  
@@ -924,3 +920,5 @@ Nuxt.js、Next.js
 ※以下のフレームワークで実現可能
 Nuxt.js、Next.js、Gatsby.jsなど
 
+<br>
+<!-- NEXT INDENT -->

@@ -33,10 +33,10 @@
 
 <a id="markdown-豆知識" name="豆知識"></a>
 ### 豆知識
+
 ```java
 // 型の確認
 Object.getClass().getSimpleName()
-
 ```
 
 <a id="markdown-integerクラス" name="integerクラス"></a>
@@ -134,14 +134,17 @@ String sql1 = sql.toString();
 ## ３．ビルド
 
 javaファイルをコンパイルするとclassファイルが作成され、以下ZIP形式の圧縮ファイルとして各サービスに配布される。
+
 <a id="markdown-jarファイル" name="jarファイル"></a>
 ### JARファイル
 複数のJavaクラスや、それに関連するメタデータファイル、テキストやイメージファイル、設定ファイル(XML)をひとつのファイルに統合した形式。  
 ※Java ARchiveの略
+
 <a id="markdown-warファイル" name="warファイル"></a>
 ### WARファイル
 JavaベースのWebアプリケーションやコンポーネントを圧縮した形式で、Webサーバ上で動作する。  ApacheのTomcatのようなWebアプリケーションを導入したWebサーバ上で動作させることができる。  
 ※Web Application Resources(Web ARchive)の略
+
 <a id="markdown-earファイル" name="earファイル"></a>
 ### EARファイル
 J2EEサーバー上にアプリケーションをデプロイするのに適した形式で、J2EEサーバーはエンタープライズシステム向けのJavaプラットフォームのこと。  

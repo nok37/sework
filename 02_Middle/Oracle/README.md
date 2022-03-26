@@ -1,33 +1,33 @@
 # Oracle
 
-## 目次
 <!-- TOC -->
 
 - [１．設定／全般](#１．設定／全般)
-    - [◆ パスワード・プロファイル](#◆-パスワード・プロファイル)
-    - [◆ 起動・停止](#◆-起動・停止)
-    - [◆ 表領域](#◆-表領域)
+    - [パスワード・プロファイル](#パスワード・プロファイル)
+    - [起動・停止](#起動・停止)
+    - [表領域](#表領域)
 - [２．基本](#２．基本)
-    - [◆ テーブル操作](#◆-テーブル操作)
-    - [◆ エクスポート](#◆-エクスポート)
-    - [◆ viewファイルの確認](#◆-viewファイルの確認)
+    - [テーブル操作](#テーブル操作)
+    - [エクスポート](#エクスポート)
+    - [viewファイルの確認](#viewファイルの確認)
 - [３．関数](#３．関数)
 - [４．冗長性／可用性](#４．冗長性／可用性)
-    - [◆ アーカイブログ](#◆-アーカイブログ)
-    - [◆ Data Guard](#◆-data-guard)
-    - [◆ パフォーマンス](#◆-パフォーマンス)
+    - [アーカイブログ](#アーカイブログ)
+    - [Data Guard](#data-guard)
+    - [パフォーマンス](#パフォーマンス)
 - [５．性能](#５．性能)
-    - [◆ 実行計画・統計情報](#◆-実行計画・統計情報)
+    - [実行計画・統計情報](#実行計画・統計情報)
 
 <!-- /TOC -->
+---
 <br>
-
+<!-- NEXT INDENT -->
 
 <a id="markdown-１．設定／全般" name="１．設定／全般"></a>
-### １．設定／全般
----
-<a id="markdown-◆-パスワード・プロファイル" name="◆-パスワード・プロファイル"></a>
-#### ◆ パスワード・プロファイル
+## １．設定／全般
+
+<a id="markdown-パスワード・プロファイル" name="パスワード・プロファイル"></a>
+###  パスワード・プロファイル
 
 ```sql
 --プロファイル／パスワード期限の確認
@@ -59,8 +59,8 @@ SQL> ALTER USER USER1 PROFILE UNLOCKUSER;
 ```
 
 
-<a id="markdown-◆-起動・停止" name="◆-起動・停止"></a>
-#### ◆ 起動・停止  
+<a id="markdown-起動・停止" name="起動・停止"></a>
+###  起動・停止  
 
 * インスタンスの起動  
 バックグラウンド・プロセスを制御し、Oracle Databaseに接続するためのメモリー領域を割り当てること
@@ -96,8 +96,8 @@ SQL> SHUTDOWN TRANSACTIONAL
 ```
 <br>
 
-<a id="markdown-◆-表領域" name="◆-表領域"></a>
-#### ◆ 表領域
+<a id="markdown-表領域" name="表領域"></a>
+###  表領域
 
 ```sql
 -- 確認
@@ -146,19 +146,20 @@ where tablespace_name = free_tablespace_name(+)
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-２．基本" name="２．基本"></a>
-### ２．基本
----
-<a id="markdown-◆-テーブル操作" name="◆-テーブル操作"></a>
-#### ◆ テーブル操作
+## ２．基本
+
+<a id="markdown-テーブル操作" name="テーブル操作"></a>
+###  テーブル操作
 ```sql
 ---カラムの変更
 ALTER TABLE table MODIFY (column VARCHAR2(45));
 ```
 
-<a id="markdown-◆-エクスポート" name="◆-エクスポート"></a>
-#### ◆ エクスポート
+<a id="markdown-エクスポート" name="エクスポート"></a>
+###  エクスポート
 
 ```sql
 -- 実行中のDATA PUMPを確認
@@ -172,8 +173,8 @@ $ impdp user/pass@inst attach='job_name'
 $ kill_job
 ```
 
-<a id="markdown-◆-viewファイルの確認" name="◆-viewファイルの確認"></a>
-#### ◆ viewファイルの確認
+<a id="markdown-viewファイルの確認" name="viewファイルの確認"></a>
+###  viewファイルの確認
 
 ```sql
 SQL> set long 10000
@@ -183,19 +184,19 @@ SQL> SELECT TEXT FROM USER_VIEWS WHERE VIEW_NAME = '＜ビュー名（大文字�
 ```
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-３．関数" name="３．関数"></a>
-### ３．関数
----
+## ３．関数
 
 <br>
+<!-- NEXT INDENT -->
 
 <a id="markdown-４．冗長性／可用性" name="４．冗長性／可用性"></a>
-### ４．冗長性／可用性  
----
+## ４．冗長性／可用性  
 
-<a id="markdown-◆-アーカイブログ" name="◆-アーカイブログ"></a>
-#### ◆ アーカイブログ
+<a id="markdown-アーカイブログ" name="アーカイブログ"></a>
+###  アーカイブログ
 
 ```sql
 --oracleユーザで接続
@@ -243,8 +244,8 @@ RMAN> DELETE EXPIRED ARCHIVELOG ALL;
 
 ```
 
-<a id="markdown-◆-data-guard" name="◆-data-guard"></a>
-#### ◆ Data Guard
+<a id="markdown-data-guard" name="data-guard"></a>
+###  Data Guard
 自然災害などが発生した場合を想定し、遠隔地のスタンバイデータベースとネットワーク経由でフェイルオーバーを可能にする機能  
 
 1. フィジカル・スタンバイ構成  
@@ -253,8 +254,8 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 2. ロジカル・スタンバイ構成  
 プライマリ・データベースから転送されたREDOデータをSQLに変換して、スタンバイ・データベースにSQLを実行（SQL Apply）してデータの同期を取る構成。スタンバイ・データベース側はオープンしている状態なので、いつでもデータの確認をすることができる。
 
-<a id="markdown-◆-パフォーマンス" name="◆-パフォーマンス"></a>
-#### ◆ パフォーマンス
+<a id="markdown-パフォーマンス" name="パフォーマンス"></a>
+###  パフォーマンス
 
 * 待機イベント  
     ```sql
@@ -266,11 +267,14 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
     SQL> alter system set events 'immediate trace name mman_create_def_request level 6';
     ```
 
+<br>
+<!-- NEXT INDENT -->
+
 <a id="markdown-５．性能" name="５．性能"></a>
-### ５．性能
----
-<a id="markdown-◆-実行計画・統計情報" name="◆-実行計画・統計情報"></a>
-#### ◆ 実行計画・統計情報
+## ５．性能
+
+<a id="markdown-実行計画・統計情報" name="実行計画・統計情報"></a>
+###  実行計画・統計情報
 具体的なSQL実行の流れは以下の通り  
 
 1. パーサーがSQL文の構文解析(パース)を実行
@@ -305,3 +309,4 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 <u>実行計画と統計情報とデータベースの三者は整合性取れてる必要がある。</u>  
 
 <br>
+<!-- NEXT INDENT -->
