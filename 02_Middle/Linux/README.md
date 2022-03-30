@@ -17,8 +17,10 @@
     - [curl  #HTTPなどの通信プロトコルでデータを転送する](#curl--httpなどの通信プロトコルでデータを転送する)
     - [dc　#無限精度の計算が行える卓上計算機](#dc　無限精度の計算が行える卓上計算機)
     - [ifconfig　#ネットワークインターフェースの管理](#ifconfig　ネットワークインターフェースの管理)
+    - [keytool　#鍵と証明書を管理](#keytool　鍵と証明書を管理)
     - [last　#ログイン履歴を表示する](#last　ログイン履歴を表示する)
     - [od　#8進数やその他の形式でダンプする](#od　8進数やその他の形式でダンプする)
+    - [openssl　#証明書の作成](#openssl　証明書の作成)
     - [route　#ルーティングテーブルの管理](#route　ルーティングテーブルの管理)
     - [sed　#文字列置換などのテキスト処理](#sed　文字列置換などのテキスト処理)
     - [umask　#デフォルトの権限を決定する](#umask　デフォルトの権限を決定する)
@@ -31,8 +33,11 @@
         - [セカンダリプロンプト](#セカンダリプロンプト)
         - [引数／特殊変数](#引数／特殊変数)
         - [サンプル](#サンプル)
-- [４．便利コマンド](#４．便利コマンド)
-    - [繰り返し処理](#繰り返し処理)
+- [４．組み合わせ便利コマンド](#４．組み合わせ便利コマンド)
+    - [無限ループ](#無限ループ)
+    - [リスト読込](#リスト読込)
+    - [ファイル読込](#ファイル読込)
+    - [ファイル存在確認](#ファイル存在確認)
 
 <!-- /TOC -->
 ---
@@ -336,6 +341,18 @@ virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
+<a id="markdown-keytool　鍵と証明書を管理" name="keytool　鍵と証明書を管理"></a>
+### keytool　#鍵と証明書を管理
+※デフォルトのパスワードは「changeit」
+
+```bash
+# 登録（jre）
+$ keytool -import -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts -file server.crt
+
+# 確認
+keytool -list -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts
+```
+
 <a id="markdown-last　ログイン履歴を表示する" name="last　ログイン履歴を表示する"></a>
 ### last　#ログイン履歴を表示する
 
@@ -384,6 +401,23 @@ $ echo '09AZｱ'
 $ echo '09AZｱ'
 0000000 30 39 41 5a ef bd b1 0a
 0000010
+```
+
+<a id="markdown-openssl　証明書の作成" name="openssl　証明書の作成"></a>
+### openssl　#証明書の作成
+ローカルでWEBサーバを公開する際に、以下手順で自己証明書を作成する。  
+※Javaに取り込む場合は「keytool」コマンドを使用する。  
+※登録時に指定した「CN」が公開するホスト名と一致する必要がある。
+
+```bash
+# 秘密鍵の作成
+openssl genrsa 2048 > server.key
+
+# CSRの作成
+openssl req -new -key server.key > server.csr
+
+# SSLサーバー証明書(crt形式)の作成
+openssl x509 -days 3650 -req -signkey server.key < server.csr > server.crt
 ```
 
 <a id="markdown-route　ルーティングテーブルの管理" name="route　ルーティングテーブルの管理"></a>
@@ -771,21 +805,39 @@ f_main
 <br>
 <!-- NEXT INDENT -->
 
-<a id="markdown-４．便利コマンド" name="４．便利コマンド"></a>
-## ４．便利コマンド
+<a id="markdown-４．組み合わせ便利コマンド" name="４．組み合わせ便利コマンド"></a>
+## ４．組み合わせ便利コマンド
 
-<a id="markdown-繰り返し処理" name="繰り返し処理"></a>
-### 繰り返し処理
+<a id="markdown-無限ループ" name="無限ループ"></a>
+### 無限ループ
+
+```bash
+# 無限ループ
+while true; do date; echo "hello !"; sleep 1s; done
+```
+
+<a id="markdown-リスト読込" name="リスト読込"></a>
+### リスト読込
+
+```bash
+# git最新化（※xxxフォルダを除く）
+for f in */.git;do (f=${f%/*}; if [ $f != "xxx" ]; then cd $f; git pull; fi);done;
+```
+
+<a id="markdown-ファイル読込" name="ファイル読込"></a>
+### ファイル読込
 
 ```bash
 # ファイルを読み込み、1行ずつ処理する
 while read line; do md5sum $line;done <bkup.txt
+```
 
-# 無限ループ
-while true; do date; echo "hello !"; sleep 1s; done
+<a id="markdown-ファイル存在確認" name="ファイル存在確認"></a>
+### ファイル存在確認
 
-# git最新化（※Envフォルダを除く）
-for f in */.git;do (f=${f%/*}; if [ $f != "Env" ]; then cd $f;echo ===$f; git pull; fi);done;
+```bash
+# ファイル存在確認結果を表示
+if [ -e $FILE ];then echo "OK";else echo "NG";fi
 ```
 
 <br>

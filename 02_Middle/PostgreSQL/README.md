@@ -2,10 +2,14 @@
 
 <!-- TOC -->
 
-- [１．設定](#１．設定)
+- [１．設定／全般](#１．設定／全般)
+    - [接続](#接続)
     - [情報表示オプション(d)](#情報表示オプションd)
         - [スキーマの確認](#スキーマの確認)
         - [拡張機能の確認](#拡張機能の確認)
+    - [バックアップ](#バックアップ)
+    - [その他](#その他)
+        - [文字コード](#文字コード)
 - [２．関数](#２．関数)
     - [日付／時刻](#日付／時刻)
     - [文字列関数と演算子](#文字列関数と演算子)
@@ -19,8 +23,16 @@
 <br>
 <!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
-## １．設定
+<a id="markdown-１．設定／全般" name="１．設定／全般"></a>
+## １．設定／全般
+
+<a id="markdown-接続" name="接続"></a>
+### 接続
+
+```postgres
+--接続方法
+$ psql -U [ユーザ]
+```
 
 <a id="markdown-情報表示オプションd" name="情報表示オプションd"></a>
 ### 情報表示オプション(d)
@@ -46,6 +58,34 @@ postgres=# \dx
  adminpack | 2.1        | pg_catalog | administrative functions for PostgreSQL
  plpgsql   | 1.0        | pg_catalog | PL/pgSQL procedural language
 (2 行)
+```
+
+<a id="markdown-バックアップ" name="バックアップ"></a>
+### バックアップ
+
+```postgres
+--INSERT形式で出力
+> pg_dump -p [port] -n [xxx] -U [user] -d [xxx] -a --column-inserts -t [table] > dump.sql
+
+/*
+※-Fオプション
+p: プレーンテキスト
+t: tar
+c: カスタム
+d: ディレクトリ
+*/
+```
+
+<a id="markdown-その他" name="その他"></a>
+### その他
+
+<a id="markdown-文字コード" name="文字コード"></a>
+#### 文字コード
+
+```postgres
+--文字コード確認
+postgres=# select * from information_schema.
+
 ```
 
 <br>

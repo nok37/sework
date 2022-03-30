@@ -5,6 +5,8 @@
 - [１．設定](#１．設定)
 - [２．ショートカット](#２．ショートカット)
     - [ファイル操作系](#ファイル操作系)
+- [３．デバッグ](#３．デバッグ)
+    - [リモートJavaアプリケーション](#リモートjavaアプリケーション)
 
 <!-- /TOC -->
 ---
@@ -46,6 +48,22 @@ ctrl + o
 
 // クイック階層
 ctrl + t
+```
+
+<br>
+<!-- NEXT INDENT -->
+
+<a id="markdown-３．デバッグ" name="３．デバッグ"></a>
+## ３．デバッグ
+
+<a id="markdown-リモートjavaアプリケーション" name="リモートjavaアプリケーション"></a>
+### リモートJavaアプリケーション
+ローカルマシン以外のjvmに接続してデバッグする。
+
+```bash
+# リモートアプリのデバッグ起動
+$ java -cp xxx.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8000,suspend=n
+# その後、eclipseからデバッグ接続を受け入れる
 ```
 
 <br>
