@@ -1,6 +1,6 @@
 # エンジニア技術メモ
 
-💁🏖📞 [→C4](/03_Tool/Shiho/README.md)
+💁🏖📞 [→C4](/03_Tool/c4/README.md)
 
 ## 目次
 
