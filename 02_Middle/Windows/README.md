@@ -293,6 +293,7 @@ C:.
 | control printers | プリンターとFAX |
 | ncpa.cpl | ネットワーク接続 |
 | msinfo32 | システム情報 |
+| \ | Cドライブを開く |
 
 <a id="markdown-アプリ起動系" name="アプリ起動系"></a>
 ### アプリ起動系
@@ -301,7 +302,7 @@ C:.
 | --- | --- |
 | cmd | ctrl + Shift + Enterで管理者として実行 |
 | shell:startup | スタートアップ※PC起動で実行されるファイル |
-| mstsc | リモートデスクトップ接続 |
+| mstsc | リモートデスクトップ接続(MicroSoft Terminal Services Client) |
 
 <a id="markdown-独自コマンドの実行" name="独自コマンドの実行"></a>
 ### 独自コマンドの実行
@@ -330,9 +331,11 @@ C:.
 	rem ====================
 	cd %~dp0
 	echo ★★★★★設定一覧★★★★★
+	call :s_set 設定 set ms-settings
 	call :s_set Windows更新 wu ms-settings:windowsupdate
 	call :s_set ファイヤーウォール fw firewall.cpl
 	call :s_set アプリ app appwiz.cpl
+	call :s_set エクスプローラー exp explorer
 	echo ★★★★★★★★★★★★★★
 	echo;
 	pause
@@ -342,9 +345,13 @@ C:.
 	rem ====================
 	:s_set
 	echo ・%1 [%2]
-	echo start %3 > %2.bat
+	echo start "" %3 > %2.bat
 	exit /b
 	```
+4. win + r　から「ini」と入力する  
+⇒ 実行ファイルが作成され、作成されたコマンド内容が表示される。
+
+5. win + r　から「set」などの独自のコマンドを実行できる！
 
 <br>
 <!-- NEXT INDENT -->
