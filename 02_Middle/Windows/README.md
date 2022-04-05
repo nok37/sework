@@ -19,8 +19,9 @@
 - [３．バッチファイル(bat)](#３．バッチファイルbat)
     - [全般・設定](#全般・設定)
 - [４．プログラムから実行(win + r)](#４．プログラムから実行win--r)
-    - [設定](#設定)
-    - [アプリ起動](#アプリ起動)
+    - [設定系](#設定系)
+    - [アプリ起動系](#アプリ起動系)
+    - [独自コマンドの実行](#独自コマンドの実行)
 - [５．PowerShell](#５．powershell)
     - [tnc # テスト接続Test-NetConnection](#tnc--テスト接続test-netconnection)
 - [６．その他ショートカット](#６．その他ショートカット)
@@ -281,10 +282,10 @@ C:.
 <a id="markdown-４．プログラムから実行win--r" name="４．プログラムから実行win--r"></a>
 ## ４．プログラムから実行(win + r)
 
-<a id="markdown-設定" name="設定"></a>
-### 設定
+<a id="markdown-設定系" name="設定系"></a>
+### 設定系
 
-| コマンド | メモ |
+| コマンド | 実行内容 |
 | --- | --- |
 | winver | Windowsのバージョン情報 |
 | control | コントロールパネル |
@@ -293,35 +294,57 @@ C:.
 | ncpa.cpl | ネットワーク接続 |
 | msinfo32 | システム情報 |
 
-<a id="markdown-アプリ起動" name="アプリ起動"></a>
-### アプリ起動
+<a id="markdown-アプリ起動系" name="アプリ起動系"></a>
+### アプリ起動系
 
 | コマンド | メモ |
 | --- | --- |
-| cmd | Ctrl + Shift + Enterで管理者として実行 |
-| cmd.exe /k ini.bat | バッチファイルを実行して起動
-| shell:startup | スタートアップ※PC起動で実行される |
+| cmd | ctrl + Shift + Enterで管理者として実行 |
+| shell:startup | スタートアップ※PC起動で実行されるファイル |
 | mstsc | リモートデスクトップ接続 |
 
-<br>
+<a id="markdown-独自コマンドの実行" name="独自コマンドの実行"></a>
+### 独自コマンドの実行
 
-初期バッチファイルの例
+1. 任意のコマンド格納フォルダを用意
 
-```bat
-@echo off
-rem ini.bat(sjisで保存すること)
+    ```bat
+    rem 例
+    C:\shortcut
+    ```
 
-rem プログラムと機能[app]
-doskey app=appwiz.cpl
-rem 資格情報マネージャー[cm]
-doskey cm=control /name Microsoft.CredentialManager
-rem ファイヤーウォール[fw]
-doskey fw=firewall.cpl
-rem インターネットオプション[inet]
-doskey inet=inetcpl.cpl
-rem Windowsアップデート[wu]
-doskey wu=start ms-settings:windowsupdate
-```
+2. 先ほどのフォルダにパスを通す  
+⇒ ユーザの環境変数の「Path」に1のフォルダを追加
+
+3. 以下のbatファイルを格納しておく
+	```bat
+	@echo off
+	rem #######################################################
+	rem # ファイル名：ini.bat
+	rem # ファイル概要：任意のコマンドを作成し表示する。
+	rem # 備考：sjisで保存してください。
+	rem #######################################################
+
+	rem ====================
+	rem = メイン処理
+	rem ====================
+	cd %~dp0
+	echo ★★★★★設定一覧★★★★★
+	call :s_set Windows更新 wu ms-settings:windowsupdate
+	call :s_set ファイヤーウォール fw firewall.cpl
+	call :s_set アプリ app appwiz.cpl
+	echo ★★★★★★★★★★★★★★
+	echo;
+	pause
+
+	rem ====================
+	rem = 設定処理
+	rem ====================
+	:s_set
+	echo ・%1 [%2]
+	echo start %3 > %2.bat
+	exit /b
+	```
 
 <br>
 <!-- NEXT INDENT -->
