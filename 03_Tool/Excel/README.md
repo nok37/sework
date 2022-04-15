@@ -8,6 +8,8 @@
     - [書式(Option)](#書式option)
     - [挿入(Insert)](#挿入insert)
 - [４．マクロ](#４．マクロ)
+    - [自作マクロ](#自作マクロ)
+        - [ファイル抽出　★作成中](#ファイル抽出　★作成中)
 
 <!-- /TOC -->
 ---
@@ -52,5 +54,68 @@
 
 <a id="markdown-４．マクロ" name="４．マクロ"></a>
 ## ４．マクロ
+
+<a id="markdown-自作マクロ" name="自作マクロ"></a>
+### 自作マクロ
+
+<a id="markdown-ファイル抽出　★作成中" name="ファイル抽出　★作成中"></a>
+#### ファイル抽出　★作成中
+
+```vb
+Sub OpenAllFile()
+'##############################
+'# 関数名：
+'# 機能名：
+'##############################
+
+'====================
+' 変数定義
+'====================
+Dim Filename    As String
+Dim IsBookOpen  As Boolean
+Dim OpenBook    As Workbook
+Dim myFolder    As Variant
+
+'====================
+' 変数設定
+'====================
+Filename = Dir("*.xlsx")
+
+'====================
+' メイン処理
+'====================
+Do While Filename <> ""
+    
+    If Filename <> ThisWorkbook.Name Then
+    
+        IsBookOpen = False
+        
+        For Each OpenBook In Workbooks
+                    
+            If OpenBook.Name = Filename Then
+            
+                IsBookOpen = True
+                
+                Exit For
+                
+            End If
+            
+        Next
+        
+        If IsBookOpen = False Then
+                          
+            Workbooks.Open (Filename), UpdateLinks:=1
+                                   
+        End If
+        
+    End If
+    
+    Filename = Dir()
+    
+Loop
+
+End Sub
+```
+
 <br>
 <!-- NEXT INDENT -->

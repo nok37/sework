@@ -17,7 +17,9 @@
     - [pushd / popd　#カレントディレクトリを変更](#pushd--popd　カレントディレクトリを変更)
     - [tree　#配下のファイルをツリー階層で取得](#tree　配下のファイルをツリー階層で取得)
 - [３．バッチファイル(bat)](#３．バッチファイルbat)
-    - [全般・設定](#全般・設定)
+    - [コメント](#コメント)
+    - [独自のバッチファイル](#独自のバッチファイル)
+        - [仕事開始（start.bat）](#仕事開始startbat)
 - [４．プログラムから実行(win + r)](#４．プログラムから実行win--r)
     - [設定系](#設定系)
     - [アプリ起動系](#アプリ起動系)
@@ -271,10 +273,29 @@ C:.
 <a id="markdown-３．バッチファイルbat" name="３．バッチファイルbat"></a>
 ## ３．バッチファイル(bat)
 
-<a id="markdown-全般・設定" name="全般・設定"></a>
-### 全般・設定
-| コマンド | メモ |
-| --- | --- |
+<a id="markdown-コメント" name="コメント"></a>
+### コメント
+
+```bat
+rem コメント
+```
+
+<a id="markdown-独自のバッチファイル" name="独自のバッチファイル"></a>
+### 独自のバッチファイル
+
+<a id="markdown-仕事開始startbat" name="仕事開始startbat"></a>
+#### 仕事開始（start.bat）
+
+```bat
+@echo off
+rem ########################################
+rem # 名前：仕事開始
+rem # 機能：仕事開始用にプロセスを起動する。
+rem # 備考：
+rem ########################################
+
+
+```
 
 <br>
 <!-- NEXT INDENT -->
@@ -303,6 +324,9 @@ C:.
 | cmd | ctrl + Shift + Enterで管理者として実行 |
 | shell:startup | スタートアップ※PC起動で実行されるファイル |
 | mstsc | リモートデスクトップ接続(MicroSoft Terminal Services Client) |
+
+powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge '-private %OPENFILE%'　Edgeのプライベート起動
+
 
 <a id="markdown-独自コマンドの実行" name="独自コマンドの実行"></a>
 ### 独自コマンドの実行

@@ -31,17 +31,22 @@
     - [vim　#高機能なテキストエディタ](#vim　高機能なテキストエディタ)
     - [yum　#RedHat系で利用されるパッケージ管理ツール](#yum　redhat系で利用されるパッケージ管理ツール)
     - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
+    - [以下整理中](#以下整理中)
 - [３．シェル](#３．シェル)
     - [用語説明](#用語説明)
         - [シェバン](#シェバン)
         - [セカンダリプロンプト](#セカンダリプロンプト)
     - [引数／特殊変数](#引数／特殊変数)
+    - [比較](#比較)
+        - [文字列比較](#文字列比較)
+        - [数値比較](#数値比較)
     - [サンプル](#サンプル)
 - [４．組み合わせ便利コマンド](#４．組み合わせ便利コマンド)
-    - [無限ループ](#無限ループ)
-    - [リスト読込](#リスト読込)
-    - [ファイル読込](#ファイル読込)
-    - [ファイル存在確認](#ファイル存在確認)
+    - [無限ループ（while true）](#無限ループwhile-true)
+    - [リスト読込（for ～ in）](#リスト読込for--in)
+    - [ファイル読込（while read）](#ファイル読込while-read)
+    - [ファイル存在確認（if）](#ファイル存在確認if)
+    - [文字列の比較（if）](#文字列の比較if)
 
 <!-- /TOC -->
 ---
@@ -149,6 +154,7 @@ fi
 $ date
 2022年 4月  2日 土曜日 09:30:07
 
+# ctrl + r → d
 (reverse-i-search)`d': date
 ```
 
@@ -440,18 +446,45 @@ $ echo '09AZｱ'
 <a id="markdown-openssl　証明書の作成" name="openssl　証明書の作成"></a>
 ### openssl　#証明書の作成
 ローカルでWEBサーバを公開する際に、以下手順で自己証明書を作成する。  
-※Javaに取り込む場合は「keytool」コマンドを使用する。  
+※Javaに取り込む場合は「[keytool](#keytool　鍵と証明書を管理)」コマンドを使用する。  
 ※登録時に指定した「CN」が公開するホスト名と一致する必要がある。
 
 ```bash
 # 秘密鍵の作成
-openssl genrsa 2048 > server.key
+$ openssl genrsa 2048 > server.key
+Generating RSA private key, 2048 bit long modulus (2 primes)
+..........................+++++
+..+++++
+e is 65537 (0x010001)
 
 # 証明書署名要求(CSR:Certificate Signing Request)の作成
-openssl req -new -key server.key > server.csr
+# サンプルなので適当な自己証明書を作る
+$ openssl req -new -key server.key > server.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:JP
+State or Province Name (full name) [Some-State]:Kanagawa
+Locality Name (eg, city) []:Kawasaki
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Gunma
+Organizational Unit Name (eg, section) []:Kiryu
+Common Name (e.g. server FQDN or YOUR name) []:localhost
+Email Address []:hoge@email.com
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
 
 # SSLサーバー証明書(crt形式)の作成
-openssl x509 -days 3650 -req -signkey server.key < server.csr > server.crt
+$ openssl x509 -days 3650 -req -signkey server.key < server.csr > server.crt
+Signature ok
+subject=C = JP, ST = Kanagawa, L = Kawasaki, O = Gunma, OU = Kiryu, CN = localhost, emailAddress = hoge@email.com
+Getting Private key
+
 ```
 
 <a id="markdown-route　ルーティングテーブルの管理" name="route　ルーティングテーブルの管理"></a>
@@ -744,6 +777,17 @@ $ xxd -E -g1 ./EBCDIC
 ※EBCDICのf2⇒数値の2
 ```
 
+<a id="markdown-以下整理中" name="以下整理中"></a>
+### 以下整理中
+
+!!　#直前のコマンドを実行
+cd　#カレントディレクトリの変更
+find　#ファイルを検索する
+awk　#文字列を高度に整形する
+cut　#文字列を特定のパターンで切り出す
+xargs　#引数からコマンドを組み立て実行する
+ls　#ファイルリストを表示する
+
 <br>
 <!-- NEXT INDENT -->
 
@@ -791,6 +835,15 @@ $* = 1 2 3
 #「$?」直前コマンドの「終了ステータス（正常=0）」
 $? = 0
 ```
+
+<a id="markdown-比較" name="比較"></a>
+### 比較
+
+<a id="markdown-文字列比較" name="文字列比較"></a>
+#### 文字列比較
+
+<a id="markdown-数値比較" name="数値比較"></a>
+#### 数値比較
 
 <a id="markdown-サンプル" name="サンプル"></a>
 ### サンプル
@@ -842,37 +895,46 @@ f_main
 <a id="markdown-４．組み合わせ便利コマンド" name="４．組み合わせ便利コマンド"></a>
 ## ４．組み合わせ便利コマンド
 
-<a id="markdown-無限ループ" name="無限ループ"></a>
-### 無限ループ
+<a id="markdown-無限ループwhile-true" name="無限ループwhile-true"></a>
+### 無限ループ（while true）
 
 ```bash
 # 無限ループ
 while true; do date; echo "hello !"; sleep 1s; done
 ```
 
-<a id="markdown-リスト読込" name="リスト読込"></a>
-### リスト読込
+<a id="markdown-リスト読込for--in" name="リスト読込for--in"></a>
+### リスト読込（for ～ in）
 
 ```bash
 # git最新化（※xxxフォルダを除く）
 for f in */.git;do (f=${f%/*}; if [ $f != "xxx" ]; then cd $f; git pull; fi);done;
 ```
 
-<a id="markdown-ファイル読込" name="ファイル読込"></a>
-### ファイル読込
+<a id="markdown-ファイル読込while-read" name="ファイル読込while-read"></a>
+### ファイル読込（while read）
 
 ```bash
 # ファイルを読み込み、1行ずつ処理する
 while read line; do md5sum $line;done <bkup.txt
 ```
 
-<a id="markdown-ファイル存在確認" name="ファイル存在確認"></a>
-### ファイル存在確認
+<a id="markdown-ファイル存在確認if" name="ファイル存在確認if"></a>
+### ファイル存在確認（if）
 
 ```bash
 # ファイル存在確認結果を表示
 if [ -e $FILE ];then echo "OK";else echo "NG";fi
 ```
+
+<a id="markdown-文字列の比較if" name="文字列の比較if"></a>
+### 文字列の比較（if）
+
+```bash
+# 文字列の比較結果を表示
+if [ "test" = "test" ];then echo "OK";else echo "NG";fi
+```
+
 
 <br>
 <!-- NEXT INDENT -->
