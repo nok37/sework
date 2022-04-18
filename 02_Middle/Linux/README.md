@@ -3,13 +3,14 @@
 
 <!-- TOC -->
 
-- [１．設定 ・ 豆知識](#１．設定-・-豆知識)
+- [１．設定](#１．設定)
     - [コマンドの実行パス](#コマンドの実行パス)
-    - [ssh接続時に表示される文言](#ssh接続時に表示される文言)
     - [bash設定](#bash設定)
     - [cron](#cron)
     - [ショートカット](#ショートカット)
         - [ctrl + r　#コマンド実行履歴の検索](#ctrl--r　コマンド実行履歴の検索)
+    - [豆知識](#豆知識)
+        - [ssh接続時に表示される文言　#motd](#ssh接続時に表示される文言　motd)
 - [２．コマンド](#２．コマンド)
     - [ac　#ユーザのログイン時間を表示する](#ac　ユーザのログイン時間を表示する)
     - [awk　#文字列を高度に整形する](#awk　文字列を高度に整形する)
@@ -34,6 +35,7 @@
     - [umask　#デフォルトの権限を決定する](#umask　デフォルトの権限を決定する)
     - [vim　#高機能なテキストエディタ](#vim　高機能なテキストエディタ)
     - [yum　#RedHat系で利用されるパッケージ管理ツール](#yum　redhat系で利用されるパッケージ管理ツール)
+    - [xargs　#引数からコマンドを組み立て実行する](#xargs　引数からコマンドを組み立て実行する)
     - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
     - [!!　#直前のコマンドを実行](#　直前のコマンドを実行)
     - [以下整理中](#以下整理中)
@@ -58,8 +60,8 @@
 <br>
 <!-- NEXT INDENT -->
 
-<a id="markdown-１．設定-・-豆知識" name="１．設定-・-豆知識"></a>
-## １．設定 ・ 豆知識
+<a id="markdown-１．設定" name="１．設定"></a>
+## １．設定
 
 <a id="markdown-コマンドの実行パス" name="コマンドの実行パス"></a>
 ### コマンドの実行パス
@@ -75,13 +77,6 @@ $ echo $PATH
 
 ```bash
 $ export PATH=$NODE_HOME/bin:$PATH
-```
-
-<a id="markdown-ssh接続時に表示される文言" name="ssh接続時に表示される文言"></a>
-### ssh接続時に表示される文言
-Message of the dayの略
-```bash
-/etc/motd
 ```
 
 <a id="markdown-bash設定" name="bash設定"></a>
@@ -161,6 +156,17 @@ $ date
 
 # ctrl + r → d
 (reverse-i-search)`d': date
+```
+
+<a id="markdown-豆知識" name="豆知識"></a>
+### 豆知識
+
+<a id="markdown-ssh接続時に表示される文言　motd" name="ssh接続時に表示される文言　motd"></a>
+#### ssh接続時に表示される文言　#motd
+Message of the dayの略
+
+```bash
+/etc/motd
 ```
 
 <br>
@@ -876,6 +882,15 @@ $ head -n 1 /usr/bin/yum
 #!/usr/bin/python
 ```
 
+<a id="markdown-xargs　引数からコマンドを組み立て実行する" name="xargs　引数からコマンドを組み立て実行する"></a>
+### xargs　#引数からコマンドを組み立て実行する
+
+```bash
+# 直前のコマンドの実行結果を渡す
+$ ls README.md | xargs md5sum
+ccd981a6716bb3b91569e45d336b28d0 *README.md
+```
+
 <a id="markdown-xxd　2進数でダンプする" name="xxd　2進数でダンプする"></a>
 ### xxd　#2進数でダンプする  
 
@@ -938,8 +953,8 @@ vi `find ./ -name "*md"`
 
 
 
-xargs　#引数からコマンドを組み立て実行する
-ls　#ファイルリストを表示する
+
+
 
 <br>
 <!-- NEXT INDENT -->
