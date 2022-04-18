@@ -9,7 +9,7 @@
     - [挿入(Insert)](#挿入insert)
 - [４．マクロ](#４．マクロ)
     - [自作マクロ](#自作マクロ)
-        - [ファイル抽出　★作成中](#ファイル抽出　★作成中)
+        - [ファイル抽出](#ファイル抽出)
 
 <!-- /TOC -->
 ---
@@ -58,60 +58,73 @@
 <a id="markdown-自作マクロ" name="自作マクロ"></a>
 ### 自作マクロ
 
-<a id="markdown-ファイル抽出　★作成中" name="ファイル抽出　★作成中"></a>
-#### ファイル抽出　★作成中
+<a id="markdown-ファイル抽出" name="ファイル抽出"></a>
+#### ファイル抽出
 
 ```vb
 Sub OpenAllFile()
-'##############################
-'# 関数名：
-'# 機能名：
-'##############################
+'##################################################
+'# 名前：ファイルオープン
+'# 機能：マクロ格納ディレクトリ配下のファイルを
+'#       全て開いて閉じる
+'# 備考：
+'##################################################
 
-'====================
+'========================================
 ' 変数定義
-'====================
-Dim Filename    As String
-Dim IsBookOpen  As Boolean
-Dim OpenBook    As Workbook
-Dim myFolder    As Variant
+'========================================
+Dim strFilePath        As String
+Dim strFileFullPath    As String
+Dim strFileName        As String
+Dim strExtension       As String
+Dim wbMain             As Workbook
+Dim wbOpen             As Workbook
+Dim wsMain             As Worksheet
+Dim wsOpen             As Worksheet
 
-'====================
+'========================================
 ' 変数設定
-'====================
-Filename = Dir("*.xlsx")
+'========================================
+'ブックの設定
+Set wbMain = ThisWorkbook
+'シートの設定
+Set wsMain = wbMain.ActiveSheet
+'拡張子の設定
+strExtension = "xlsx"
+'ファイルオープンフラグの初期化
+flgOpen = False
+'ファイル名の設定
+strFilePath = wbMain.Path
+strFileName = Dir(strFilePath + "\*" + strExtension)
+strFileFullPath = strFilePath + "\" + strFileName
 
-'====================
+'========================================
 ' メイン処理
-'====================
-Do While Filename <> ""
-    
-    If Filename <> ThisWorkbook.Name Then
-    
-        IsBookOpen = False
-        
-        For Each OpenBook In Workbooks
-                    
-            If OpenBook.Name = Filename Then
-            
-                IsBookOpen = True
-                
-                Exit For
-                
-            End If
-            
-        Next
-        
-        If IsBookOpen = False Then
-                          
-            Workbooks.Open (Filename), UpdateLinks:=1
-                                   
-        End If
-        
+'========================================
+Do While strFileName <> ""
+
+    'ファイル名の確認
+    If strFileName <> wbMain.Name Then
+        'ファイルオープン
+        Workbooks.Open (strFileFullPath)
+        'アクティブブックの設定
+        Set wbOpen = ActiveWorkbook
+        'アクティブシートの設定
+        Set wsOpen = wbOpen.ActiveSheet
+        'デバッグ用
+        Debug.Print (strFileName)
+        Debug.Print (wsOpen.Cells(1, 1))
+        Debug.Print (wsOpen.Range("A1"))
+        'マクロシートに書き込み
+        'wsMain.Range("A1") = wsOpen.Range("A1")
+        'ファイルクローズ
+        Workbooks(strFileName).Close SaveChanges:=False
     End If
     
-    Filename = Dir()
-    
+    '次のファイル名を取得
+    strFileName = Dir()
+    strFileFullPath = strFilePath + "\" + strFileName
+
 Loop
 
 End Sub
