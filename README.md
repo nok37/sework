@@ -24,3 +24,8 @@
 - [サクラエディタ](/03_Tool/Sakura/README.md)
 - [Excel](/03_Tool/Excel/README.md)
 - [Git](/03_Tool/Git/README.md)
+
+### ４．その他
+---
+- [FE](/04_Other/FE/README.md)
+- [NW](/04_Other/NW/README.md)
