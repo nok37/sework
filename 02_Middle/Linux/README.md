@@ -12,13 +12,17 @@
         - [ctrl + r　#コマンド実行履歴の検索](#ctrl--r　コマンド実行履歴の検索)
 - [２．コマンド](#２．コマンド)
     - [ac　#ユーザのログイン時間を表示する](#ac　ユーザのログイン時間を表示する)
+    - [awk　#文字列を高度に整形する](#awk　文字列を高度に整形する)
     - [bc　#任意精度の計算言語](#bc　任意精度の計算言語)
     - [cancel　#印刷ジョブを取り消す](#cancel　印刷ジョブを取り消す)
+    - [cd　#カレントディレクトリの変更](#cd　カレントディレクトリの変更)
     - [chmod　#ファイルの権限を変更する](#chmod　ファイルの権限を変更する)
     - [cupsdisabl　#プリンタ無効化](#cupsdisabl　プリンタ無効化)
     - [cupsenable　#プリンタ有効化](#cupsenable　プリンタ有効化)
     - [curl  #HTTPなどの通信プロトコルでデータを転送する](#curl--httpなどの通信プロトコルでデータを転送する)
+    - [cut　#文字列を特定のパターンで切り出す](#cut　文字列を特定のパターンで切り出す)
     - [dc　#無限精度の計算が行える卓上計算機](#dc　無限精度の計算が行える卓上計算機)
+    - [find　#ファイルを検索する](#find　ファイルを検索する)
     - [grep　#パターンにマッチする箇所を表示](#grep　パターンにマッチする箇所を表示)
     - [ifconfig　#ネットワークインターフェースの管理](#ifconfig　ネットワークインターフェースの管理)
     - [keytool　#鍵と証明書を管理](#keytool　鍵と証明書を管理)
@@ -31,6 +35,7 @@
     - [vim　#高機能なテキストエディタ](#vim　高機能なテキストエディタ)
     - [yum　#RedHat系で利用されるパッケージ管理ツール](#yum　redhat系で利用されるパッケージ管理ツール)
     - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
+    - [!!　#直前のコマンドを実行](#　直前のコマンドを実行)
     - [以下整理中](#以下整理中)
 - [３．シェル](#３．シェル)
     - [用語説明](#用語説明)
@@ -166,13 +171,42 @@ $ date
 
 <a id="markdown-ac　ユーザのログイン時間を表示する" name="ac　ユーザのログイン時間を表示する"></a>
 ### ac　#ユーザのログイン時間を表示する
-※/var/log/wtmp 」を参照している
+※/var/log/wtmp を参照している
 
 ```bash
 $ ac -p
         takahana                            81.90
         root                                 0.01
         total       81.91
+```
+
+<a id="markdown-awk　文字列を高度に整形する" name="awk　文字列を高度に整形する"></a>
+### awk　#文字列を高度に整形する
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+| -F 区切り文字 | 区切り文字の指定（デフォルトは空白） |
+| -v 変数名=値 | 変数を定義する |
+
+|  組み込み変数  |  詳細  |
+| ---- | ---- |
+
+|  文字列操作関数  |  詳細  |
+| ---- | ---- |
+
+```bash
+# 9番目の値のみ表示
+$ ls -l /usr/bin/vi* | awk '{print $9}'
+/usr/bin/vi
+/usr/bin/view
+/usr/bin/vim
+/usr/bin/vimdiff
+/usr/bin/vimtutor
+/usr/bin/vinagre
+
+# sed + cut でも同様の操作が可能
+$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+
 ```
 
 <a id="markdown-bc　任意精度の計算言語" name="bc　任意精度の計算言語"></a>
@@ -195,6 +229,37 @@ For details type `warranty'.
 ```bash
 # キュー全削除（※root権限）
 $ cancel -a TESTPRT
+```
+
+<a id="markdown-cd　カレントディレクトリの変更" name="cd　カレントディレクトリの変更"></a>
+### cd　#カレントディレクトリの変更
+
+```bash
+# 絶対パスで移動
+$ cd /home
+$ pwd
+/home
+
+# 相対パスで移動
+$ cd ./takahana
+$ pwd
+/home/takahana
+
+# 直前のディレクトリに移動
+$ cd -
+$ pwd
+/home
+
+# ホームディレクトリに移動
+$ cd ~
+$ pwd
+/home/takahana
+
+# ホームディレクトリに移動（~は省略可能）
+$ cd
+$ pwd
+/home/takahana
+
 ```
 
 <a id="markdown-chmod　ファイルの権限を変更する" name="chmod　ファイルの権限を変更する"></a>
@@ -338,6 +403,25 @@ $ curl --cacert ./server.crt -X POST 'http://localhost:5050/api/'
 $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
 ```
 
+<a id="markdown-cut　文字列を特定のパターンで切り出す" name="cut　文字列を特定のパターンで切り出す"></a>
+### cut　#文字列を特定のパターンで切り出す
+
+|  オプション  |  詳細  |
+| ---- | ---- |
+| d | デリミタの指定 |
+| f | フィールド（何番目か）指定 |
+
+```bash
+# 9番目を表示
+$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+/usr/bin/vi
+/usr/bin/view
+/usr/bin/vim
+/usr/bin/vimdiff
+/usr/bin/vimtutor
+/usr/bin/vinagre
+```
+
 <a id="markdown-dc　無限精度の計算が行える卓上計算機" name="dc　無限精度の計算が行える卓上計算機"></a>
 ### dc　#無限精度の計算が行える卓上計算機
 ※逆ポーランド形式
@@ -348,6 +432,30 @@ $ dc
 27 1 2 + 2 ^ / 2 * 
 p
 6
+```
+
+<a id="markdown-find　ファイルを検索する" name="find　ファイルを検索する"></a>
+### find　#ファイルを検索する
+
+使い方
+```bash
+$ find [検索パス] [検索条件] [アクション※任意]
+```
+
+検索条件
+```bash
+# ファイル名検索
+$ find ./ -name sample.txt
+
+# ファイルタイプ検索（ファイル）
+$ find ./ -type f
+
+# ファイルタイプ検索（ディレクトリ）
+$ find ./ -type d
+```
+
+アクション
+```bash
 ```
 
 <a id="markdown-grep　パターンにマッチする箇所を表示" name="grep　パターンにマッチする箇所を表示"></a>
@@ -510,12 +618,19 @@ default         gateway         0.0.0.0         UG    100    0        0 enp0s3
 |  i拡張子  |  ファイルを直接編集し、拡張子の退避ファイル作成  |
 <br>
 
-・コマンド実行例
+基本
 ```bash
 #標準出力の編集
 $ echo "2020/07/11" | sed -e 's/\///g'
 20200711
 
+# 区切りはスラッシュ以外でも可能
+$ echo "2020/07/11" | sed -e 's%/%%g'
+20200711
+```
+
+ファイル中身操作
+```bash
 #ファイルの編集
 $ grep user *sh
 test1.sh:echo "user1"
@@ -536,6 +651,24 @@ $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
 
 #バイナリファイルの編集
 $ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
+```
+
+ファイル操作
+```bash
+# 拡張子の変更
+$ find ./ -name "test*.sh"
+./test1.sh
+./test2.sh
+
+$ find ./ -name "test*.sh" | sed -nr 's/(.*)\.sh/mv & \1\.txt/p'
+mv ./test1.sh ./test1.txt
+mv ./test2.sh ./test2.txt
+
+$ find ./ -name "test*.sh" | sed -nr 's/(.*)\.sh/mv & \1\.txt/p' | bash
+
+$ ls -1
+test1.txt
+test2.txt
 ```
 
 <a id="markdown-umask　デフォルトの権限を決定する" name="umask　デフォルトの権限を決定する"></a>
@@ -777,14 +910,34 @@ $ xxd -E -g1 ./EBCDIC
 ※EBCDICのf2⇒数値の2
 ```
 
+<a id="markdown-　直前のコマンドを実行" name="　直前のコマンドを実行"></a>
+### !!　#直前のコマンドを実行
+
+```bash
+$ find ./ -name "*md"
+./README.md
+
+# !! 直前のコマンドを実行
+$ !!
+./README.md
+
+# !! 直前のfから始まるコマンドを実行
+$ !f
+./README.md
+
+# 応用
+# 直前のコマンド実行結果を他のコマンドに渡す
+$ vi `!!`
+vi `find ./ -name "*md"`
+```
+
 <a id="markdown-以下整理中" name="以下整理中"></a>
 ### 以下整理中
 
-!!　#直前のコマンドを実行
-cd　#カレントディレクトリの変更
-find　#ファイルを検索する
-awk　#文字列を高度に整形する
-cut　#文字列を特定のパターンで切り出す
+
+
+
+
 xargs　#引数からコマンドを組み立て実行する
 ls　#ファイルリストを表示する
 
