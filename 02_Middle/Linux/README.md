@@ -8,6 +8,8 @@
     - [bash設定](#bash設定)
     - [cron](#cron)
     - [ショートカット](#ショートカット)
+        - [alt + v　#ターミナルの複製](#alt--v　ターミナルの複製)
+        - [ctrl + d　#ログアウト](#ctrl--d　ログアウト)
         - [ctrl + r　#コマンド実行履歴の検索](#ctrl--r　コマンド実行履歴の検索)
     - [豆知識](#豆知識)
         - [ssh接続時に表示される文言　#motd](#ssh接続時に表示される文言　motd)
@@ -66,59 +68,60 @@
 <a id="markdown-コマンドの実行パス" name="コマンドの実行パス"></a>
 ### コマンドの実行パス
 コマンド実行時は左から順にパスを確認しコマンド実行する。  
-・ パスの確認
 
-```bash
-$ echo $PATH
-/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
-```
+* パスの確認
+  ```bash
+  $ echo $PATH
+  /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+  ```
 
-・ パスの追加
-
-```bash
-$ export PATH=$NODE_HOME/bin:$PATH
-```
+* パスの追加
+  ```bash
+  $ export PATH=$NODE_HOME/bin:$PATH
+  ```
 
 <a id="markdown-bash設定" name="bash設定"></a>
 ### bash設定
-・.bash_profile  
-→ ログイン時にのみ実行される  
-→ 環境変数を設定する (export する変数)  
 
-```bash
-# .bash_profile
+* .bash_profile  
+ログイン時にのみ実行される  
+環境変数を設定する (export する変数)  
 
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-        . ~/.bashrc
-fi
+  ```bash
+  # .bash_profile
 
-# User specific environment and startup programs
+  # Get the aliases and functions
+  if [ -f ~/.bashrc ]; then
+          . ~/.bashrc
+  fi
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+  # User specific environment and startup programs
 
-export PATH
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-```
+  PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
-・.bashrc  
-→ シェルを起動する度に実行される  
-→ エイリアスを定義する  
-```bash
-# .bashrc
+  export PATH
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+  ```
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
+* .bashrc  
+シェルを起動する度に実行される  
+エイリアスを定義する  
+  ```bash
+  # .bashrc
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
+  # Source global definitions
+  if [ -f /etc/bashrc ]; then
+          . /etc/bashrc
+  fi
 
-# User specific aliases and functions
-```
+  # Uncomment the following line if you don't like systemctl's auto-paging feature:
+  # export SYSTEMD_PAGER=
+
+  # User specific aliases and functions
+  ```
+
 まとめると  
 ・ログインシェル→ .bash_profile(→ .bashrc)  
 ・インタラクティブシェル→ .bashrc  
@@ -127,25 +130,32 @@ fi
 <a id="markdown-cron" name="cron"></a>
 ### cron
 
-```bash
-# /etc/crontab システムジョブ(root権限で実行される)
-# /var/spool/cron/[user] ユーザジョブ
+* 基本
+  ```bash
+  # /etc/crontab システムジョブ(root権限で実行される)
+  # /var/spool/cron/[user] ユーザジョブ
 
-# Example of job definition:
-# .---------------- minute (0 - 59)
-# |  .------------- hour (0 - 23)
-# |  |  .---------- day of month (1 - 31)
-# |  |  |  .------- month (1 - 12) OR jan,feb...
-# |  |  |  |  .---- day of week (0 - 6) OR sun,mon...
-# |  |  |  |  |
-# *  *  *  *  * user-name  command to be executed
+  # Example of job definition:
+  # .---------------- minute (0 - 59)
+  # |  .------------- hour (0 - 23)
+  # |  |  .---------- day of month (1 - 31)
+  # |  |  |  .------- month (1 - 12) OR jan,feb...
+  # |  |  |  |  .---- day of week (0 - 6) OR sun,mon...
+  # |  |  |  |  |
+  # *  *  *  *  * user-name  command to be executed
 
-# 例）毎日0時にrootメールを削除する
-0 0 * * * cat /dev/null > /var/spool/mail/root
-```
+  # 例）毎日0時にrootメールを削除する
+  0 0 * * * cat /dev/null > /var/spool/mail/root
+  ```
 
 <a id="markdown-ショートカット" name="ショートカット"></a>
 ### ショートカット
+
+<a id="markdown-alt--v　ターミナルの複製" name="alt--v　ターミナルの複製"></a>
+#### alt + v　#ターミナルの複製
+
+<a id="markdown-ctrl--d　ログアウト" name="ctrl--d　ログアウト"></a>
+#### ctrl + d　#ログアウト
 
 <a id="markdown-ctrl--r　コマンド実行履歴の検索" name="ctrl--r　コマンド実行履歴の検索"></a>
 #### ctrl + r　#コマンド実行履歴の検索
@@ -177,96 +187,102 @@ Message of the dayの略
 
 <a id="markdown-ac　ユーザのログイン時間を表示する" name="ac　ユーザのログイン時間を表示する"></a>
 ### ac　#ユーザのログイン時間を表示する
-※/var/log/wtmp を参照している
 
-```bash
-$ ac -p
-        takahana                            81.90
-        root                                 0.01
-        total       81.91
-```
+* 基本 </br>
+※/var/log/wtmp を参照している
+  ```bash
+  $ ac -p
+          takahana                            81.90
+          root                                 0.01
+          total       81.91
+  ```
 
 <a id="markdown-awk　文字列を高度に整形する" name="awk　文字列を高度に整形する"></a>
 ### awk　#文字列を高度に整形する
 
-|  オプション  |  詳細  |
-| ---- | ---- |
-| -F 区切り文字 | 区切り文字の指定（デフォルトは空白） |
-| -v 変数名=値 | 変数を定義する |
+* まとめ
 
-|  組み込み変数  |  詳細  |
-| ---- | ---- |
+  |  オプション  |  詳細  |
+  | ---- | ---- |
+  | -F 区切り文字 | 区切り文字の指定（デフォルトは空白） |
+  | -v 変数名=値 | 変数を定義する |
 
-|  文字列操作関数  |  詳細  |
-| ---- | ---- |
+  |  組み込み変数  |  詳細  |
+  | ---- | ---- |
 
-```bash
-# 9番目の値のみ表示
-$ ls -l /usr/bin/vi* | awk '{print $9}'
-/usr/bin/vi
-/usr/bin/view
-/usr/bin/vim
-/usr/bin/vimdiff
-/usr/bin/vimtutor
-/usr/bin/vinagre
+  |  文字列操作関数  |  詳細  |
+  | ---- | ---- |
 
-# sed + cut でも同様の操作が可能
-$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+* 基本
+  ```bash
+  # 9番目の値のみ表示
+  $ ls -l /usr/bin/vi* | awk '{print $9}'
+  /usr/bin/vi
+  /usr/bin/view
+  /usr/bin/vim
+  /usr/bin/vimdiff
+  /usr/bin/vimtutor
+  /usr/bin/vinagre
 
-```
+  # sed + cut でも同様の操作が可能
+  $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+
+  ```
 
 <a id="markdown-bc　任意精度の計算言語" name="bc　任意精度の計算言語"></a>
 ### bc　#任意精度の計算言語
 
-```bash
-#単純な計算　1+2+3+4+5
-$ bc
-bc 1.06.95
-Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
-This is free software with ABSOLUTELY NO WARRANTY.
-For details type `warranty'.
-1+2+3+4+5
-15
-```
+* 基本
+  ```bash
+  #単純な計算　1+2+3+4+5
+  $ bc
+  bc 1.06.95
+  Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
+  This is free software with ABSOLUTELY NO WARRANTY.
+  For details type `warranty'.
+  1+2+3+4+5
+  15
+  ```
 
 <a id="markdown-cancel　印刷ジョブを取り消す" name="cancel　印刷ジョブを取り消す"></a>
 ### cancel　#印刷ジョブを取り消す
 
-```bash
-# キュー全削除（※root権限）
-$ cancel -a TESTPRT
-```
+* 基本
+  ```bash
+  # キュー全削除（※root権限）
+  $ cancel -a TESTPRT
+  ```
 
 <a id="markdown-cd　カレントディレクトリの変更" name="cd　カレントディレクトリの変更"></a>
 ### cd　#カレントディレクトリの変更
 
-```bash
-# 絶対パスで移動
-$ cd /home
-$ pwd
-/home
+* 基本
+  ```bash
+  # 絶対パスで移動
+  $ cd /home
+  $ pwd
+  /home
 
-# 相対パスで移動
-$ cd ./takahana
-$ pwd
-/home/takahana
+  # 相対パスで移動
+  $ cd ./takahana
+  $ pwd
+  /home/takahana
 
-# 直前のディレクトリに移動
-$ cd -
-$ pwd
-/home
+  # 直前のディレクトリに移動
+  $ cd -
+  $ pwd
+  /home
 
-# ホームディレクトリに移動
-$ cd ~
-$ pwd
-/home/takahana
+  # ホームディレクトリに移動
+  $ cd ~
+  $ pwd
+  /home/takahana
 
-# ホームディレクトリに移動（~は省略可能）
-$ cd
-$ pwd
-/home/takahana
-
-```
+  # ホームディレクトリに移動（~は省略可能）
+  $ cd
+  $ pwd
+  /home/takahana
+  ```
 
 <a id="markdown-chmod　ファイルの権限を変更する" name="chmod　ファイルの権限を変更する"></a>
 ### chmod　#ファイルの権限を変更する

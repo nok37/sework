@@ -27,5 +27,4 @@
 
 ### ４．その他
 ---
-- [FE](/04_Other/FE/README.md)
-- [NW](/04_Other/NW/README.md)
+- [索引](/04_Index/README.md)
