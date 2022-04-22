@@ -481,11 +481,10 @@ Message of the dayの略
 * 必須レベル：★★★☆☆
 
 * オプション
-
-|  オプション  |  詳細  |
-| ---- | ---- |
-| d | デリミタの指定 |
-| f | フィールド（何番目か）指定 |
+  |  オプション  |  詳細  |
+  | ---- | ---- |
+  | d | デリミタの指定 |
+  | f | フィールド（何番目か）指定 |
 
 * 使い方
   ```bash
@@ -518,493 +517,530 @@ Message of the dayの略
 
 * 必須レベル：★★★★★
 
-* 使い方
+* オプション
   ```bash
   # オプション指定
   $ find [検索パス] [検索条件] [アクション※任意]
   ```
+  
+* 使い方
+  ```bash
+  # ファイル名検索
+  # 現ディレクトリ配下の「sample.txt」というファイルを検索
+  $ find ./ -name sample.txt
 
-検索条件
-```bash
-# ファイル名検索
-$ find ./ -name sample.txt
+  # ファイルタイプ検索（ファイル）
+  # 「/home/takahana」配下のファイルを検索
+  $ find /home/takahana -type f
 
-# ファイルタイプ検索（ファイル）
-$ find ./ -type f
+  # ファイルタイプ検索（ディレクトリ）
+  # 現ディレクトリ配下の「test」というディレクトリを検索
+  $ find ./ -type d -name test
 
-# ファイルタイプ検索（ディレクトリ）
-$ find ./ -type d
-```
-
-アクション
-```bash
-```
+  # アクション指定
+  ```
 
 <a id="markdown-grep　パターンにマッチする箇所を表示" name="grep　パターンにマッチする箇所を表示"></a>
 ### grep　#パターンにマッチする箇所を表示
 
-正規表現
-```bash
-# 基本正規表現（デフォルトのため省略可能）
-$ grep -G "hoge"
+* 必須レベル：★★★★★
 
-# 拡張正規表現
-$ grep -E "hoge"
-```
+* オプション
+  * 正規表現
+    ```bash
+    # 基本正規表現（デフォルトのため省略可能）
+    $ grep -G "hoge"
 
-マッチングの制御
-```bash
-```
-
+    # 拡張正規表現
+    $ grep -E "hoge"
+    ```
+  * マッチングの制御
+    ```bash
+    ```
+    
+* 使い方
 
 <a id="markdown-ifconfig　ネットワークインターフェースの管理" name="ifconfig　ネットワークインターフェースの管理"></a>
 ### ifconfig　#ネットワークインターフェースの管理
 
-```bash
-$ ifconfig -a
-virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
-        ether 52:54:00:b2:bf:b7  txqueuelen 1000  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-```
+* 必須レベル：★★★☆☆
+
+* 使い方
+  ```bash
+  $ ifconfig -a
+  virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+          inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+          ether 52:54:00:b2:bf:b7  txqueuelen 1000  (Ethernet)
+          RX packets 0  bytes 0 (0.0 B)
+          RX errors 0  dropped 0  overruns 0  frame 0
+          TX packets 0  bytes 0 (0.0 B)
+          TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+  ```
 
 <a id="markdown-keytool　鍵と証明書を管理" name="keytool　鍵と証明書を管理"></a>
 ### keytool　#鍵と証明書を管理
+
+* 必須レベル：★★☆☆☆
+
+* 使い方<br>
 ※デフォルトのパスワードは「changeit」
+  ```bash
+  # 登録（jre）
+  $ keytool -import -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts -file server.crt
 
-```bash
-# 登録（jre）
-$ keytool -import -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts -file server.crt
-
-# 確認
-keytool -list -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts
-```
+  # 確認
+  keytool -list -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts
+  ```
 
 <a id="markdown-last　ログイン履歴を表示する" name="last　ログイン履歴を表示する"></a>
 ### last　#ログイン履歴を表示する
 
-```bash
-# ホスト名を最後に表示
-$ last -a
-takahana pts/0        Wed Sep  1 23:36   still logged in    gateway
-reboot   system boot  Wed Sep  1 23:35 - 23:36  (00:01)     3.10.0-1127.19.1.el7.x86_64
+* 必須レベル：★☆☆☆☆
 
-wtmp begins Sat Oct 24 00:56:05 2020
+* 使い方
+  ```bash
+  # ホスト名を最後に表示
+  $ last -a
+  takahana pts/0        Wed Sep  1 23:36   still logged in    gateway
+  reboot   system boot  Wed Sep  1 23:35 - 23:36  (00:01)     3.10.0-1127.19.1.el7.x86_64
 
-# リモートログイン時、ログイン元のIPを表示
-$ last -ai
+  wtmp begins Sat Oct 24 00:56:05 2020
 
-# リモートログイン時、ログイン元のIPをホスト名に変換
-$ last -ad
-```
+  # リモートログイン時、ログイン元のIPを表示
+  $ last -ai
+
+  # リモートログイン時、ログイン元のIPをホスト名に変換
+  $ last -ad
+  ```
 
 <a id="markdown-od　8進数やその他の形式でダンプする" name="od　8進数やその他の形式でダンプする"></a>
 ### od　#8進数やその他の形式でダンプする
 
-|  オプション  |  詳細  |
-| ---- | ---- |
-| -t   | オプションで出力フォーマット指定 |  
-|  c   | ASCII 文字または \ エスケープ文字で表示する |  
-|  x   | 16進数2バイトで表示する（x2と同じ） |  
-|  d   | 10進数2バイトで表示する |  
-<br>
+* 必須レベル：★★☆☆☆
 
-```bash
-# １行目にASCII表示(c)
-# ２行目に16進数1バイト表示(x1)
-# ３行目に10進数1バイト表示(d1)
-$ echo '10AZaz-!'|od -tcx1d1
-0000000    1    0    A    Z    a    z    -    !   \n
-          31   30   41   5a   61   7a   2d   21   0a
-          49   48   65   90   97  122   45   33   10
-0000011
+* オプション
+  |  オプション  |  詳細  |
+  | ---- | ---- |
+  | -t   | オプションで出力フォーマット指定 |  
+  |  c   | ASCII 文字または \ エスケープ文字で表示する |  
+  |  x   | 16進数2バイトで表示する（x2と同じ） |  
+  |  d   | 10進数2バイトで表示する |  
 
-# SJIS
-$ echo '09AZｱ'
-0000000 30 39 41 5a b1 0a
-0000010
-# UTF8
-# ef bdはBOM(バイトオーダーマーク)
-$ echo '09AZｱ'
-0000000 30 39 41 5a ef bd b1 0a
-0000010
-```
+* 使い方
+  ```bash
+  # １行目にASCII表示(c)
+  # ２行目に16進数1バイト表示(x1)
+  # ３行目に10進数1バイト表示(d1)
+  $ echo '10AZaz-!'|od -tcx1d1
+  0000000    1    0    A    Z    a    z    -    !   \n
+            31   30   41   5a   61   7a   2d   21   0a
+            49   48   65   90   97  122   45   33   10
+  0000011
+
+  # SJIS
+  $ echo '09AZｱ'
+  0000000 30 39 41 5a b1 0a
+  0000010
+  
+  # UTF8
+  # ef bdはBOM(バイトオーダーマーク)
+  $ echo '09AZｱ'
+  0000000 30 39 41 5a ef bd b1 0a
+  0000010
+  ```
 
 <a id="markdown-openssl　証明書の作成" name="openssl　証明書の作成"></a>
 ### openssl　#証明書の作成
-ローカルでWEBサーバを公開する際に、以下手順で自己証明書を作成する。  
-※Javaに取り込む場合は「[keytool](#keytool　鍵と証明書を管理)」コマンドを使用する。  
-※登録時に指定した「CN」が公開するホスト名と一致する必要がある。
 
-```bash
-# 秘密鍵の作成
-$ openssl genrsa 2048 > server.key
-Generating RSA private key, 2048 bit long modulus (2 primes)
-..........................+++++
-..+++++
-e is 65537 (0x010001)
+* 必須レベル：★★☆☆☆
 
-# 証明書署名要求(CSR:Certificate Signing Request)の作成
-# サンプルなので適当な自己証明書を作る
-$ openssl req -new -key server.key > server.csr
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:JP
-State or Province Name (full name) [Some-State]:Kanagawa
-Locality Name (eg, city) []:Kawasaki
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:Gunma
-Organizational Unit Name (eg, section) []:Kiryu
-Common Name (e.g. server FQDN or YOUR name) []:localhost
-Email Address []:hoge@email.com
+* 使い方<br>
+ローカルでWEBサーバを公開する際に、以下手順で自己証明書を作成する。<br>
+※Javaに取り込む場合は「[keytool](#keytool　鍵と証明書を管理)」コマンドを使用する。<br>
+※登録時に指定した「CN」が公開するホスト名と一致する必要がある。<br>
 
-Please enter the following 'extra' attributes
-to be sent with your certificate request
-A challenge password []:
+  ```bash
+  # 秘密鍵の作成
+  $ openssl genrsa 2048 > server.key
+  Generating RSA private key, 2048 bit long modulus (2 primes)
+  ..........................+++++
+  ..+++++
+  e is 65537 (0x010001)
 
-# SSLサーバー証明書(crt形式)の作成
-$ openssl x509 -days 3650 -req -signkey server.key < server.csr > server.crt
-Signature ok
-subject=C = JP, ST = Kanagawa, L = Kawasaki, O = Gunma, OU = Kiryu, CN = localhost, emailAddress = hoge@email.com
-Getting Private key
+  # 証明書署名要求(CSR:Certificate Signing Request)の作成
+  # サンプルなので適当な自己証明書を作る
+  $ openssl req -new -key server.key > server.csr
+  You are about to be asked to enter information that will be incorporated
+  into your certificate request.
+  What you are about to enter is what is called a Distinguished Name or a DN.
+  There are quite a few fields but you can leave some blank
+  For some fields there will be a default value,
+  If you enter '.', the field will be left blank.
+  -----
+  Country Name (2 letter code) [AU]:JP
+  State or Province Name (full name) [Some-State]:Kanagawa
+  Locality Name (eg, city) []:Kawasaki
+  Organization Name (eg, company) [Internet Widgits Pty Ltd]:Gunma
+  Organizational Unit Name (eg, section) []:Kiryu
+  Common Name (e.g. server FQDN or YOUR name) []:localhost
+  Email Address []:hoge@email.com
 
-```
+  Please enter the following 'extra' attributes
+  to be sent with your certificate request
+  A challenge password []:
+
+  # SSLサーバー証明書(crt形式)の作成
+  $ openssl x509 -days 3650 -req -signkey server.key < server.csr > server.crt
+  Signature ok
+  subject=C = JP, ST = Kanagawa, L = Kawasaki, O = Gunma, OU = Kiryu, CN = localhost, emailAddress = hoge@email.com
+  Getting Private key
+  ```
 
 <a id="markdown-route　ルーティングテーブルの管理" name="route　ルーティングテーブルの管理"></a>
 ### route　#ルーティングテーブルの管理
 
-```bash
-$ route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         gateway         0.0.0.0         UG    100    0        0 enp0s3
-10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
-192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
-```
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  $ route
+  Kernel IP routing table
+  Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+  default         gateway         0.0.0.0         UG    100    0        0 enp0s3
+  10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+  192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
+  ```
 
 <a id="markdown-sed　文字列置換などのテキスト処理" name="sed　文字列置換などのテキスト処理"></a>
 ### sed　#文字列置換などのテキスト処理
 
-|  オプション  |  詳細  |
-| ---- | ---- |
-|  e  |  スクリプトコマンド実行  |
-|  r  |  拡張正規表現でスクリプトコマンド実行<br>※スクリプトコマンド例（s:/置換前/置換後/g）  |
-|  i  |  ファイルを直接編集  |
-|  i拡張子  |  ファイルを直接編集し、拡張子の退避ファイル作成  |
-<br>
+* 必須レベル：★★☆☆☆
 
-基本
-```bash
-#標準出力の編集
-$ echo "2020/07/11" | sed -e 's/\///g'
-20200711
+* オプション
+  |  オプション  |  詳細  |
+  | ---- | ---- |
+  |  e  |  スクリプトコマンド実行  |
+  |  r  |  拡張正規表現でスクリプトコマンド実行<br>※スクリプトコマンド例（s:/置換前/置換後/g）  |
+  |  i  |  ファイルを直接編集  |
+  |  i拡張子  |  ファイルを直接編集し、拡張子の退避ファイル作成  |
 
-# 区切りはスラッシュ以外でも可能
-$ echo "2020/07/11" | sed -e 's%/%%g'
-20200711
-```
+* 使い方
+  ```bash
+  # 標準出力の編集
+  $ echo "2020/07/11" | sed -e 's/\///g'
+  20200711
 
-ファイル中身操作
-```bash
-#ファイルの編集
-$ grep user *sh
-test1.sh:echo "user1"
-test2.sh:echo "user1"
-$ sed -i -e 's/user1/user2/g' ./*.sh
-$ grep user *sh
-test1.sh:echo "user2"
-test2.sh:echo "user2"
+  # 区切りはスラッシュ以外でも可能
+  $ echo "2020/07/11" | sed -e 's%/%%g'
+  20200711
 
-#スペース削除と任意箇所切り取り
-$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
-/usr/bin/vi
-/usr/bin/view -> vi
-/usr/bin/vim
-/usr/bin/vimdiff -> vim
-/usr/bin/vimtutor
-/usr/bin/vinagre
+  # ファイルの編集
+  $ grep user *sh
+  test1.sh:echo "user1"
+  test2.sh:echo "user1"
+  $ sed -i -e 's/user1/user2/g' ./*.sh
+  $ grep user *sh
+  test1.sh:echo "user2"
+  test2.sh:echo "user2"
 
-#バイナリファイルの編集
-$ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
-```
+  # スペース削除と任意箇所切り取り
+  $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+  /usr/bin/vi
+  /usr/bin/view -> vi
+  /usr/bin/vim
+  /usr/bin/vimdiff -> vim
+  /usr/bin/vimtutor
+  /usr/bin/vinagre
 
-ファイル操作
-```bash
-# 拡張子の変更
-$ find ./ -name "test*.sh"
-./test1.sh
-./test2.sh
+  #バイナリファイルの編集
+  $ xxd -p -c 1000000 ./before | sed "s/f2f0f2f1f0f9f0f1/${AFTER}/g" | xxd -p -r > ./after
 
-$ find ./ -name "test*.sh" | sed -nr 's/(.*)\.sh/mv & \1\.txt/p'
-mv ./test1.sh ./test1.txt
-mv ./test2.sh ./test2.txt
+  # ファイル操作
+  # 拡張子の変更
+  $ find ./ -name "test*.sh"
+  ./test1.sh
+  ./test2.sh
 
-$ find ./ -name "test*.sh" | sed -nr 's/(.*)\.sh/mv & \1\.txt/p' | bash
+  $ find ./ -name "test*.sh" | sed -nr 's/(.*)\.sh/mv & \1\.txt/p'
+  mv ./test1.sh ./test1.txt
+  mv ./test2.sh ./test2.txt
 
-$ ls -1
-test1.txt
-test2.txt
-```
+  $ find ./ -name "test*.sh" | sed -nr 's/(.*)\.sh/mv & \1\.txt/p' | bash
+
+  $ ls -1
+  test1.txt
+  test2.txt
+  ```
 
 <a id="markdown-umask　デフォルトの権限を決定する" name="umask　デフォルトの権限を決定する"></a>
 ### umask　#デフォルトの権限を決定する
 
-```bash
-$ umask 022
-# ディレクトリの場合、777 - 022 = 755
-# ファイルの場合、666 - 022 = 644
-# umaskから引いた値がデフォルト権限となる
-drwxr-xr-x. 2 taka taka   6  8月 11 23:12 dir
--rw-r--r--. 1 taka taka   0  8月 11 23:12 file
+* 必須レベル：★★☆☆☆
 
-# /etc/bashrcに記載されている
-if [ $UID -gt 199 ] && [ "`/usr/bin/id -gn`" = "`/usr/bin/id -un`" ]; then
-   umask 002
-else
-   umask 022
-fi
-```
+* 使い方
+  ```bash
+  $ umask 022
+  # ディレクトリの場合、777 - 022 = 755
+  # ファイルの場合、666 - 022 = 644
+  # umaskから引いた値がデフォルト権限となる
+  drwxr-xr-x. 2 taka taka   6  8月 11 23:12 dir
+  -rw-r--r--. 1 taka taka   0  8月 11 23:12 file
+
+  # /etc/bashrcに記載されている
+  if [ $UID -gt 199 ] && [ "`/usr/bin/id -gn`" = "`/usr/bin/id -un`" ]; then
+    umask 002
+  else
+    umask 022
+  fi
+  ```
 
 <a id="markdown-vim　高機能なテキストエディタ" name="vim　高機能なテキストエディタ"></a>
 ### vim　#高機能なテキストエディタ  
 
-・オプション  
+* 必須レベル：★★★★★
 
-```bash
-#行数表示
-set number
-se nu
+* コマンドライン
+  ```vim
+  " 行数表示
+  :set number
+  :se nu
 
-#色付け
-:set syntax=ON
+  " 色付け
+  :set syntax=ON
 
-#タブ整形
-set ts=4
+  " タブ整形
+  :set ts=4
 
-#大文字小文字区別なくす（ignorecase）
-:set ic
-:set noic
+  " 大文字小文字区別なくす（ignorecase）
+  :set ic
+  :set noic
 
-#ファイル名表示
-ctrl + g
-```
+  " 垂直分割★
+  :vs
 
-・コマンド
+  " 垂直分割で指定のファイルを開く
+  :vs {file}
 
-★よく使うやつ
-| 基本移動 | 内容 |
-| ---- | ---- |
-| h | 左へ一つ |
-| j | 下へ一つ |
-| k | 上へ一つ |
-| l | 右へ一つ |
-| gj | 下へ一つ ※gは表示上の移動 |
+  " 垂直分割で空ウィンドウ開く
+  :vnew
 
-| 行移動 | 内容 |
-| ---- | ---- |
-| 0 | 行の先頭へ(インデント無視して先頭へ) |
-| ^ | 行の先頭へ★ |
-| $ | 行の末尾へ★ |
-| + | 下の行の先頭へ |
-| - | 上の行の先頭へ |
+  " 新規タブでファイルを開く
+  :tabnew {file}
+  ```
 
-| ページ移動 | 内容 |
-| ---- | ---- |
-| :100 | 100行目へ ★ |
-| ctrl + u | 半画面分 上へ ★ |
-| ctrl + d | 半画面分 下へ ★ |
-| ctrl + b | 一画面分 上へ |
-| ctrl + f | 一画面分 下へ |
-| { | 段落毎に上へ★ |
-| } | 段落毎に下へ★ |
-| gg | そのファイルの先頭へ★ |
-| G | そのファイルの末尾へ★ |
-| zz | 現在カーソルを画面中央へ |
+* 基本移動ショートカット
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | h | 左へ一つ |
+  | j | 下へ一つ |
+  | k | 上へ一つ |
+  | l | 右へ一つ |
+  | gj | 下へ一つ ※gは表示上の移動 |
 
-| 単語移動 | 内容 |
-| ---- | ---- |
-| w | 単語の先頭に進む★ |
-| b | 単語の先頭に戻る |
-| e | 単語の末尾に進む |
+* 行移動ショートカット
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | 0 | 行の先頭へ(インデント無視して先頭へ) |
+  | ^ | 行の先頭へ★ |
+  | $ | 行の末尾へ★ |
+  | + | 下の行の先頭へ |
+  | - | 上の行の先頭へ |
 
-※大文字の場合はピリオドなど区切り文字もまとまりとみなす。
+* ページ移動ショートカット
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | :100 | 100行目へ ★ |
+  | ctrl + u | 半画面分 上へ ★ |
+  | ctrl + d | 半画面分 下へ ★ |
+  | ctrl + b | 一画面分 上へ |
+  | ctrl + f | 一画面分 下へ |
+  | { | 段落毎に上へ★ |
+  | } | 段落毎に下へ★ |
+  | gg | そのファイルの先頭へ★ |
+  | G | そのファイルの末尾へ★ |
+  | zz | 現在カーソルを画面中央へ |
 
-| 行内検索 | 内容 |
-| ---- | ---- |
-| f | その行の順方向に一文字検索★ |
-| F | その行の逆方向に一文字検索 |
-| ; | 順方向に繰り返し検索 |
-| , | 逆方向に繰り返し検索 |
+* 単語移動ショートカット<br>
+  ※大文字の場合はピリオドなど区切り文字もまとまりとみなす
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | w | 単語の先頭に進む★ |
+  | b | 単語の先頭に戻る |
+  | e | 単語の末尾に進む |
 
-| 検索 | 内容 |
-| ---- | ---- |
-| / | 順方向に文字列検索★ |
-| ? | 逆方向に文字列検索★ |
-| n | 順方向に繰り返し検索★ |
-| N | 逆方向に繰り返し検索 |
-| % | 対となる括弧へ移動 |
+* 行内検索ショートカット
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | f | その行の順方向に一文字検索★ |
+  | F | その行の逆方向に一文字検索 |
+  | ; | 順方向に繰り返し検索 |
+  | , | 逆方向に繰り返し検索 |
 
-| コマンドライン | 内容 |
-| ---- | ---- |
-| :vs | 垂直分割★ |
-| :vnew  | 垂直分割で空ウィンドウ開く |
-| :vs {file}  | 垂直分割で指定のファイルを開く |
-| :tabnew {file} | 新規タブでファイルを開く |
+* 検索ショートカット
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | / | 順方向に文字列検索★ |
+  | ? | 逆方向に文字列検索★ |
+  | n | 順方向に繰り返し検索★ |
+  | N | 逆方向に繰り返し検索 |
+  | % | 対となる括弧へ移動 |
 
-・vimrc
+* vimrc
+  ```vim
+  # vimrc
+  "-----Search------
+  "インクリメンタルサーチを有効
+  set incsearch
+  "大文字小文字を区別しない
+  set ignorecase
+  "大文字で検索されたら対象を大文字限定にする
+  set smartcase
+  "検索終わりで先頭に戻らない
+  set nowrapscan
 
-```vim
-# vimrc
-"-----Search------
-"インクリメンタルサーチを有効
-set incsearch
-"大文字小文字を区別しない
-set ignorecase
-"大文字で検索されたら対象を大文字限定にする
-set smartcase
-"検索終わりで先頭に戻らない
-set nowrapscan
+  "-----Format------
+  "行数表示
+  set number
+  "タブをスペースに置換
+  set ts=4
+  "ルーラーの設定
+  set ruler
+  "カーソルラインを表示する
+  set cursorline
+  "pcファイルをcファイルで読み込む
+  autocmd BufRead,BufNewFile *.pc setfiletype c
 
-"-----Format------
-"行数表示
-set number
-"タブをスペースに置換
-set ts=4
-"ルーラーの設定
-set ruler
-"カーソルラインを表示する
-set cursorline
-"pcファイルをcファイルで読み込む
-autocmd BufRead,BufNewFile *.pc setfiletype c
+  "ステータスラインにコマンドを表示
+  set showcmd
+  "ステータスラインを常に表示
+  set laststatus=2
+  "ファイル名表示
+  set statusline+=%<%F
+  "文字コード表示
+  set statusline+=[%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
+  "ファイルタイプ表示
+  set statusline+=%y
+  "ここからツールバー右側
+  set statusline+=%=
+  "現在行が全体行の何%か表示
+  set statusline+=[%p%%]
 
-"ステータスラインにコマンドを表示
-set showcmd
-"ステータスラインを常に表示
-set laststatus=2
-"ファイル名表示
-set statusline+=%<%F
-"文字コード表示
-set statusline+=[%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
-"ファイルタイプ表示
-set statusline+=%y
-"ここからツールバー右側
-set statusline+=%=
-"現在行が全体行の何%か表示
-set statusline+=[%p%%]
+  "-----Setting------
+  "ESCボタンをqqqに割付
+  inoremap <silent> qqq <ESC>
 
-"-----Setting------
-"ESCボタンをqqqに割付
-inoremap <silent> qqq <ESC>
+  "-----Tab------
+  function! s:SID_PREFIX()
+    return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+  endfunction
 
-"-----Tab------
-function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
+  " Set tabline.
+  function! s:my_tabline()  "{{{
+    let s = ''
+    for i in range(1, tabpagenr('$'))
+      let bufnrs = tabpagebuflist(i)
+      let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+      let no = i  " display 0-origin tabpagenr.
+      let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+      let title = fnamemodify(bufname(bufnr), ':t')
+      let title = '[' . title . ']'
+      let s .= '%'.i.'T'
+      let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+      let s .= no . ':' . title
+      let s .= mod
+      let s .= '%#TabLineFill# '
+    endfor
+    let s .= '%#TabLineFill#%T%=%#TabLine#'
+    return s
+  endfunction "}}}
+  let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+  set showtabline=2 " 常にタブラインを表示
 
-" Set tabline.
-function! s:my_tabline()  "{{{
-  let s = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-    let no = i  " display 0-origin tabpagenr.
-    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-    let title = fnamemodify(bufname(bufnr), ':t')
-    let title = '[' . title . ']'
-    let s .= '%'.i.'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
-    let s .= mod
-    let s .= '%#TabLineFill# '
+  " The prefix key.
+  nnoremap    [Tag]   <Nop>
+  nmap    t [Tag]
+  " Tab jump
+  for n in range(1, 9)
+    execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
   endfor
-  let s .= '%#TabLineFill#%T%=%#TabLine#'
-  return s
-endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2 " 常にタブラインを表示
+  " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
-" The prefix key.
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
-" Tab jump
-for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
-
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
-map <silent> [Tag]x :tabclose<CR>
-" tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
-" tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" tp 前のタブ
-```
+  map <silent> [Tag]c :tablast <bar> tabnew<CR>
+  " tc 新しいタブを一番右に作る
+  map <silent> [Tag]x :tabclose<CR>
+  " tx タブを閉じる
+  map <silent> [Tag]n :tabnext<CR>
+  " tn 次のタブ
+  map <silent> [Tag]p :tabprevious<CR>
+  " tp 前のタブ
+  ```
 
 <a id="markdown-yum　redhat系で利用されるパッケージ管理ツール" name="yum　redhat系で利用されるパッケージ管理ツール"></a>
 ### yum　#RedHat系で利用されるパッケージ管理ツール
 
-```bash
-# yumはパイソンで動いている
-$ head -n 1 /usr/bin/yum
-#!/usr/bin/python
-```
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  # yumはパイソンで動いている
+  $ head -n 1 /usr/bin/yum
+  #!/usr/bin/python
+  ```
 
 <a id="markdown-xargs　引数からコマンドを組み立て実行する" name="xargs　引数からコマンドを組み立て実行する"></a>
 ### xargs　#引数からコマンドを組み立て実行する
 
-```bash
-# 直前のコマンドの実行結果を渡す
-$ ls README.md | xargs md5sum
-ccd981a6716bb3b91569e45d336b28d0 *README.md
-```
+* 必須レベル：★★★★☆
+
+* 使い方
+  ```bash
+  # 直前のコマンドの実行結果を渡す
+  $ ls README.md | xargs md5sum
+  ccd981a6716bb3b91569e45d336b28d0 *README.md
+  ```
 
 <a id="markdown-xxd　2進数でダンプする" name="xxd　2進数でダンプする"></a>
 ### xxd　#2進数でダンプする  
 
-|  オプション  |  詳細  |
-| ---- | ---- |
-| -b | オプションでバイナリ（2進数）表示 |
-| -c | オプションで表示数変更 |
-| -p | ポストスクリプト形式の 16 進ダンプを出力する。 |
-| -r | 元に戻す: 16 進ダンプからバイナリ形式に変換 
-<br>
-・コマンド実行例
+* 必須レベル：★★☆☆☆
 
-```bash
-# 2進数ダンプ
-$ echo '10abAB' |xxd -b -c 8
-0000000: 00110001 00110000 01100001 01100010 01000001 01000010 00001010           10abAB.
-$ echo '10abAC' |xxd -b -c 8
-0000000: 00110001 00110000 01100001 01100010 01000001 01000011 00001010           10abAC.
+* オプション
+  |  オプション  |  詳細  |
+  | ---- | ---- |
+  | -b | オプションでバイナリ（2進数）表示 |
+  | -c | オプションで表示数変更 |
+  | -p | ポストスクリプト形式の 16 進ダンプを出力する。 |
+  | -r | 元に戻す: 16 進ダンプからバイナリ形式に変換 
 
-# 16進数ダンプ
-$ echo "AZaz09ｱア" |xxd -p
-415a617a3039efbdb1e382a20a
+* 使い方
+  ```bash
+  # 2進数ダンプ
+  $ echo '10abAB' |xxd -b -c 8
+  0000000: 00110001 00110000 01100001 01100010 01000001 01000010 00001010           10abAB.
+  $ echo '10abAC' |xxd -b -c 8
+  0000000: 00110001 00110000 01100001 01100010 01000001 01000011 00001010           10abAC.
 
-# 16進数を元に戻す
-$ echo '415a617a3039efbdb1e382a20a' |xxd -p -r
-AZaz09ｱア
+  # 16進数ダンプ
+  $ echo "AZaz09ｱア" |xxd -p
+  415a617a3039efbdb1e382a20a
 
-# EBCDICファイルの確認方法
-$ xxd -E -g1 ./EBCDIC
+  # 16進数を元に戻す
+  $ echo '415a617a3039efbdb1e382a20a' |xxd -p -r
+  AZaz09ｱア
 
-0000000: f2 f0 f2 f0 f0 f9 f2 f9 40 40 40 40 40 40 40 40 20200929
-※EBCDICのf2⇒数値の2
-```
+  # EBCDICファイルの確認方法
+  $ xxd -E -g1 ./EBCDIC
+
+  0000000: f2 f0 f2 f0 f0 f9 f2 f9 40 40 40 40 40 40 40 40 20200929
+  ※EBCDICのf2⇒数値の2
+  ```
 
 <a id="markdown-　直前のコマンドを実行" name="　直前のコマンドを実行"></a>
 ### !!　#直前のコマンドを実行
 
+* 必須レベル：★★★☆☆
 
+* 使い方
   ```bash
   $ find ./ -name "*md"
   ./README.md
