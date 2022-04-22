@@ -24,7 +24,7 @@
     - [cupsenable　#プリンタ有効化](#cupsenable　プリンタ有効化)
     - [curl  #HTTPなどの通信プロトコルでデータを転送する](#curl--httpなどの通信プロトコルでデータを転送する)
     - [cut　#文字列を特定のパターンで切り出す](#cut　文字列を特定のパターンで切り出す)
-    - [dc　#無限精度の計算が行える卓上計算機](#dc　無限精度の計算が行える卓上計算機)
+    - [dc　#無限精度の計算が行える卓上計算機（逆ポーランド形式）](#dc　無限精度の計算が行える卓上計算機逆ポーランド形式)
     - [find　#ファイルを検索する](#find　ファイルを検索する)
     - [grep　#パターンにマッチする箇所を表示](#grep　パターンにマッチする箇所を表示)
     - [ifconfig　#ネットワークインターフェースの管理](#ifconfig　ネットワークインターフェースの管理)
@@ -40,7 +40,6 @@
     - [xargs　#引数からコマンドを組み立て実行する](#xargs　引数からコマンドを組み立て実行する)
     - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
     - [!!　#直前のコマンドを実行](#　直前のコマンドを実行)
-    - [以下整理中](#以下整理中)
 - [３．シェル](#３．シェル)
     - [用語説明](#用語説明)
         - [シェバン](#シェバン)
@@ -188,20 +187,27 @@ Message of the dayの略
 <a id="markdown-ac　ユーザのログイン時間を表示する" name="ac　ユーザのログイン時間を表示する"></a>
 ### ac　#ユーザのログイン時間を表示する
 
-* 基本 </br>
-※/var/log/wtmp を参照している
+* 必須レベル：★☆☆☆☆
+  
+* 使い方
   ```bash
   $ ac -p
-          takahana                            81.90
+          takahana                           102.27
           root                                 0.01
-          total       81.91
+          total      102.28
+ 
+  # 以下バイナリファイルを参照している
+  $ ls -l /var/log/wtmp
+  -rw-rw-r--. 1 root utmp 26496  4月 21 21:25 /var/log/wtmp
   ```
 
 <a id="markdown-awk　文字列を高度に整形する" name="awk　文字列を高度に整形する"></a>
 ### awk　#文字列を高度に整形する
 
-* まとめ
+* 必須レベル：★★★★☆<br>
+  ※オークと読みます
 
+* オプション
   |  オプション  |  詳細  |
   | ---- | ---- |
   | -F 区切り文字 | 区切り文字の指定（デフォルトは空白） |
@@ -209,32 +215,42 @@ Message of the dayの略
 
   |  組み込み変数  |  詳細  |
   | ---- | ---- |
+  | ---- | ---- |
 
   |  文字列操作関数  |  詳細  |
   | ---- | ---- |
+  | ---- | ---- |
 
-* 基本
+* 使い方
   ```bash
-  # 9番目の値のみ表示
-  $ ls -l /usr/bin/vi* | awk '{print $9}'
-  /usr/bin/vi
-  /usr/bin/view
+  # 例１）コマンド実行結果の整形
+  $ ls -l /usr/bin/vim*
+  -rwxr-xr-x. 1 root root 2337192  8月  9  2019 /usr/bin/vim
+  lrwxrwxrwx. 1 root root       3 10月 24  2020 /usr/bin/vimdiff -> vim
+  -rwxr-xr-x. 1 root root    2084  8月  9  2019 /usr/bin/vimtutor
+
+  # 9番目（コマンド）のみを表示する
+  $ ls -l /usr/bin/vim* | awk '{print $9}'
   /usr/bin/vim
   /usr/bin/vimdiff
   /usr/bin/vimtutor
-  /usr/bin/vinagre
-
-  # sed + cut でも同様の操作が可能
-  $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
-
+  
+  # ちなみに以下コマンドでも同様の操作が可能（9番目以降を取得）
+  $ ls -l /usr/bin/vim* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+  /usr/bin/vim
+  /usr/bin/vimdiff -> vim
+  /usr/bin/vimtutor
   ```
 
 <a id="markdown-bc　任意精度の計算言語" name="bc　任意精度の計算言語"></a>
 ### bc　#任意精度の計算言語
 
-* 基本
+* 必須レベル：★☆☆☆☆
+
+* 使い方
   ```bash
-  #単純な計算　1+2+3+4+5
+  # 単純な計算
+  # 1+2+3+4+5
   $ bc
   bc 1.06.95
   Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
@@ -247,16 +263,20 @@ Message of the dayの略
 <a id="markdown-cancel　印刷ジョブを取り消す" name="cancel　印刷ジョブを取り消す"></a>
 ### cancel　#印刷ジョブを取り消す
 
-* 基本
+* 必須レベル：★★☆☆☆
+
+* 使い方
   ```bash
-  # キュー全削除（※root権限）
+  # TESTPRTのキュー全削除（※root権限）
   $ cancel -a TESTPRT
   ```
 
 <a id="markdown-cd　カレントディレクトリの変更" name="cd　カレントディレクトリの変更"></a>
 ### cd　#カレントディレクトリの変更
 
-* 基本
+* 必須レベル：★★★★★
+
+* 使い方
   ```bash
   # 絶対パスで移動
   $ cd /home
@@ -287,182 +307,222 @@ Message of the dayの略
 <a id="markdown-chmod　ファイルの権限を変更する" name="chmod　ファイルの権限を変更する"></a>
 ### chmod　#ファイルの権限を変更する
 
-```bash
-# ユーザに実行権限を付与する
-$ chmod u+x file
+* 必須レベル：★★★★★<br>
+  Read 4, Write 2, eXute 1 の加算で表す<br>
+  一般的ににディレクトリの場合 755 、ファイルの場合 644<br>
+  ```bash
+  # ディレクトリの場合
+  # ユーザ　：読み、書き、実行が可能
+  # グループ：読み、実行が可能（移動するのに必要な実行権限がある）
+  # その他　：読み、実行が可能（移動するのに必要な実行権限がある）
+  drwxr-xr-x. 2 takahana takahana  40  4月 19 00:27 dir
 
-#グループに書き込み権限をその他のユーザーにはすべて禁止する
-$ chmod g+w,o= test
+  # ファイルの場合
+  # ユーザ　：読み、書き、実行が可能
+  # グループ：読みが可能
+  # その他　：読みが可能
+  -rwxr--r--. 1 takahana takahana 142  1月 24  2021 test.sh
+  ```
 
-# 再帰的に変更する（ディレクトリも含めて）
-$ chmod -R 777 dir
-```
+* 使い方
+  ```bash
+  # ユーザに実行権限を付与する
+  $ chmod u+x file
+
+  # 全員に実行権限を付与する
+  $ chmod u+x file
+
+  # グループに書き込み権限をその他のユーザーにはすべて禁止する
+  $ chmod g+w,o= file
+
+  # 再帰的に変更する
+  $ chmod -R 777 dir
+  ```
 
 <a id="markdown-cupsdisabl　プリンタ無効化" name="cupsdisabl　プリンタ無効化"></a>
 ### cupsdisabl　#プリンタ無効化
 
-```bash
-# ※root権限
-$ cupsdisable TESTPRT
-```
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  # ※root権限
+  $ cupsdisable TESTPRT
+  ```
 
 <a id="markdown-cupsenable　プリンタ有効化" name="cupsenable　プリンタ有効化"></a>
 ### cupsenable　#プリンタ有効化
 
-```bash
-# ※root権限
-$ cupsenable TESTPRT
-```
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  # ※root権限
+  $ cupsenable TESTPRT
+  ```
 
 <a id="markdown-curl--httpなどの通信プロトコルでデータを転送する" name="curl--httpなどの通信プロトコルでデータを転送する"></a>
 ### curl  #HTTPなどの通信プロトコルでデータを転送する
 
-```bash
-# 基本
-$ curl 'http://localhost:5050/api/' 
+* 必須レベル：★★★☆☆
 
-# POSTでよく使う
-$ curl -v -X POST 'http://localhost:5050/api/' -H 'Content-Type: application/json' -H 'Authorization: Bearer XXXX' -d '{"name":"hello", "id":"100"}'
+* 使い方
+  ```bash
+  # 基本
+  $ curl 'http://localhost:5050/api/' 
 
-# 詳細表示
-$ curl -v -X GET 'https://api.github.com/zen'
-Note: Unnecessary use of -X or --request, GET is already inferred.
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 18.179.245.253:443...
-* Connected to api.github.com (18.179.245.253) port 443 (#0)
-* ALPN, offering h2
-* ALPN, offering http/1.1
-* successfully set certificate verify locations:
-*   CAfile: C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
-  CApath: none
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [512 bytes data]
-* TLSv1.3 (IN), TLS handshake, Server hello (2):
-{ [122 bytes data]
-* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
-{ [19 bytes data]
-* TLSv1.3 (IN), TLS handshake, Certificate (11):
-{ [2362 bytes data]
-* TLSv1.3 (IN), TLS handshake, CERT verify (15):
-{ [78 bytes data]
-* TLSv1.3 (IN), TLS handshake, Finished (20):
-{ [36 bytes data]
-* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
-} [1 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Finished (20):
-} [36 bytes data]
-* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
-* ALPN, server accepted to use h2
-* Server certificate:
-*  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.com
-*  start date: Mar 25 00:00:00 2021 GMT
-*  expire date: Mar 30 23:59:59 2022 GMT
-*  subjectAltName: host "api.github.com" matched certs "*.github.com"
-*  issuer: C=US; O=DigiCert, Inc.; CN=DigiCert High Assurance TLS Hybrid ECC SHA256 2020 CA1
-*  SSL certificate verify ok.
-* Using HTTP2, server supports multi-use
-* Connection state changed (HTTP/2 confirmed)
-* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
-} [5 bytes data]
-* Using Stream ID: 1 (easy handle 0x265e070)
-} [5 bytes data]
-> GET /zen HTTP/2
-> Host: api.github.com
-> user-agent: curl/7.71.1
-> accept: */*
->
-{ [5 bytes data]
-* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
-{ [57 bytes data]
-* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
-{ [57 bytes data]
-* old SSL session ID is stale, removing
-{ [5 bytes data]
-* Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
-} [5 bytes data]
-< HTTP/2 200
-< server: GitHub.com
-< date: Sun, 23 Jan 2022 10:46:05 GMT
-< content-type: text/plain;charset=utf-8
-< access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
-< access-control-allow-origin: *
-< strict-transport-security: max-age=31536000; includeSubdomains; preload
-< x-frame-options: deny
-< x-content-type-options: nosniff
-< x-xss-protection: 0
-< referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-< content-security-policy: default-src 'none'
-< vary: Accept-Encoding, Accept, X-Requested-With
-< x-ratelimit-limit: 60
-< x-ratelimit-remaining: 53
-< x-ratelimit-reset: 1642938185
-< x-ratelimit-resource: core
-< x-ratelimit-used: 7
-< accept-ranges: bytes
-< content-length: 43
-< x-github-request-id: BB4E:5A97:18115BA:1B25EA7:61ED31EC
-<
-{ [43 bytes data]
-100    43  100    43    0     0    123      0 --:--:-- --:--:-- --:--:--   123Half measures are as bad as nothing at all.
-* Connection #0 to host api.github.com left intact  
+  # POSTでよく使う
+  $ curl -v -X POST 'http://localhost:5050/api/' -H 'Content-Type: application/json' -H 'Authorization: Bearer XXXX' -d '{"name":"hello", "id":"100"}'
 
-# ヘッダ指定
-$ curl -X POST 'http://localhost:5050/api/' -H 'Content-Type: application/json' -H 'Authorization: Bearer XXXX'
+  # 詳細表示
+  $ curl -v -X GET 'https://api.github.com/zen'
+  Note: Unnecessary use of -X or --request, GET is already inferred.
+    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                  Dload  Upload   Total   Spent    Left  Speed
+    0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 18.179.245.253:443...
+  * Connected to api.github.com (18.179.245.253) port 443 (#0)
+  * ALPN, offering h2
+  * ALPN, offering http/1.1
+  * successfully set certificate verify locations:
+  *   CAfile: C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+    CApath: none
+  } [5 bytes data]
+  * TLSv1.3 (OUT), TLS handshake, Client hello (1):
+  } [512 bytes data]
+  * TLSv1.3 (IN), TLS handshake, Server hello (2):
+  { [122 bytes data]
+  * TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+  { [19 bytes data]
+  * TLSv1.3 (IN), TLS handshake, Certificate (11):
+  { [2362 bytes data]
+  * TLSv1.3 (IN), TLS handshake, CERT verify (15):
+  { [78 bytes data]
+  * TLSv1.3 (IN), TLS handshake, Finished (20):
+  { [36 bytes data]
+  * TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+  } [1 bytes data]
+  * TLSv1.3 (OUT), TLS handshake, Finished (20):
+  } [36 bytes data]
+  * SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+  * ALPN, server accepted to use h2
+  * Server certificate:
+  *  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.com
+  *  start date: Mar 25 00:00:00 2021 GMT
+  *  expire date: Mar 30 23:59:59 2022 GMT
+  *  subjectAltName: host "api.github.com" matched certs "*.github.com"
+  *  issuer: C=US; O=DigiCert, Inc.; CN=DigiCert High Assurance TLS Hybrid ECC SHA256 2020 CA1
+  *  SSL certificate verify ok.
+  * Using HTTP2, server supports multi-use
+  * Connection state changed (HTTP/2 confirmed)
+  * Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+  } [5 bytes data]
+  * Using Stream ID: 1 (easy handle 0x265e070)
+  } [5 bytes data]
+  > GET /zen HTTP/2
+  > Host: api.github.com
+  > user-agent: curl/7.71.1
+  > accept: */*
+  >
+  { [5 bytes data]
+  * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+  { [57 bytes data]
+  * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+  { [57 bytes data]
+  * old SSL session ID is stale, removing
+  { [5 bytes data]
+  * Connection state changed (MAX_CONCURRENT_STREAMS == 100)!
+  } [5 bytes data]
+  < HTTP/2 200
+  < server: GitHub.com
+  < date: Sun, 23 Jan 2022 10:46:05 GMT
+  < content-type: text/plain;charset=utf-8
+  < access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
+  < access-control-allow-origin: *
+  < strict-transport-security: max-age=31536000; includeSubdomains; preload
+  < x-frame-options: deny
+  < x-content-type-options: nosniff
+  < x-xss-protection: 0
+  < referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+  < content-security-policy: default-src 'none'
+  < vary: Accept-Encoding, Accept, X-Requested-With
+  < x-ratelimit-limit: 60
+  < x-ratelimit-remaining: 53
+  < x-ratelimit-reset: 1642938185
+  < x-ratelimit-resource: core
+  < x-ratelimit-used: 7
+  < accept-ranges: bytes
+  < content-length: 43
+  < x-github-request-id: BB4E:5A97:18115BA:1B25EA7:61ED31EC
+  <
+  { [43 bytes data]
+  100    43  100    43    0     0    123      0 --:--:-- --:--:-- --:--:--   123Half measures are as bad as nothing at all.
+  * Connection #0 to host api.github.com left intact  
 
-# ボディ指定
-$ curl -X POST 'http://localhost:5050/api/' -d '{"name":"hello", "id":"100"}'
+  # ヘッダ指定
+  $ curl -X POST 'http://localhost:5050/api/' -H 'Content-Type: application/json' -H 'Authorization: Bearer XXXX'
 
-# SSL証明書エラーを無視
-$ curl --insecure -X POST 'http://localhost:5050/api/'
-$ curl -k -X POST 'http://localhost:5050/api/'
+  # ボディ指定
+  $ curl -X POST 'http://localhost:5050/api/' -d '{"name":"hello", "id":"100"}'
 
-# 証明書を指定
-$ curl --cacert ./server.crt -X POST 'http://localhost:5050/api/'
+  # SSL証明書エラーを無視
+  $ curl --insecure -X POST 'http://localhost:5050/api/'
+  $ curl -k -X POST 'http://localhost:5050/api/'
 
-# プロキシを指定
-$ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
-```
+  # 証明書を指定
+  $ curl --cacert ./server.crt -X POST 'http://localhost:5050/api/'
+
+  # プロキシを指定
+  $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
+  ```
 
 <a id="markdown-cut　文字列を特定のパターンで切り出す" name="cut　文字列を特定のパターンで切り出す"></a>
 ### cut　#文字列を特定のパターンで切り出す
+
+* 必須レベル：★★★☆☆
+
+* オプション
 
 |  オプション  |  詳細  |
 | ---- | ---- |
 | d | デリミタの指定 |
 | f | フィールド（何番目か）指定 |
 
-```bash
-# 9番目を表示
-$ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
-/usr/bin/vi
-/usr/bin/view
-/usr/bin/vim
-/usr/bin/vimdiff
-/usr/bin/vimtutor
-/usr/bin/vinagre
-```
+* 使い方
+  ```bash
+  # 9番目を表示
+  $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
+  /usr/bin/vi
+  /usr/bin/view
+  /usr/bin/vim
+  /usr/bin/vimdiff
+  /usr/bin/vimtutor
+  /usr/bin/vinagre
+  ```
 
-<a id="markdown-dc　無限精度の計算が行える卓上計算機" name="dc　無限精度の計算が行える卓上計算機"></a>
-### dc　#無限精度の計算が行える卓上計算機
-※逆ポーランド形式
+<a id="markdown-dc　無限精度の計算が行える卓上計算機逆ポーランド形式" name="dc　無限精度の計算が行える卓上計算機逆ポーランド形式"></a>
+### dc　#無限精度の計算が行える卓上計算機（逆ポーランド形式）
 
-```bash
-# 複雑な計算　(27/(1+2)^2)*2
-$ dc
-27 1 2 + 2 ^ / 2 * 
-p
-6
-```
+* 必須レベル：★☆☆☆☆
+
+* 使い方
+  ```bash
+  # 複雑な計算　(27/(1+2)^2)*2
+  $ dc
+  27 1 2 + 2 ^ / 2 * 
+  p
+  6
+  ```
 
 <a id="markdown-find　ファイルを検索する" name="find　ファイルを検索する"></a>
 ### find　#ファイルを検索する
 
-使い方
-```bash
-$ find [検索パス] [検索条件] [アクション※任意]
-```
+* 必須レベル：★★★★★
+
+* 使い方
+  ```bash
+  # オプション指定
+  $ find [検索パス] [検索条件] [アクション※任意]
+  ```
 
 検索条件
 ```bash
@@ -944,33 +1004,24 @@ $ xxd -E -g1 ./EBCDIC
 <a id="markdown-　直前のコマンドを実行" name="　直前のコマンドを実行"></a>
 ### !!　#直前のコマンドを実行
 
-```bash
-$ find ./ -name "*md"
-./README.md
 
-# !! 直前のコマンドを実行
-$ !!
-./README.md
+  ```bash
+  $ find ./ -name "*md"
+  ./README.md
 
-# !! 直前のfから始まるコマンドを実行
-$ !f
-./README.md
+  # !! 直前のコマンドを実行
+  $ !!
+  ./README.md
 
-# 応用
-# 直前のコマンド実行結果を他のコマンドに渡す
-$ vi `!!`
-vi `find ./ -name "*md"`
-```
+  # !! 直前のfから始まるコマンドを実行
+  $ !f
+  ./README.md
 
-<a id="markdown-以下整理中" name="以下整理中"></a>
-### 以下整理中
-
-
-
-
-
-
-
+  # 応用
+  # 直前のコマンド実行結果を他のコマンドに渡す
+  $ vi `!!`
+  vi `find ./ -name "*md"`
+  ```
 
 <br>
 <!-- NEXT INDENT -->
@@ -985,40 +1036,48 @@ vi `find ./ -name "*md"`
 #### シェバン  
 シェルの1行目に記載し、このシェルは「bin/bash」で動かしますの意味
 
-```bash
-#!/bin/bash
-```
+  ```bash
+  #!/bin/bash
+  ```
+
 <a id="markdown-セカンダリプロンプト" name="セカンダリプロンプト"></a>
 #### セカンダリプロンプト  
 行末の「\」のことで、まだコマンドは終了していないことを意味する
 
-```bash
-echo \
-"Hello, World!"
-```
+  ```bash
+  $ echo \
+  "Hello, World!"
+  ```
 
 <a id="markdown-引数／特殊変数" name="引数／特殊変数"></a>
 ### 引数／特殊変数
 
-```bash
-$ ./test.sh 1 2 3
-#「$0」は特殊な引数で、シェル名が格納されてる
-$0 = ./test.sh
-#「$1」は引数の値で「位置パラメータ」という
-$1 = 1
-$2 = 2
-$3 = 3
-#「$#」は引数の個数
-$# = 3
-#「$$」は現在実行しているプロセスID
-$$ = 3854
-#「#@」はすべての位置パラメータ("$1" "$2" ..."$N")
-$@ = 1 2 3
-#「#*」はすべての位置パラメータ("$1 $2 $N")
-$* = 1 2 3
-#「$?」直前コマンドの「終了ステータス（正常=0）」
-$? = 0
-```
+  ```bash
+  $ ./test.sh 1 2 3
+
+  #「$0」は特殊な引数で、シェル名が格納されてる
+  $0 = ./test.sh
+
+  #「$1」は引数の値で「位置パラメータ」という
+  $1 = 1
+  $2 = 2
+  $3 = 3
+
+  #「$#」は引数の個数
+  $# = 3
+
+  #「$$」は現在実行しているプロセスID
+  $$ = 3854
+
+  #「#@」はすべての位置パラメータ("$1" "$2" ..."$N")
+  $@ = 1 2 3
+
+  #「#*」はすべての位置パラメータ("$1 $2 $N")
+  $* = 1 2 3
+
+  #「$?」直前コマンドの「終了ステータス（正常=0）」
+  $? = 0
+  ```
 
 <a id="markdown-比較" name="比較"></a>
 ### 比較
@@ -1032,46 +1091,45 @@ $? = 0
 <a id="markdown-サンプル" name="サンプル"></a>
 ### サンプル
 
-```bash
-#!/bin/bash
-##############################
-# 名前：
-# 説明：
-# 引数：$1 xxx
-#       $2 xxx
-##############################
+  ```bash
+  #!/bin/bash
+  ##############################
+  # 名前：
+  # 説明：
+  # 引数：$1 xxx
+  #       $2 xxx
+  ##############################
 
-#====================
-# 変数設定
-#====================
+  #====================
+  # 変数設定
+  #====================
 
-#====================
-# 初期関数
-#====================
-f_init () {
-  echo "START 初期関数"
-}
+  #====================
+  # 初期関数
+  #====================
+  f_init () {
+    echo "START 初期関数"
+  }
 
-#====================
-# メイン関数
-#====================
-f_main () {
-  echo "START メイン関数"
+  #====================
+  # メイン関数
+  #====================
+  f_main () {
+    echo "START メイン関数"
 
-}
+  }
 
 
-#====================
-# 実行
-#====================
+  #====================
+  # 実行
+  #====================
 
-# 初期処理呼び出し
-f_init
+  # 初期処理呼び出し
+  f_init
 
-# メイン関数呼び出し
-f_main
-
-```
+  # メイン関数呼び出し
+  f_main
+  ```
 
 <br>
 <!-- NEXT INDENT -->
@@ -1082,42 +1140,42 @@ f_main
 <a id="markdown-無限ループwhile-true" name="無限ループwhile-true"></a>
 ### 無限ループ（while true）
 
-```bash
-# 無限ループ
-while true; do date; echo "hello !"; sleep 1s; done
-```
+  ```bash
+  # 無限ループ
+  while true; do date; echo "hello !"; sleep 1s; done
+  ```
 
 <a id="markdown-リスト読込for--in" name="リスト読込for--in"></a>
 ### リスト読込（for ～ in）
 
-```bash
-# git最新化（※xxxフォルダを除く）
-for f in */.git;do (f=${f%/*}; if [ $f != "xxx" ]; then cd $f; git pull; fi);done;
-```
+  ```bash
+  # git最新化（※xxxフォルダを除く）
+  for f in */.git;do (f=${f%/*}; if [ $f != "xxx" ]; then cd $f; git pull; fi);done;
+  ```
 
 <a id="markdown-ファイル読込while-read" name="ファイル読込while-read"></a>
 ### ファイル読込（while read）
 
-```bash
-# ファイルを読み込み、1行ずつ処理する
-while read line; do md5sum $line;done <bkup.txt
-```
+  ```bash
+  # ファイルを読み込み、1行ずつ処理する
+  while read line; do md5sum $line;done <bkup.txt
+  ```
 
 <a id="markdown-ファイル存在確認if" name="ファイル存在確認if"></a>
 ### ファイル存在確認（if）
 
-```bash
-# ファイル存在確認結果を表示
-if [ -e $FILE ];then echo "OK";else echo "NG";fi
-```
+  ```bash
+  # ファイル存在確認結果を表示
+  if [ -e $FILE ];then echo "OK";else echo "NG";fi
+  ```
 
 <a id="markdown-文字列の比較if" name="文字列の比較if"></a>
 ### 文字列の比較（if）
 
-```bash
-# 文字列の比較結果を表示
-if [ "test" = "test" ];then echo "OK";else echo "NG";fi
-```
+  ```bash
+  # 文字列の比較結果を表示
+  if [ "test" = "test" ];then echo "OK";else echo "NG";fi
+  ```
 
 
 <br>

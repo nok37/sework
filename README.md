@@ -1,6 +1,6 @@
 # エンジニア技術メモ
 
-💁🏖📞 [→C4](/03_Tool/c4/README.md)
+💁🏖📞 [→C4](/04_Other/c4/README.md)
 
 ## 目次
 
@@ -27,4 +27,4 @@
 
 ### ４．その他
 ---
-- [索引](/04_Index/README.md)
+- [索引](/04_Other/README.md)
