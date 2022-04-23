@@ -250,7 +250,7 @@ Message of the dayの略
 * 使い方
   ```bash
   # 単純な計算
-  # 1+2+3+4+5
+  # 1 + 2 + 3 + 4 + 5
   $ bc
   bc 1.06.95
   Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
@@ -330,7 +330,7 @@ Message of the dayの略
   $ chmod u+x file
 
   # 全員に実行権限を付与する
-  $ chmod u+x file
+  $ chmod +x file
 
   # グループに書き込み権限をその他のユーザーにはすべて禁止する
   $ chmod g+w,o= file
@@ -884,6 +884,14 @@ Message of the dayの略
   | n | 順方向に繰り返し検索★ |
   | N | 逆方向に繰り返し検索 |
   | % | 対となる括弧へ移動 |
+
+* コピー／ペーストショートカット
+  | コマンド | 内容 |
+  | ---- | ---- |
+  | yw | 1単語コピー★ |
+  | yy | 1行コピー★ |
+
+* cw
 
 * vimrc
   ```vim

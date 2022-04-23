@@ -2,148 +2,169 @@
 
 <!-- TOC -->
 
-- [１．設定／全般](#１．設定／全般)
+- [１．設定／全般／用語](#１．設定／全般／用語)
+    - [バージョン](#バージョン)
     - [パスワード・プロファイル](#パスワード・プロファイル)
     - [起動・停止](#起動・停止)
     - [表領域](#表領域)
 - [２．基本](#２．基本)
     - [テーブル操作](#テーブル操作)
-    - [エクスポート](#エクスポート)
+    - [データパンプ（データポンプ）](#データパンプデータポンプ)
     - [viewファイルの確認](#viewファイルの確認)
 - [３．関数](#３．関数)
 - [４．冗長性／可用性](#４．冗長性／可用性)
     - [アーカイブログ](#アーカイブログ)
     - [Data Guard](#data-guard)
-    - [パフォーマンス](#パフォーマンス)
-- [５．性能](#５．性能)
+    - [パーテーション](#パーテーション)
+- [５．性能／パフォーマンス](#５．性能／パフォーマンス)
     - [実行計画・統計情報](#実行計画・統計情報)
+    - [索引](#索引)
+    - [チューニング](#チューニング)
+- [６．用語](#６．用語)
+    - [DWH （データウェアハウス）](#dwh-データウェアハウス)
+    - [CWH （セントラルウェアハウス）](#cwh-セントラルウェアハウス)
+    - [データマート](#データマート)
+    - [マテビュー](#マテビュー)
+    - [SCN （System Change Number）](#scn-system-change-number)
 
 <!-- /TOC -->
 ---
 <br>
 <!-- NEXT INDENT -->
 
-<a id="markdown-１．設定／全般" name="１．設定／全般"></a>
-## １．設定／全般
+<a id="markdown-１．設定／全般／用語" name="１．設定／全般／用語"></a>
+## １．設定／全般／用語
+
+<a id="markdown-バージョン" name="バージョン"></a>
+### バージョン
+
+* バージョンの確認
+    ```sql
+    SQL> SELECT * FROM V$VERSION;
+    ```
 
 <a id="markdown-パスワード・プロファイル" name="パスワード・プロファイル"></a>
 ###  パスワード・プロファイル
 
-```sql
---プロファイル／パスワード期限の確認
-SQL> set lin 100
-SQL> col USERNAME for a20
-SQL> col PROFILE for a25
-SQL> col ACCOUNT_STATUS for a25
-SQL> col EXPIRY_DATE for a25
-SQL> SELECT USERNAME, PROFILE, ACCOUNT_STATUS, EXPIRY_DATE FROM DBA_USERS ORDER BY USERNAME;
+* プロファイル／パスワード期限の確認<br>
+    ※アカウントステータスについて
+    | 状態 | 意味 |
+    | --- | --- |
+    | OPEN | 正常 |
+    | EXPIRED | パスワード期限切れまたは管理者による手動期限切れ |
+    | EXPIRED(GRACE) | パスワード期限切れ後で、アカウント使用不可になるまでの猶予期間 |
+    | LOCKED(TIMED) | パスワードの繰り返し入力ミスのため、ロック |
+    | LOCKED | 管理者による手動ロック |
+    ```sql
+    -- 書式設定
+    SQL> set lin 100
+    SQL> col USERNAME for a20
+    SQL> col PROFILE for a25
+    SQL> col ACCOUNT_STATUS for a25
+    SQL> col EXPIRY_DATE for a25
+    
+    -- DBA_USERSからプロファイルとアカウントステータスを取得
+    SQL> SELECT USERNAME, PROFILE, ACCOUNT_STATUS, EXPIRY_DATE FROM DBA_USERS ORDER BY USERNAME;
 
-USERNAME             PROFILE                   ACCOUNT_STATUS            EXPIRY_DATE
--------------------- ------------------------- ------------------------- -------------------------
-USER1                DEFAULT                   OPEN
-USER2                UNLOCKUSER                OPEN
-USER3                DEFAULT                   EXPIRED & LOCKED          2019/04/16
+    USERNAME             PROFILE                   ACCOUNT_STATUS            EXPIRY_DATE
+    -------------------- ------------------------- ------------------------- -------------------------
+    USER1                DEFAULT                   OPEN
+    USER2                UNLOCKUSER                OPEN
+    USER3                DEFAULT                   EXPIRED & LOCKED          2019/04/16
 
---アカウントステータスの補足
-OPEN：正常
-EXPIRED：パスワード期限切れまたは管理者による手動期限切れ
-EXPIRED(GRACE)：パスワード期限切れ後で、アカウント使用不可になるまでの猶予期間
-LOCKED(TIMED)：パスワードの繰り返し入力ミスのため、ロック
-LOCKED：管理者による手動ロック
+    --パスワード変更
+    SQL> ALTER USER USER1 IDENTIFIED BY pass;
 
---パスワード変更
-SQL> ALTER USER USER1 IDENTIFIED BY pass;
-
---プロファイルの変更
-SQL> ALTER USER USER1 PROFILE UNLOCKUSER;
-```
-
+    --プロファイルの変更
+    SQL> ALTER USER USER1 PROFILE UNLOCKUSER;
+    ```
 
 <a id="markdown-起動・停止" name="起動・停止"></a>
 ###  起動・停止  
 
-* インスタンスの起動  
+* インスタンスの起動<br>
 バックグラウンド・プロセスを制御し、Oracle Databaseに接続するためのメモリー領域を割り当てること
-* データベースのマウント  
+* データベースのマウント<br>
 データベースがすでに起動されているインスタンスと対応付けられる
-* データベースのオープン  
+* データベースのオープン<br>
 通常のデータベース操作が可能になる
 
-```sql
--- インスタンスを起動し、データベースをマウントしてオープンする方法
-SQL> STARTUP
+    ```sql
+    -- インスタンスを起動し、データベースをマウントしてオープンする方法
+    SQL> STARTUP
 
--- インスタンスを起動するが、データベースをマウントしない方法
-SQL> STARTUP NOMOUNT
+    -- インスタンスを起動するが、データベースをマウントしない方法
+    SQL> STARTUP NOMOUNT
 
--- インスタンスを起動し、データベースをマウントする方法（オープンはしない）
-SQL> STARTUP MOUNT
+    -- インスタンスを起動し、データベースをマウントする方法（オープンはしない）
+    SQL> STARTUP MOUNT
 
--- インスタンスにデータベースをマウントする方法
-SQL> ALTER DATABASE MOUNT;
+    -- インスタンスにデータベースをマウントする方法
+    SQL> ALTER DATABASE MOUNT;
 
--- クローズしているデータベースをオープンする方法
-SQL> ALTER DATABASE OPEN;
+    -- クローズしているデータベースをオープンする方法
+    SQL> ALTER DATABASE OPEN;
 
--- NORMALモードによる停止（接続しているすべてのユーザーが切断するまで待機してから、データベースが停止）
-SQL> SHUTDOWN [NORMAL]
+    -- NORMALモードによる停止（接続しているすべてのユーザーが切断するまで待機してから、データベースが停止）
+    SQL> SHUTDOWN [NORMAL]
 
--- IMMEDIATEモードによる停止（実行中のSQL文を終了、ユーザーを切断、アクティブなトランザクションを終了し、コミットされていない変更をロールバックして停止）
-SQL> SHUTDOWN IMMEDIATE
+    -- IMMEDIATEモードによる停止（実行中のSQL文を終了、ユーザーを切断、アクティブなトランザクションを終了し、コミットされていない変更をロールバックして停止）
+    SQL> SHUTDOWN IMMEDIATE
 
--- TRANSACTIONALモードによる停止（現在のトランザクションがすべて完了するまで待機してから停止）
-SQL> SHUTDOWN TRANSACTIONAL
-```
-<br>
+    -- TRANSACTIONALモードによる停止（現在のトランザクションがすべて完了するまで待機してから停止）
+    SQL> SHUTDOWN TRANSACTIONAL
+    ```
 
 <a id="markdown-表領域" name="表領域"></a>
 ###  表領域
 
-```sql
--- 確認
-SQL> col FILE_NAME for a60
-SQL> col SIZE(MB) for 99,999,999
-SQL> set linesize 120 pagesize 50000
+* 表領域（table space）とは、データ保管のためにストレージ上に確保した領域
+    ```sql
+    -- 書式設定
+    SQL> col FILE_NAME for a60
+    SQL> col SIZE(MB) for 99,999,999
+    SQL> set linesize 120 pagesize 50000
 
-SQL> select TABLESPACE_NAME, FILE_NAME, BYTES/1024/1024 "SIZE(MB)" from DBA_DATA_FILES;
+    -- 表領域の確認
+    SQL> select TABLESPACE_NAME, FILE_NAME, BYTES/1024/1024 "SIZE(MB)" from DBA_DATA_FILES;
 
-TABLESPACE_NAME   FILE_NAME                                         SIZE(MB)
------------------ ---------------------------------------------- -----------
-SYSTEM            /DB/oracle/idx/idx001_tsp01.db                         870
-SYSAUX            +DATA/ORCL/DATAFILE/sysaux.262.1012010305              600
-UNDOTBS1          +DATA/ORCL/DATAFILE/undotbs1.263.1012010333            130
-USERS             +DATA/ORCL/DATAFILE/users.274.1012011961                 5
+    TABLESPACE_NAME   FILE_NAME                                         SIZE(MB)
+    ----------------- ---------------------------------------------- -----------
+    SYSTEM            /DB/oracle/idx/idx001_tsp01.db                         870
+    SYSAUX            +DATA/ORCL/DATAFILE/sysaux.262.1012010305              600
+    UNDOTBS1          +DATA/ORCL/DATAFILE/undotbs1.263.1012010333            130
+    USERS             +DATA/ORCL/DATAFILE/users.274.1012011961                 5
 
--- 拡張
-SQL> alter tablespace TEST_SMALL add datafile size 4096M;
+    -- 拡張
+    SQL> alter tablespace TEST_SMALL add datafile size 4096M;
 
--- 削除
-SQL> alter tablespace TEST_SMALL drop datafile size 4096M;
+    -- 削除
+    SQL> alter tablespace TEST_SMALL drop datafile size 4096M;
 
-set lines 120
-set pages 100
-set term off
-tti off
-clear col
-col TABLESPAVE_NAME format a15
-col "SIZE(MB)" format a20
-col "USED(MB)" format a20
-col "FREE(MB)" format a20
-col "USED(%)" format 990.99
+    set lines 120
+    set pages 100
+    set term off
+    tti off
+    clear col
+    col TABLESPAVE_NAME format a15
+    col "SIZE(MB)" format a20
+    col "USED(MB)" format a20
+    col "FREE(MB)" format a20
+    col "USED(%)" format 990.99
 
--- 使用量の確認
-select
- tablespace_name,
- to_char(nvl(total_bytes / 1024 /1024,0),'999,999,999') as "size(MB)",
- to_char(nvl((total_bytes - free_total_bytes) / 1024 /1024,0),'999,999,999') as "used(MB)",
- to_char(nvl(free_total_bytes / 1024 /1024,0),'999,999,999') as "free(MB)",
- round(nvl((total_bytes - free_total_bytes) / total_bytes * 100,100),2) as "rate(%)"
-from
- (select tablespace_name,sum(bytes) total_bytes from dba_data_files group by tablespace_name),
- (select tablespace_name free_tablespace_name,sum(bytes) free_total_bytes from dba_free_space group by tablespace_name)
-where tablespace_name = free_tablespace_name(+)
-/
-```
+    -- 使用量の確認
+    select
+    tablespace_name,
+    to_char(nvl(total_bytes / 1024 /1024,0),'999,999,999') as "size(MB)",
+    to_char(nvl((total_bytes - free_total_bytes) / 1024 /1024,0),'999,999,999') as "used(MB)",
+    to_char(nvl(free_total_bytes / 1024 /1024,0),'999,999,999') as "free(MB)",
+    round(nvl((total_bytes - free_total_bytes) / total_bytes * 100,100),2) as "rate(%)"
+    from
+    (select tablespace_name,sum(bytes) total_bytes from dba_data_files group by tablespace_name),
+    (select tablespace_name free_tablespace_name,sum(bytes) free_total_bytes from dba_free_space group by tablespace_name)
+    where tablespace_name = free_tablespace_name(+)
+    /
+    ```
 
 <br>
 <!-- NEXT INDENT -->
@@ -153,25 +174,53 @@ where tablespace_name = free_tablespace_name(+)
 
 <a id="markdown-テーブル操作" name="テーブル操作"></a>
 ###  テーブル操作
-```sql
----カラムの変更
-ALTER TABLE table MODIFY (column VARCHAR2(45));
-```
 
-<a id="markdown-エクスポート" name="エクスポート"></a>
-###  エクスポート
+* ALTER<br>
+    オルターと読む
+    ```sql
+    ---カラムの変更
+    ALTER TABLE table MODIFY (column VARCHAR2(45));
+    ```
 
-```sql
--- 実行中のDATA PUMPを確認
-SQL> SELECT * FROM DBA_DATAPUMP_JOBS;
+<a id="markdown-データパンプデータポンプ" name="データパンプデータポンプ"></a>
+###  データパンプ（データポンプ）
 
--- 該当のジョブにアタッチ
-$ expdp user/pass@inst attach='job_name'
-$ impdp user/pass@inst attach='job_name'
+* データエクスポート
+    ```sql
+    -- 基本
+    SQL> expdp user/pass@db01 CONTENT=data_only DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=exp.log
+    
+    -- テーブル指定
+    TABLES=tbl01
+    
+    -- 指定された時刻に最も近いSCNを検出し、このSCNを使用してフラッシュバック・ユーティリティを使用可能にする
+    FLASHBACK_TIME="TO_TIMESTAMP('27-10-2012 13:16:00', 'DD-MM-YYYY HH24:MI:SS')"
+    
+    -- デフォルトでログを作成するかどうか（YES指定で作成されない）
+    NOLOGFILE=yes
+    ```
 
--- ジョブのキル
-$ kill_job
-```
+* インポート
+    ```sql
+    -- 基本
+    SQL> impdp user/pass@db01 TABLE_EXISTS_ACTION=truncate DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=imp.log
+
+    -- スキーマ変更
+    REMAP_SCHEMA=source_schema:target_schema
+    ```
+
+* データポンプの停止
+    ```sql
+    -- 実行中のDATA PUMPを確認
+    SQL> SELECT * FROM DBA_DATAPUMP_JOBS;
+
+    -- 該当のジョブにアタッチ
+    $ expdp user/pass@inst attach='job_name'
+    $ impdp user/pass@inst attach='job_name'
+
+    -- ジョブのキル
+    $ kill_job
+    ```
 
 <a id="markdown-viewファイルの確認" name="viewファイルの確認"></a>
 ###  viewファイルの確認
@@ -254,24 +303,17 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 2. ロジカル・スタンバイ構成  
 プライマリ・データベースから転送されたREDOデータをSQLに変換して、スタンバイ・データベースにSQLを実行（SQL Apply）してデータの同期を取る構成。スタンバイ・データベース側はオープンしている状態なので、いつでもデータの確認をすることができる。
 
-<a id="markdown-パフォーマンス" name="パフォーマンス"></a>
-###  パフォーマンス
+<a id="markdown-パーテーション" name="パーテーション"></a>
+### パーテーション
 
-* 待機イベント  
-    ```sql
-    -- 確認
-    SQL> select program, event from v$session where EVENT='Streams AQ: enqueue blocked on low memory';
-    SQL> select shrink_phase_knlasg from X$KNLASG;
-
-    -- 削除
-    SQL> alter system set events 'immediate trace name mman_create_def_request level 6';
-    ```
+* 概要<br>
+パーティション化により、表、索引および索引構成表をより細かい単位に細分化できるようになる。
 
 <br>
 <!-- NEXT INDENT -->
 
-<a id="markdown-５．性能" name="５．性能"></a>
-## ５．性能
+<a id="markdown-５．性能／パフォーマンス" name="５．性能／パフォーマンス"></a>
+## ５．性能／パフォーマンス
 
 <a id="markdown-実行計画・統計情報" name="実行計画・統計情報"></a>
 ###  実行計画・統計情報
@@ -307,6 +349,69 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
     などがある
   
 <u>実行計画と統計情報とデータベースの三者は整合性取れてる必要がある。</u>  
+
+<a id="markdown-索引" name="索引"></a>
+### 索引
+
+* 説明<br>
+テーブル内の特定のデータだけにアクセスする場合に、索引を使用することで効果的にアクセスできる。数%のデータにアクセスする場合は索引スキャンは非常に高速だが、アクセスするデータが多いと逆にフル・スキャンより遅くなる。
+
+* 索引の作成<br>
+基本は、主キー以外で頻繁にWHERE句に指定されている列に作成する。ただし、索引が多すぎると更新のオーバーヘッドになるので最小限の索引にするようにします。索引を効率よく活用する必要がある。
+    1. 一意性の高い索引を<br>
+        複数の列を条件に指定している場合はできるだけ全ての列で複数索引を作成する。一意性が高いのでアクセスするブロック数を少なくできる。
+    2. 使用頻度の高い列を先頭に<br>
+        作成する索引の先頭には頻繁に使用する列を持ってきて、多くのSQL文で使用されるようにする。
+    3. 選択率の低い列を先頭に<br>
+        選択率の低い列（ユニーク性の高い列）から指定する。これは、索引は先頭から比較していきますので、目的のキーにたどり着くまでのキー比較を少なくできる。
+    4. 非ユニーク索引にはキー圧縮<br>
+        ss
+
+* 索引のメンテナンス<br>
+
+<a id="markdown-チューニング" name="チューニング"></a>
+### チューニング
+
+* 待機イベント  
+    ```sql
+    -- 確認
+    SQL> select program, event from v$session where EVENT='Streams AQ: enqueue blocked on low memory';
+    SQL> select shrink_phase_knlasg from X$KNLASG;
+
+    -- 削除
+    SQL> alter system set events 'immediate trace name mman_create_def_request level 6';
+    ```
+
+<br>
+<!-- NEXT INDENT -->
+
+<a id="markdown-６．用語" name="６．用語"></a>
+## ６．用語
+
+<a id="markdown-dwh-データウェアハウス" name="dwh-データウェアハウス"></a>
+### DWH （データウェアハウス）
+
+* トランザクション処理用ではなく、問合せおよび分析用に設計されたリレーショナル・データベース。
+
+<a id="markdown-cwh-セントラルウェアハウス" name="cwh-セントラルウェアハウス"></a>
+### CWH （セントラルウェアハウス）
+
+* データウェアハウスの利用において、中心となるデータを統合管理する部分を指す。
+
+<a id="markdown-データマート" name="データマート"></a>
+### データマート
+
+* 販売、マーケティング、金融など、特定のビジネス分野に対して設計されたデータ・ウェアハウス。
+
+<a id="markdown-マテビュー" name="マテビュー"></a>
+### マテビュー
+
+* 調査や分析の対象となるデータ（通常は数値データや加算的データ）の集計データまたは結合データで構成される事前計算表。サマリーまたは集計表とも呼ばれえる。**リフレッシュ**することでマテリアライズド・ビューを変更して新しいデータを反映する。
+
+<a id="markdown-scn-system-change-number" name="scn-system-change-number"></a>
+### SCN （System Change Number）
+
+* トランザクションの毎に、シーケンシャルに割り振られる番号。この番号を元に障害の有無を判別し、リカバリも行ったりする非常に重要な番号。
 
 <br>
 <!-- NEXT INDENT -->
