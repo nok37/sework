@@ -1,4 +1,3 @@
-
 # Linux
 
 <!-- TOC -->
@@ -8,44 +7,57 @@
     - [bash設定](#bash設定)
     - [cron](#cron)
     - [ショートカット](#ショートカット)
-        - [alt + v　#ターミナルの複製](#alt--v　ターミナルの複製)
-        - [ctrl + d　#ログアウト](#ctrl--d　ログアウト)
-        - [ctrl + r　#コマンド実行履歴の検索](#ctrl--r　コマンド実行履歴の検索)
+        - [alt + v - ターミナルの複製](#alt--v---ターミナルの複製)
+        - [ctrl + d - ログアウト](#ctrl--d---ログアウト)
+        - [ctrl + r - コマンド実行履歴の検索](#ctrl--r---コマンド実行履歴の検索)
+    - [特殊なデバイス（/dev/***系）](#特殊なデバイスdev系)
     - [豆知識](#豆知識)
-        - [ssh接続時に表示される文言　#motd](#ssh接続時に表示される文言　motd)
+        - [ssh接続時に表示される文言 - motd](#ssh接続時に表示される文言---motd)
 - [２．コマンド](#２．コマンド)
-    - [ac　#ユーザの接続時間についての統計を表示する](#ac　ユーザの接続時間についての統計を表示する)
-    - [awk　#パターン検索と文字処理](#awk　パターン検索と文字処理)
-    - [bc　#任意精度の計算言語](#bc　任意精度の計算言語)
-    - [cancel　#ジョブの取り消しを行う](#cancel　ジョブの取り消しを行う)
-    - [cd　#カレントディレクトリの変更](#cd　カレントディレクトリの変更)
-    - [chmod　#ファイルの権限を変更する](#chmod　ファイルの権限を変更する)
-    - [cupsdisable　#プリンタ無効化](#cupsdisable　プリンタ無効化)
-    - [cupsenable　#プリンタ有効化](#cupsenable　プリンタ有効化)
-    - [curl  #HTTPなどの通信プロトコルでデータを転送する](#curl--httpなどの通信プロトコルでデータを転送する)
-    - [cut　#各行から一部分を取り除く](#cut　各行から一部分を取り除く)
-    - [dc　#無限精度の計算が行える卓上計算機](#dc　無限精度の計算が行える卓上計算機)
-    - [echo　#テキストの行を表示する](#echo　テキストの行を表示する)
-    - [find　#条件を満たすファイルを検索する](#find　条件を満たすファイルを検索する)
-    - [grep　#パターンにマッチする行を表示する](#grep　パターンにマッチする行を表示する)
-    - [head　#ファイルの最初の部分を表示する](#head　ファイルの最初の部分を表示する)
-    - [hostname　#システムのホスト名（IPアドレス）を表示・設定する](#hostname　システムのホスト名ipアドレスを表示・設定する)
-    - [ifconfig　#ネットワークインターフェースの管理](#ifconfig　ネットワークインターフェースの管理)
-    - [keytool　#鍵と証明書を管理](#keytool　鍵と証明書を管理)
-    - [last　#ログイン履歴を表示する](#last　ログイン履歴を表示する)
-    - [od　#8進数やその他の形式でダンプする](#od　8進数やその他の形式でダンプする)
-    - [openssl　#証明書の作成](#openssl　証明書の作成)
-    - [route　#ルーティングテーブルの管理](#route　ルーティングテーブルの管理)
-    - [sed　#文字列置換などのテキスト処理](#sed　文字列置換などのテキスト処理)
-    - [tar　#アーカイブの作成](#tar　アーカイブの作成)
-    - [umask　#デフォルトの権限を決定する](#umask　デフォルトの権限を決定する)
-    - [vim　#高機能なテキストエディタ](#vim　高機能なテキストエディタ)
-    - [yum　#RedHat系で利用されるパッケージ管理ツール](#yum　redhat系で利用されるパッケージ管理ツール)
-    - [xargs　#引数からコマンドを組み立て実行する](#xargs　引数からコマンドを組み立て実行する)
-    - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
-    - [!!　#直前のコマンドを実行](#　直前のコマンドを実行)
-    - [> >>　#出力リダイレクト](#-　出力リダイレクト)
-    - [< <<　#入力リダイレクト](#-　入力リダイレクト)
+    - [ac - ユーザの接続時間についての統計を表示する](#ac---ユーザの接続時間についての統計を表示する)
+    - [awk - パターン検索と文字処理](#awk---パターン検索と文字処理)
+    - [bc - 任意精度の計算言語](#bc---任意精度の計算言語)
+    - [cancel - ジョブの取り消しを行う](#cancel---ジョブの取り消しを行う)
+    - [cd - カレントディレクトリの変更](#cd---カレントディレクトリの変更)
+    - [chmod - ファイルの権限を変更する](#chmod---ファイルの権限を変更する)
+    - [cupsdisable - プリンタ無効化](#cupsdisable---プリンタ無効化)
+    - [cupsenable - プリンタ有効化](#cupsenable---プリンタ有効化)
+    - [curl - HTTPなどの通信プロトコルでデータを転送する](#curl---httpなどの通信プロトコルでデータを転送する)
+    - [cut - 各行から一部分を取り除く](#cut---各行から一部分を取り除く)
+    - [dc - 無限精度の計算が行える卓上計算機](#dc---無限精度の計算が行える卓上計算機)
+    - [dd - ファイルの変換とコピーを行う](#dd---ファイルの変換とコピーを行う)
+    - [echo - テキストの行を表示する](#echo---テキストの行を表示する)
+    - [find - 条件を満たすファイルを検索する](#find---条件を満たすファイルを検索する)
+    - [grep - パターンにマッチする行を表示する](#grep---パターンにマッチする行を表示する)
+    - [head - ファイルの最初の部分を表示する](#head---ファイルの最初の部分を表示する)
+    - [hostname - システムのホスト名（IPアドレス）を表示・設定する](#hostname---システムのホスト名ipアドレスを表示・設定する)
+    - [ifconfig - ネットワークインターフェースの管理](#ifconfig---ネットワークインターフェースの管理)
+    - [jobs - アクティブなジョブリストの表示](#jobs---アクティブなジョブリストの表示)
+    - [keytool - 鍵と証明書を管理](#keytool---鍵と証明書を管理)
+    - [last - ログイン履歴を表示する](#last---ログイン履歴を表示する)
+    - [md5sum - MD5メッセージダイジェストの計算と照合を行う](#md5sum---md5メッセージダイジェストの計算と照合を行う)
+    - [nl - ファイルに行番号を付与する](#nl---ファイルに行番号を付与する)
+    - [nohup - ログアウトの影響を受けずコマンドを実行する](#nohup---ログアウトの影響を受けずコマンドを実行する)
+    - [od - 8進数やその他の形式でダンプする](#od---8進数やその他の形式でダンプする)
+    - [openssl - 証明書の作成](#openssl---証明書の作成)
+    - [ps - 現在実行されているプロセスのスナップショットを表示する](#ps---現在実行されているプロセスのスナップショットを表示する)
+    - [route - ルーティングテーブルの管理](#route---ルーティングテーブルの管理)
+    - [sed - 文字列置換などのテキスト処理](#sed---文字列置換などのテキスト処理)
+    - [tar - アーカイブの作成](#tar---アーカイブの作成)
+    - [umask - デフォルトの権限を決定する](#umask---デフォルトの権限を決定する)
+    - [vim - 高機能なテキストエディタ](#vim---高機能なテキストエディタ)
+    - [xargs - 引数からコマンドを組み立て実行する](#xargs---引数からコマンドを組み立て実行する)
+    - [xxd - 2進数でダンプする](#xxd---2進数でダンプする)
+    - [yum - RedHat系で利用されるパッケージ管理ツール](#yum---redhat系で利用されるパッケージ管理ツール)
+    - [w - ログインしている人とその人がやっていることを表示する](#w---ログインしている人とその人がやっていることを表示する)
+    - [wc -各ファイルの改行数、ワード数、バイト数を表示する](#wc--各ファイルの改行数ワード数バイト数を表示する)
+    - [which - コマンドのフルパスを表示する](#which---コマンドのフルパスを表示する)
+    - [whoami - 実効ユーザ名を出力する](#whoami---実効ユーザ名を出力する)
+    - [zgrep - 圧縮されている可能性のあるファイルで、正規表現の検索をする](#zgrep---圧縮されている可能性のあるファイルで正規表現の検索をする)
+    - [zip - ファイル圧縮をする](#zip---ファイル圧縮をする)
+    - [!! - 直前のコマンドを実行](#---直前のコマンドを実行)
+    - [> , >> - 出力リダイレクト](#-----出力リダイレクト)
+    - [< , << - 入力リダイレクト](#-----入力リダイレクト)
 - [３．シェル](#３．シェル)
     - [用語説明](#用語説明)
         - [シェバン](#シェバン)
@@ -156,14 +168,14 @@
 <a id="markdown-ショートカット" name="ショートカット"></a>
 ### ショートカット
 
-<a id="markdown-alt--v　ターミナルの複製" name="alt--v　ターミナルの複製"></a>
-#### alt + v　#ターミナルの複製
+<a id="markdown-alt--v---ターミナルの複製" name="alt--v---ターミナルの複製"></a>
+#### alt + v - ターミナルの複製
 
-<a id="markdown-ctrl--d　ログアウト" name="ctrl--d　ログアウト"></a>
-#### ctrl + d　#ログアウト
+<a id="markdown-ctrl--d---ログアウト" name="ctrl--d---ログアウト"></a>
+#### ctrl + d - ログアウト
 
-<a id="markdown-ctrl--r　コマンド実行履歴の検索" name="ctrl--r　コマンド実行履歴の検索"></a>
-#### ctrl + r　#コマンド実行履歴の検索
+<a id="markdown-ctrl--r---コマンド実行履歴の検索" name="ctrl--r---コマンド実行履歴の検索"></a>
+#### ctrl + r - コマンド実行履歴の検索
 
 ```bash
 $ date
@@ -173,11 +185,22 @@ $ date
 (reverse-i-search)`d': date
 ```
 
+<a id="markdown-特殊なデバイスdev系" name="特殊なデバイスdev系"></a>
+### 特殊なデバイス（/dev/***系）
+
+* /dev/null<br>
+  書き込まれたデータをすべて破棄し、読み込んでも何もデータを返さない。<br>
+  不要な出力を破棄する時に使用。
+
+* /dev/zero<br>
+  0x00（NULL文字）を常に出力し続ける特殊なデバイス。<br>
+  NULL文字でデータ上書きする場合などで使用。
+
 <a id="markdown-豆知識" name="豆知識"></a>
 ### 豆知識
 
-<a id="markdown-ssh接続時に表示される文言　motd" name="ssh接続時に表示される文言　motd"></a>
-#### ssh接続時に表示される文言　#motd
+<a id="markdown-ssh接続時に表示される文言---motd" name="ssh接続時に表示される文言---motd"></a>
+#### ssh接続時に表示される文言 - motd
 Message of the dayの略
 
 ```bash
@@ -190,8 +213,8 @@ Message of the dayの略
 <a id="markdown-２．コマンド" name="２．コマンド"></a>
 ## ２．コマンド
 
-<a id="markdown-ac　ユーザの接続時間についての統計を表示する" name="ac　ユーザの接続時間についての統計を表示する"></a>
-### ac　#ユーザの接続時間についての統計を表示する
+<a id="markdown-ac---ユーザの接続時間についての統計を表示する" name="ac---ユーザの接続時間についての統計を表示する"></a>
+### ac - ユーザの接続時間についての統計を表示する
 
 * 必須レベル：★☆☆☆☆
   
@@ -207,8 +230,8 @@ Message of the dayの略
   -rw-rw-r--. 1 root utmp 26496  4月 21 21:25 /var/log/wtmp
   ```
 
-<a id="markdown-awk　パターン検索と文字処理" name="awk　パターン検索と文字処理"></a>
-### awk　#パターン検索と文字処理
+<a id="markdown-awk---パターン検索と文字処理" name="awk---パターン検索と文字処理"></a>
+### awk - パターン検索と文字処理
 
 * 必須レベル：★★★★☆<br>
   ※オークと読みます
@@ -248,8 +271,8 @@ Message of the dayの略
   /usr/bin/vimtutor
   ```
 
-<a id="markdown-bc　任意精度の計算言語" name="bc　任意精度の計算言語"></a>
-### bc　#任意精度の計算言語
+<a id="markdown-bc---任意精度の計算言語" name="bc---任意精度の計算言語"></a>
+### bc - 任意精度の計算言語
 
 * 必須レベル：★☆☆☆☆
 
@@ -266,8 +289,8 @@ Message of the dayの略
   15
   ```
 
-<a id="markdown-cancel　ジョブの取り消しを行う" name="cancel　ジョブの取り消しを行う"></a>
-### cancel　#ジョブの取り消しを行う
+<a id="markdown-cancel---ジョブの取り消しを行う" name="cancel---ジョブの取り消しを行う"></a>
+### cancel - ジョブの取り消しを行う
 
 * 必須レベル：★★☆☆☆
 
@@ -278,8 +301,8 @@ Message of the dayの略
   $ cancel -a TESTPRT
   ```
 
-<a id="markdown-cd　カレントディレクトリの変更" name="cd　カレントディレクトリの変更"></a>
-### cd　#カレントディレクトリの変更
+<a id="markdown-cd---カレントディレクトリの変更" name="cd---カレントディレクトリの変更"></a>
+### cd - カレントディレクトリの変更
 
 * 必須レベル：★★★★★
 
@@ -311,8 +334,8 @@ Message of the dayの略
   /home/takahana
   ```
 
-<a id="markdown-chmod　ファイルの権限を変更する" name="chmod　ファイルの権限を変更する"></a>
-### chmod　#ファイルの権限を変更する
+<a id="markdown-chmod---ファイルの権限を変更する" name="chmod---ファイルの権限を変更する"></a>
+### chmod - ファイルの権限を変更する
 
 * 必須レベル：★★★★★<br>
   Read 4, Write 2, eXute 1 の加算で表す<br>
@@ -346,8 +369,8 @@ Message of the dayの略
   $ chmod -R 777 dir
   ```
 
-<a id="markdown-cupsdisable　プリンタ無効化" name="cupsdisable　プリンタ無効化"></a>
-### cupsdisable　#プリンタ無効化
+<a id="markdown-cupsdisable---プリンタ無効化" name="cupsdisable---プリンタ無効化"></a>
+### cupsdisable - プリンタ無効化
 
 * 必須レベル：★★☆☆☆
 
@@ -357,8 +380,8 @@ Message of the dayの略
   $ cupsdisable TESTPRT
   ```
 
-<a id="markdown-cupsenable　プリンタ有効化" name="cupsenable　プリンタ有効化"></a>
-### cupsenable　#プリンタ有効化
+<a id="markdown-cupsenable---プリンタ有効化" name="cupsenable---プリンタ有効化"></a>
+### cupsenable - プリンタ有効化
 
 * 必須レベル：★★☆☆☆
 
@@ -368,8 +391,8 @@ Message of the dayの略
   $ cupsenable TESTPRT
   ```
 
-<a id="markdown-curl--httpなどの通信プロトコルでデータを転送する" name="curl--httpなどの通信プロトコルでデータを転送する"></a>
-### curl  #HTTPなどの通信プロトコルでデータを転送する
+<a id="markdown-curl---httpなどの通信プロトコルでデータを転送する" name="curl---httpなどの通信プロトコルでデータを転送する"></a>
+### curl - HTTPなどの通信プロトコルでデータを転送する
 
 * 必須レベル：★★★☆☆
 
@@ -482,8 +505,8 @@ Message of the dayの略
   $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
   ```
 
-<a id="markdown-cut　各行から一部分を取り除く" name="cut　各行から一部分を取り除く"></a>
-### cut　#各行から一部分を取り除く
+<a id="markdown-cut---各行から一部分を取り除く" name="cut---各行から一部分を取り除く"></a>
+### cut - 各行から一部分を取り除く
 
 * 必須レベル：★★★☆☆
 
@@ -508,8 +531,8 @@ Message of the dayの略
   1 2
   ```
 
-<a id="markdown-dc　無限精度の計算が行える卓上計算機" name="dc　無限精度の計算が行える卓上計算機"></a>
-### dc　#無限精度の計算が行える卓上計算機
+<a id="markdown-dc---無限精度の計算が行える卓上計算機" name="dc---無限精度の計算が行える卓上計算機"></a>
+### dc - 無限精度の計算が行える卓上計算機
 
 * 必須レベル：★☆☆☆☆
 
@@ -523,8 +546,39 @@ Message of the dayの略
   6
   ```
 
-<a id="markdown-echo　テキストの行を表示する" name="echo　テキストの行を表示する"></a>
-### echo　#テキストの行を表示する
+<a id="markdown-dd---ファイルの変換とコピーを行う" name="dd---ファイルの変換とコピーを行う"></a>
+### dd - ファイルの変換とコピーを行う
+
+* 必須レベル：★★☆☆☆
+
+* オプション
+  |  オプション  |  詳細  |
+  | ---- | ---- |
+  | if=FILE  | 標準入力の代わりに FILE から読み込む |
+  | of=FILE  | 標準出力の代わりに FILE に書き込む |
+  | bs=BYTES | 一回に BYTES バイトずつ読み書きする |
+  | count=N  | 入力ブロック N 個分だけコピーする |
+
+* 使い方
+  ```bash
+  # 5Mbのファイル作成
+  $ dd if=/dev/zero of=5Mb bs=1000 count=5000
+  5000+0 レコード入力
+  5000+0 レコード出力
+  5000000 バイト (5.0 MB) コピーされました、 0.0286412 秒、 175 MB/秒
+
+  $ ls -lh 5Mb
+  -rw-rw-r--. 1 takahana takahana 4.8M  4月 24 22:27 5Mb
+
+  # ちなみに0で埋まっている
+  $ od ./5Mb
+  0000000 000000 000000 000000 000000 000000 000000 000000 000000
+  *
+  23045500
+  ```
+
+<a id="markdown-echo---テキストの行を表示する" name="echo---テキストの行を表示する"></a>
+### echo - テキストの行を表示する
 
 * 必須レベル：★★★★★
 
@@ -544,8 +598,8 @@ Message of the dayの略
   test
   ```
 
-<a id="markdown-find　条件を満たすファイルを検索する" name="find　条件を満たすファイルを検索する"></a>
-### find　#条件を満たすファイルを検索する
+<a id="markdown-find---条件を満たすファイルを検索する" name="find---条件を満たすファイルを検索する"></a>
+### find - 条件を満たすファイルを検索する
 
 * 必須レベル：★★★★★
 
@@ -572,8 +626,8 @@ Message of the dayの略
   # アクション指定
   ```
 
-<a id="markdown-grep　パターンにマッチする行を表示する" name="grep　パターンにマッチする行を表示する"></a>
-### grep　#パターンにマッチする行を表示する
+<a id="markdown-grep---パターンにマッチする行を表示する" name="grep---パターンにマッチする行を表示する"></a>
+### grep - パターンにマッチする行を表示する
 
 * 必須レベル：★★★★★
 
@@ -592,17 +646,33 @@ Message of the dayの略
     
 * 使い方
 
-<a id="markdown-head　ファイルの最初の部分を表示する" name="head　ファイルの最初の部分を表示する"></a>
-### head　#ファイルの最初の部分を表示する
+<a id="markdown-head---ファイルの最初の部分を表示する" name="head---ファイルの最初の部分を表示する"></a>
+### head - ファイルの最初の部分を表示する
 
-* 必須レベル：★★★★★
+* 必須レベル：★★★☆☆
 
 * 使い方
   ```bash
+  # デフォルトは先頭10行表示
+  $ head sample.c
+  #include<stdio.h>
+  //##################################################
+  //# 名前：
+  //# 機能：
+  //# 概要：
+  //##################################################
+
+  //====================
+  // メイン処理
+  //====================
+
+  # 行数指定
+  $ head -n 1 sample.c
+  #include<stdio.h>
   ```
 
-<a id="markdown-hostname　システムのホスト名ipアドレスを表示・設定する" name="hostname　システムのホスト名ipアドレスを表示・設定する"></a>
-### hostname　#システムのホスト名（IPアドレス）を表示・設定する
+<a id="markdown-hostname---システムのホスト名ipアドレスを表示・設定する" name="hostname---システムのホスト名ipアドレスを表示・設定する"></a>
+### hostname - システムのホスト名（IPアドレス）を表示・設定する
 
 * 必須レベル：★★★☆☆
 
@@ -613,8 +683,8 @@ Message of the dayの略
   10.x.x.xx 192.168.122.1
   ```
 
-<a id="markdown-ifconfig　ネットワークインターフェースの管理" name="ifconfig　ネットワークインターフェースの管理"></a>
-### ifconfig　#ネットワークインターフェースの管理
+<a id="markdown-ifconfig---ネットワークインターフェースの管理" name="ifconfig---ネットワークインターフェースの管理"></a>
+### ifconfig - ネットワークインターフェースの管理
 
 * 必須レベル：★★★☆☆
 
@@ -630,8 +700,30 @@ Message of the dayの略
           TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
   ```
 
-<a id="markdown-keytool　鍵と証明書を管理" name="keytool　鍵と証明書を管理"></a>
-### keytool　#鍵と証明書を管理
+<a id="markdown-jobs---アクティブなジョブリストの表示" name="jobs---アクティブなジョブリストの表示"></a>
+### jobs - アクティブなジョブリストの表示
+
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  # 事前準備（vimコマンドを一時停止しておく）
+  $ vi test
+  [1]+  停止                  vim test
+  $ vi test2
+  [2]+  停止                  vim test2
+  
+  # ジョブの確認
+  $ jobs
+  [1]-  停止                  vim test
+  [2]+  停止                  vim test2
+
+  # フォアグラウンドでジョブを再開
+  $ fg 2
+  ```
+
+<a id="markdown-keytool---鍵と証明書を管理" name="keytool---鍵と証明書を管理"></a>
+### keytool - 鍵と証明書を管理
 
 * 必須レベル：★★☆☆☆
 
@@ -645,8 +737,8 @@ Message of the dayの略
   keytool -list -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts
   ```
 
-<a id="markdown-last　ログイン履歴を表示する" name="last　ログイン履歴を表示する"></a>
-### last　#ログイン履歴を表示する
+<a id="markdown-last---ログイン履歴を表示する" name="last---ログイン履歴を表示する"></a>
+### last - ログイン履歴を表示する
 
 * 必須レベル：★☆☆☆☆
 
@@ -666,8 +758,76 @@ Message of the dayの略
   $ last -ad
   ```
 
-<a id="markdown-od　8進数やその他の形式でダンプする" name="od　8進数やその他の形式でダンプする"></a>
-### od　#8進数やその他の形式でダンプする
+<a id="markdown-md5sum---md5メッセージダイジェストの計算と照合を行う" name="md5sum---md5メッセージダイジェストの計算と照合を行う"></a>
+### md5sum - MD5メッセージダイジェストの計算と照合を行う
+
+* 必須レベル：★★★★☆
+
+* 使い方<br>
+  バイナリファイル資産等の資産一致確認に使う
+  ```bash
+  # ファイルのハッシュ値を取得
+  $ cat test123
+  1234
+  $ md5sum test123
+  e7df7cd2ca07f4f1ab415d457a6e1c13  test123
+
+  # ファイルの中身が変わればハッシュ値が全く異なる
+  $ cat test123
+  123
+  $ md5sum test123
+  ba1f2511fc30423bdbb183fe33f3dd0f  test123
+
+  ```
+
+<a id="markdown-nl---ファイルに行番号を付与する" name="nl---ファイルに行番号を付与する"></a>
+### nl - ファイルに行番号を付与する
+
+* 必須レベル：★★★☆☆
+
+* 使い方
+  ```bash
+  # 本文（Body）を全て（All）表示する
+  $ nl -ba sample1.c
+     1  #include<stdio.h>
+     2  //##################################################
+     3  //# 名前：hello.c
+     4  //# 機能：「こんにちは」といいます。
+     5  //# 概要：
+     6  //##################################################
+     7
+     8  //====================
+     9  // メイン処理
+    10  //====================
+    11  int main(void)
+    12  {
+    13
+    14    printf("こんにちは\n");
+    15
+    16    return 0;
+    17
+    18  }
+  ```
+
+<a id="markdown-nohup---ログアウトの影響を受けずコマンドを実行する" name="nohup---ログアウトの影響を受けずコマンドを実行する"></a>
+### nohup - ログアウトの影響を受けずコマンドを実行する
+
+* 必須レベル：★★★☆☆
+
+* 使い方
+  ```bash
+  # pythonサーバの起動
+  $ nohup pytohn -m swagger_server
+    * Serving Flask app "__main__" (lazy loading)
+    * Environment: production
+    WARNING: This is a development server. Do not use it in a production deployment.
+    Use a production WSGI server instead.
+    * Debug mode: off
+    * Running on https://localhost:8080/ (Press CTRL+C to quit)
+  ```
+
+<a id="markdown-od---8進数やその他の形式でダンプする" name="od---8進数やその他の形式でダンプする"></a>
+### od - 8進数やその他の形式でダンプする
 
 * 必須レベル：★★☆☆☆
 
@@ -702,8 +862,8 @@ Message of the dayの略
   0000010
   ```
 
-<a id="markdown-openssl　証明書の作成" name="openssl　証明書の作成"></a>
-### openssl　#証明書の作成
+<a id="markdown-openssl---証明書の作成" name="openssl---証明書の作成"></a>
+### openssl - 証明書の作成
 
 * 必須レベル：★★☆☆☆
 
@@ -749,8 +909,29 @@ Message of the dayの略
   Getting Private key
   ```
 
-<a id="markdown-route　ルーティングテーブルの管理" name="route　ルーティングテーブルの管理"></a>
-### route　#ルーティングテーブルの管理
+<a id="markdown-ps---現在実行されているプロセスのスナップショットを表示する" name="ps---現在実行されているプロセスのスナップショットを表示する"></a>
+### ps - 現在実行されているプロセスのスナップショットを表示する
+
+* 必須レベル：★★☆☆☆
+
+* オプション
+  | オプション | 詳細 |
+  | --- | --- |
+  | e | 全てのプロセスを表示 |
+  | f | 完全なフォーマットでリストする |
+
+
+* 使い方
+  ```bash
+  # 「 vim 」というプロセスを表示
+  $ ps -ef | grep vim
+  takahana  2640  2828  0 19:03 pts/0    00:00:00 grep --color=auto vim
+  takahana  7042  2828  0 16:45 pts/0    00:00:00 vim test
+  takahana  7043  2828  0 16:45 pts/0    00:00:00 vim test2
+  ```
+
+<a id="markdown-route---ルーティングテーブルの管理" name="route---ルーティングテーブルの管理"></a>
+### route - ルーティングテーブルの管理
 
 * 必須レベル：★★☆☆☆
 
@@ -764,8 +945,8 @@ Message of the dayの略
   192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
   ```
 
-<a id="markdown-sed　文字列置換などのテキスト処理" name="sed　文字列置換などのテキスト処理"></a>
-### sed　#文字列置換などのテキスト処理
+<a id="markdown-sed---文字列置換などのテキスト処理" name="sed---文字列置換などのテキスト処理"></a>
+### sed - 文字列置換などのテキスト処理
 
 * 必須レベル：★★☆☆☆
 
@@ -825,8 +1006,8 @@ Message of the dayの略
   test2.txt
   ```
 
-<a id="markdown-tar　アーカイブの作成" name="tar　アーカイブの作成"></a>
-### tar　#アーカイブの作成
+<a id="markdown-tar---アーカイブの作成" name="tar---アーカイブの作成"></a>
+### tar - アーカイブの作成
 
 * 必須レベル：★★★★☆<br>
 ※tarコマンドは後述するオプション順番を意識する必要がある。
@@ -897,8 +1078,8 @@ Message of the dayの略
   ./test/test3
   ```
 
-<a id="markdown-umask　デフォルトの権限を決定する" name="umask　デフォルトの権限を決定する"></a>
-### umask　#デフォルトの権限を決定する
+<a id="markdown-umask---デフォルトの権限を決定する" name="umask---デフォルトの権限を決定する"></a>
+### umask - デフォルトの権限を決定する
 
 * 必須レベル：★★☆☆☆
 
@@ -919,8 +1100,8 @@ Message of the dayの略
   fi
   ```
 
-<a id="markdown-vim　高機能なテキストエディタ" name="vim　高機能なテキストエディタ"></a>
-### vim　#高機能なテキストエディタ  
+<a id="markdown-vim---高機能なテキストエディタ" name="vim---高機能なテキストエディタ"></a>
+### vim - 高機能なテキストエディタ  
 
 * 必須レベル：★★★★★
 
@@ -1062,6 +1243,23 @@ Message of the dayの略
   "ESCボタンをqqqに割付
   inoremap <silent> qqq <ESC>
 
+  "-----autoindent------
+  if &term =~ "xterm"
+      let &t_ti .= "\e[?2004h"
+      let &t_te .= "\e[?2004l"
+      let &pastetoggle = "\e[201~"
+
+      function XTermPasteBegin(ret)
+          set paste
+          return a:ret
+      endfunction
+
+      noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
+      inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+      cnoremap <special> <Esc>[200~ <nop>
+      cnoremap <special> <Esc>[201~ <nop>
+  endif
+
   "-----Tab------
   function! s:SID_PREFIX()
     return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
@@ -1108,20 +1306,8 @@ Message of the dayの略
   " tp 前のタブ
   ```
 
-<a id="markdown-yum　redhat系で利用されるパッケージ管理ツール" name="yum　redhat系で利用されるパッケージ管理ツール"></a>
-### yum　#RedHat系で利用されるパッケージ管理ツール
-
-* 必須レベル：★★☆☆☆
-
-* 使い方
-  ```bash
-  # yumはパイソンで動いている
-  $ head -n 1 /usr/bin/yum
-  #!/usr/bin/python
-  ```
-
-<a id="markdown-xargs　引数からコマンドを組み立て実行する" name="xargs　引数からコマンドを組み立て実行する"></a>
-### xargs　#引数からコマンドを組み立て実行する
+<a id="markdown-xargs---引数からコマンドを組み立て実行する" name="xargs---引数からコマンドを組み立て実行する"></a>
+### xargs - 引数からコマンドを組み立て実行する
 
 * 必須レベル：★★★★☆
 
@@ -1132,8 +1318,8 @@ Message of the dayの略
   ccd981a6716bb3b91569e45d336b28d0 *README.md
   ```
 
-<a id="markdown-xxd　2進数でダンプする" name="xxd　2進数でダンプする"></a>
-### xxd　#2進数でダンプする  
+<a id="markdown-xxd---2進数でダンプする" name="xxd---2進数でダンプする"></a>
+### xxd - 2進数でダンプする  
 
 * 必須レベル：★★☆☆☆
 
@@ -1168,8 +1354,126 @@ Message of the dayの略
   ※EBCDICのf2⇒数値の2
   ```
 
-<a id="markdown-　直前のコマンドを実行" name="　直前のコマンドを実行"></a>
-### !!　#直前のコマンドを実行
+<a id="markdown-yum---redhat系で利用されるパッケージ管理ツール" name="yum---redhat系で利用されるパッケージ管理ツール"></a>
+### yum - RedHat系で利用されるパッケージ管理ツール
+
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  # yumはパイソンで動いている
+  $ head -n 1 /usr/bin/yum
+  #!/usr/bin/python
+  ```
+
+<a id="markdown-w---ログインしている人とその人がやっていることを表示する" name="w---ログインしている人とその人がやっていることを表示する"></a>
+### w - ログインしている人とその人がやっていることを表示する
+
+* 必須レベル：★★☆☆☆
+
+* 使い方
+  ```bash
+  $ w
+  19:20:48 up  9:54,  1 user,  load average: 0.00, 0.02, 0.05
+  USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+  takahana pts/0    gateway          10:37    0.00s  1.42s  0.03s w
+  ```
+
+<a id="markdown-wc--各ファイルの改行数ワード数バイト数を表示する" name="wc--各ファイルの改行数ワード数バイト数を表示する"></a>
+### wc -各ファイルの改行数、ワード数、バイト数を表示する
+
+* 必須レベル：★★★☆☆
+
+* オプション
+  | オプション | 詳細 |
+  | --- | --- |
+  | l | 改行の数を表示する |
+  | c | バイト数を表示する |
+  | m | 文字数を表示する |
+
+* 使い方
+  ```bash
+  $ nl -ba sample1.c
+      1  #include<stdio.h>
+      2  //##################################################
+      3  //# 名前：hello.c
+      4  //# 機能：「こんにちは」といいます。
+      5  //# 概要：
+      6  //##################################################
+      7
+      8  //====================
+      9  // メイン処理
+      10  //====================
+      11  int main(void)
+      12  {
+      13
+      14    printf("こんにちは\n");
+      15
+      16    return 0;
+      17
+      18  }
+  
+  # 行番号を表示する
+  $ wc -l sample1.c
+  18 sample1.c
+  ```
+
+<a id="markdown-which---コマンドのフルパスを表示する" name="which---コマンドのフルパスを表示する"></a>
+### which - コマンドのフルパスを表示する
+
+* 必須レベル：★★★★★
+
+* 使い方
+  ```bash
+  $ which echo
+  /usr/bin/echo
+  ```
+
+<a id="markdown-whoami---実効ユーザ名を出力する" name="whoami---実効ユーザ名を出力する"></a>
+### whoami - 実効ユーザ名を出力する
+
+* 必須レベル：★★★☆☆
+
+* 使い方
+  ```bash
+  $ whoami
+  takahana
+  ```
+
+<a id="markdown-zgrep---圧縮されている可能性のあるファイルで正規表現の検索をする" name="zgrep---圧縮されている可能性のあるファイルで正規表現の検索をする"></a>
+### zgrep - 圧縮されている可能性のあるファイルで、正規表現の検索をする
+
+* 必須レベル：★★★☆☆
+  
+* 使い方
+  ```bash
+
+  ```
+
+<a id="markdown-zip---ファイル圧縮をする" name="zip---ファイル圧縮をする"></a>
+### zip - ファイル圧縮をする
+
+* 必須レベル：★★★★☆
+
+* オプション
+  | オプション | 詳細 |
+  | --- | --- |
+  | e | 出力ファイル名 |
+  
+* 使い方
+  ```bash
+  $ zip -e ./5Mb.zip ./5Mb
+  Enter password:
+  Verify password:
+    adding: 5Mb (deflated 100%)
+
+  $ ls -l 5Mb*
+  -rw-rw-r--. 1 takahana takahana 5000000  4月 24 22:27 5Mb
+  -rw-rw-r--. 1 takahana takahana    5045  4月 24 22:29 5Mb.zip
+  ```
+  
+<a id="markdown----直前のコマンドを実行" name="---直前のコマンドを実行"></a>
+### !! - 直前のコマンドを実行
 
 * 必須レベル：★★★☆☆
 
@@ -1192,21 +1496,19 @@ Message of the dayの略
   vi `find ./ -name "*md"`
   ```
 
-<a id="markdown--　出力リダイレクト" name="-　出力リダイレクト"></a>
-### > >>　#出力リダイレクト
+<a id="markdown------出力リダイレクト" name="-----出力リダイレクト"></a>
+### > , >> - 出力リダイレクト
 
 * 必須レベル：★★★★★
 
 * 使い方
 
-<a id="markdown--　入力リダイレクト" name="-　入力リダイレクト"></a>
-### < <<　#入力リダイレクト
+<a id="markdown------入力リダイレクト" name="-----入力リダイレクト"></a>
+### < , << - 入力リダイレクト
 
 * 必須レベル：★★★☆☆
 
 * 使い方
-  ```bash
-  ```
 
 <br>
 <!-- NEXT INDENT -->
