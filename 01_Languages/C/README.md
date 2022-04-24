@@ -148,9 +148,9 @@
     int main(void)
     {
 
-    printf("こんにちは\n");
+      printf("こんにちは\n");
 
-    return 0;
+      return 0;
 
     }
     ```

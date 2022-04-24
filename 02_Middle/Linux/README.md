@@ -14,19 +14,22 @@
     - [豆知識](#豆知識)
         - [ssh接続時に表示される文言　#motd](#ssh接続時に表示される文言　motd)
 - [２．コマンド](#２．コマンド)
-    - [ac　#ユーザのログイン時間を表示する](#ac　ユーザのログイン時間を表示する)
-    - [awk　#文字列を高度に整形する](#awk　文字列を高度に整形する)
+    - [ac　#ユーザの接続時間についての統計を表示する](#ac　ユーザの接続時間についての統計を表示する)
+    - [awk　#パターン検索と文字処理](#awk　パターン検索と文字処理)
     - [bc　#任意精度の計算言語](#bc　任意精度の計算言語)
-    - [cancel　#印刷ジョブを取り消す](#cancel　印刷ジョブを取り消す)
+    - [cancel　#ジョブの取り消しを行う](#cancel　ジョブの取り消しを行う)
     - [cd　#カレントディレクトリの変更](#cd　カレントディレクトリの変更)
     - [chmod　#ファイルの権限を変更する](#chmod　ファイルの権限を変更する)
-    - [cupsdisabl　#プリンタ無効化](#cupsdisabl　プリンタ無効化)
+    - [cupsdisable　#プリンタ無効化](#cupsdisable　プリンタ無効化)
     - [cupsenable　#プリンタ有効化](#cupsenable　プリンタ有効化)
     - [curl  #HTTPなどの通信プロトコルでデータを転送する](#curl--httpなどの通信プロトコルでデータを転送する)
-    - [cut　#文字列を特定のパターンで切り出す](#cut　文字列を特定のパターンで切り出す)
-    - [dc　#無限精度の計算が行える卓上計算機（逆ポーランド形式）](#dc　無限精度の計算が行える卓上計算機逆ポーランド形式)
-    - [find　#ファイルを検索する](#find　ファイルを検索する)
-    - [grep　#パターンにマッチする箇所を表示](#grep　パターンにマッチする箇所を表示)
+    - [cut　#各行から一部分を取り除く](#cut　各行から一部分を取り除く)
+    - [dc　#無限精度の計算が行える卓上計算機](#dc　無限精度の計算が行える卓上計算機)
+    - [echo　#テキストの行を表示する](#echo　テキストの行を表示する)
+    - [find　#条件を満たすファイルを検索する](#find　条件を満たすファイルを検索する)
+    - [grep　#パターンにマッチする行を表示する](#grep　パターンにマッチする行を表示する)
+    - [head　#ファイルの最初の部分を表示する](#head　ファイルの最初の部分を表示する)
+    - [hostname　#システムのホスト名（IPアドレス）を表示・設定する](#hostname　システムのホスト名ipアドレスを表示・設定する)
     - [ifconfig　#ネットワークインターフェースの管理](#ifconfig　ネットワークインターフェースの管理)
     - [keytool　#鍵と証明書を管理](#keytool　鍵と証明書を管理)
     - [last　#ログイン履歴を表示する](#last　ログイン履歴を表示する)
@@ -34,12 +37,15 @@
     - [openssl　#証明書の作成](#openssl　証明書の作成)
     - [route　#ルーティングテーブルの管理](#route　ルーティングテーブルの管理)
     - [sed　#文字列置換などのテキスト処理](#sed　文字列置換などのテキスト処理)
+    - [tar　#アーカイブの作成](#tar　アーカイブの作成)
     - [umask　#デフォルトの権限を決定する](#umask　デフォルトの権限を決定する)
     - [vim　#高機能なテキストエディタ](#vim　高機能なテキストエディタ)
     - [yum　#RedHat系で利用されるパッケージ管理ツール](#yum　redhat系で利用されるパッケージ管理ツール)
     - [xargs　#引数からコマンドを組み立て実行する](#xargs　引数からコマンドを組み立て実行する)
     - [xxd　#2進数でダンプする](#xxd　2進数でダンプする)
     - [!!　#直前のコマンドを実行](#　直前のコマンドを実行)
+    - [> >>　#出力リダイレクト](#-　出力リダイレクト)
+    - [< <<　#入力リダイレクト](#-　入力リダイレクト)
 - [３．シェル](#３．シェル)
     - [用語説明](#用語説明)
         - [シェバン](#シェバン)
@@ -184,8 +190,8 @@ Message of the dayの略
 <a id="markdown-２．コマンド" name="２．コマンド"></a>
 ## ２．コマンド
 
-<a id="markdown-ac　ユーザのログイン時間を表示する" name="ac　ユーザのログイン時間を表示する"></a>
-### ac　#ユーザのログイン時間を表示する
+<a id="markdown-ac　ユーザの接続時間についての統計を表示する" name="ac　ユーザの接続時間についての統計を表示する"></a>
+### ac　#ユーザの接続時間についての統計を表示する
 
 * 必須レベル：★☆☆☆☆
   
@@ -201,8 +207,8 @@ Message of the dayの略
   -rw-rw-r--. 1 root utmp 26496  4月 21 21:25 /var/log/wtmp
   ```
 
-<a id="markdown-awk　文字列を高度に整形する" name="awk　文字列を高度に整形する"></a>
-### awk　#文字列を高度に整形する
+<a id="markdown-awk　パターン検索と文字処理" name="awk　パターン検索と文字処理"></a>
+### awk　#パターン検索と文字処理
 
 * 必須レベル：★★★★☆<br>
   ※オークと読みます
@@ -260,14 +266,15 @@ Message of the dayの略
   15
   ```
 
-<a id="markdown-cancel　印刷ジョブを取り消す" name="cancel　印刷ジョブを取り消す"></a>
-### cancel　#印刷ジョブを取り消す
+<a id="markdown-cancel　ジョブの取り消しを行う" name="cancel　ジョブの取り消しを行う"></a>
+### cancel　#ジョブの取り消しを行う
 
 * 必須レベル：★★☆☆☆
 
 * 使い方
   ```bash
-  # TESTPRTのキュー全削除（※root権限）
+  # 印刷ジョブの取り消し
+  # 「TESTPRT」のプリンタキューを全削除（※root権限）
   $ cancel -a TESTPRT
   ```
 
@@ -339,8 +346,8 @@ Message of the dayの略
   $ chmod -R 777 dir
   ```
 
-<a id="markdown-cupsdisabl　プリンタ無効化" name="cupsdisabl　プリンタ無効化"></a>
-### cupsdisabl　#プリンタ無効化
+<a id="markdown-cupsdisable　プリンタ無効化" name="cupsdisable　プリンタ無効化"></a>
+### cupsdisable　#プリンタ無効化
 
 * 必須レベル：★★☆☆☆
 
@@ -475,8 +482,8 @@ Message of the dayの略
   $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
   ```
 
-<a id="markdown-cut　文字列を特定のパターンで切り出す" name="cut　文字列を特定のパターンで切り出す"></a>
-### cut　#文字列を特定のパターンで切り出す
+<a id="markdown-cut　各行から一部分を取り除く" name="cut　各行から一部分を取り除く"></a>
+### cut　#各行から一部分を取り除く
 
 * 必須レベル：★★★☆☆
 
@@ -488,22 +495,26 @@ Message of the dayの略
 
 * 使い方
   ```bash
-  # 9番目を表示
-  $ ls -l /usr/bin/vi* | sed -e 's/ \+/ /g'| cut -d' ' -f9-
-  /usr/bin/vi
-  /usr/bin/view
-  /usr/bin/vim
-  /usr/bin/vimdiff
-  /usr/bin/vimtutor
-  /usr/bin/vinagre
+  # 2番目を表示
+  $ echo "1 2 3" | cut -d" " -f2
+  2
+
+  # 2番目以降を表示
+  $ echo "1 2 3" | cut -d" " -f2-
+  2 3
+
+  # 2番目以前を表示
+  $ echo "1 2 3" | cut -d" " -f-2
+  1 2
   ```
 
-<a id="markdown-dc　無限精度の計算が行える卓上計算機逆ポーランド形式" name="dc　無限精度の計算が行える卓上計算機逆ポーランド形式"></a>
-### dc　#無限精度の計算が行える卓上計算機（逆ポーランド形式）
+<a id="markdown-dc　無限精度の計算が行える卓上計算機" name="dc　無限精度の計算が行える卓上計算機"></a>
+### dc　#無限精度の計算が行える卓上計算機
 
 * 必須レベル：★☆☆☆☆
 
-* 使い方
+* 使い方<br>
+  逆ポーランド形式で記述
   ```bash
   # 複雑な計算　(27/(1+2)^2)*2
   $ dc
@@ -512,8 +523,29 @@ Message of the dayの略
   6
   ```
 
-<a id="markdown-find　ファイルを検索する" name="find　ファイルを検索する"></a>
-### find　#ファイルを検索する
+<a id="markdown-echo　テキストの行を表示する" name="echo　テキストの行を表示する"></a>
+### echo　#テキストの行を表示する
+
+* 必須レベル：★★★★★
+
+* 使い方
+  ```bash
+  # 基本
+  $ echo "test"
+  test
+
+  # エスケープ文字の有効化
+  $ echo -e "t\nest"
+  t
+  est
+
+  # 末尾改行の削除
+  $ echo -n "test"
+  test
+  ```
+
+<a id="markdown-find　条件を満たすファイルを検索する" name="find　条件を満たすファイルを検索する"></a>
+### find　#条件を満たすファイルを検索する
 
 * 必須レベル：★★★★★
 
@@ -540,8 +572,8 @@ Message of the dayの略
   # アクション指定
   ```
 
-<a id="markdown-grep　パターンにマッチする箇所を表示" name="grep　パターンにマッチする箇所を表示"></a>
-### grep　#パターンにマッチする箇所を表示
+<a id="markdown-grep　パターンにマッチする行を表示する" name="grep　パターンにマッチする行を表示する"></a>
+### grep　#パターンにマッチする行を表示する
 
 * 必須レベル：★★★★★
 
@@ -559,6 +591,27 @@ Message of the dayの略
     ```
     
 * 使い方
+
+<a id="markdown-head　ファイルの最初の部分を表示する" name="head　ファイルの最初の部分を表示する"></a>
+### head　#ファイルの最初の部分を表示する
+
+* 必須レベル：★★★★★
+
+* 使い方
+  ```bash
+  ```
+
+<a id="markdown-hostname　システムのホスト名ipアドレスを表示・設定する" name="hostname　システムのホスト名ipアドレスを表示・設定する"></a>
+### hostname　#システムのホスト名（IPアドレス）を表示・設定する
+
+* 必須レベル：★★★☆☆
+
+* 使い方
+  ```bash
+  # IPの表示
+  $ hostname -I
+  10.x.x.xx 192.168.122.1
+  ```
 
 <a id="markdown-ifconfig　ネットワークインターフェースの管理" name="ifconfig　ネットワークインターフェースの管理"></a>
 ### ifconfig　#ネットワークインターフェースの管理
@@ -770,6 +823,78 @@ Message of the dayの略
   $ ls -1
   test1.txt
   test2.txt
+  ```
+
+<a id="markdown-tar　アーカイブの作成" name="tar　アーカイブの作成"></a>
+### tar　#アーカイブの作成
+
+* 必須レベル：★★★★☆<br>
+※tarコマンドは後述するオプション順番を意識する必要がある。
+「 f 」オプションの後にファイル名を
+
+* オプション<br>
+
+1. 目的
+    | オプション | 詳細 |
+    | --- | --- |
+    | c | 作成（Create） |
+    | t | 内容確認（lisT） |
+    | x | 展開（eXtarct） |
+
+2. 追加オプション
+    | オプション | 詳細 |
+    | --- | --- |
+    | v | 結果を表示 |
+    | z | zip圧縮 |
+
+3. ファイル指定
+    | オプション | 詳細 |
+    | --- | --- |
+    | f | 作成するアーカイブファイルの指定 |
+
+4. さらなる追加オプション
+    | オプション | 詳細 |
+    | --- | --- |
+    | --exclude=PATTERN | PATTERNを除外する |
+
+* 使い方
+  ```bash
+  # アーカイブの作成（圧縮あり）
+  $ tar cvzf ./test.tar.gz ./test
+  ./test/
+  ./test/test1
+  ./test/test2
+  ./test/test3
+
+  $ ls -l test.tar.gz
+  -rw-r--r-- 1 naoki 197121   173  4月 24 09:37 test.tar.gz
+
+  # アーカイブの作成（圧縮なし）
+  $ tar cvf ./test.tar ./test
+  ./test/
+  ./test/test1
+  ./test/test2
+  ./test/test3
+
+  # アーカイブの作（特定ファイルを除外）
+  $ tar cvzf ./test.tar.gz --exclude=test1 ./test
+  ./test/
+  ./test/test2
+  ./test/test3
+
+  # アーカイブファイルの確認
+  $ tar tvzf ./test.tar.gz
+  drwxr-xr-x naoki/197121      0 2022-04-24 09:37 ./test/
+  -rw-r--r-- naoki/197121      0 2022-04-24 09:36 ./test/test1
+  -rw-r--r-- naoki/197121      0 2022-04-24 09:36 ./test/test2
+  -rw-r--r-- naoki/197121      0 2022-04-24 09:37 ./test/test3
+
+  # アーカイブの展開
+  $ tar xvzf ../test.tar.gz ./
+  ./test/
+  ./test/test1
+  ./test/test2
+  ./test/test3
   ```
 
 <a id="markdown-umask　デフォルトの権限を決定する" name="umask　デフォルトの権限を決定する"></a>
@@ -1065,6 +1190,22 @@ Message of the dayの略
   # 直前のコマンド実行結果を他のコマンドに渡す
   $ vi `!!`
   vi `find ./ -name "*md"`
+  ```
+
+<a id="markdown--　出力リダイレクト" name="-　出力リダイレクト"></a>
+### > >>　#出力リダイレクト
+
+* 必須レベル：★★★★★
+
+* 使い方
+
+<a id="markdown--　入力リダイレクト" name="-　入力リダイレクト"></a>
+### < <<　#入力リダイレクト
+
+* 必須レベル：★★★☆☆
+
+* 使い方
+  ```bash
   ```
 
 <br>
