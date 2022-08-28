@@ -800,7 +800,7 @@ Message of the dayの略
 * オプション
   | オプション | 詳細 |
   | --- | --- |
-  | -h | 人間が読みやすい形式で表示する（--human-readable） |
+  | -h | MBやGBなど、人間が読みやすい形式で表示する（--human-readable） |
 
 * 使い方
   ```bash
@@ -836,10 +836,50 @@ Message of the dayの略
 
 * オプション
   | オプション | 詳細 |
-  | --- | --- |
+  | -f | 操作対象のテープドライブを指定 |
+  | fsf | 引数で指定した数の分だけ先の EOF に移動 |
 
 * 使い方
   ```bash
+  # 磁気テープの取り扱い方
+  # ドライブのデバイスファイル名を確認
+  [takahana@localhost ~]$  lsscsi -g
+  [1:0:0:0]    cd/dvd  VBOX     CD-ROM           1.0   /dev/sr0   /dev/sg0
+  [2:0:0:0]    disk    ATA      VBOX HARDDISK    1.0   /dev/sda   /dev/sg1
+
+  # 磁気テープに書き込み
+  $ tar cvf /dev/nst0 -C /home/user file01
+
+  # 磁気テープの内容確認
+  $ tar tvf /dev/nst0
+  -rw-r--r-- 1001/1001 3773378080 2014-01-12 19:41 file01
+
+  # 磁気テープから復元
+  $ tar xvf /dev/nst0
+
+  # 磁気テープを進める
+  $ mt -f /dev/nst0 status
+  SCSI 2 tape drive:
+  File number=0, block number=0, partition=0.
+  Tape block size 0 bytes. Density code 0x58 (no translation).
+  Soft error count since last status=0
+  General status bits on (41010000):
+  BOT ONLINE IM_REP_EN
+  
+  # 1進める
+  $ mt -f /dev/nst0 fsf 1
+
+  # numberが1増加
+  $ mt -f /dev/nst0 status
+  SCSI 2 tape drive:
+  File number=1, block number=0, partition=0.
+  Tape block size 0 bytes. Density code 0x58 (no translation).
+  Soft error count since last status=0
+  General status bits on (81010000):
+  EOF ONLINE IM_REP_EN 
+
+  # 磁気テープの巻き戻し
+  $ mt -f /dev/nst0 rewind
   ```
 
 <a id="markdown-nl---ファイルに行番号を付与する" name="nl---ファイルに行番号を付与する"></a>
@@ -1099,6 +1139,7 @@ Message of the dayの略
     | オプション | 詳細 |
     | --- | --- |
     | --exclude=PATTERN | PATTERNを除外する |
+    | C | 指定のディレクトリに移動してアーカイブする |
 
 * 使い方
   ```bash
@@ -1138,6 +1179,9 @@ Message of the dayの略
   ./test/test1
   ./test/test2
   ./test/test3
+
+  # パスを含めずアーカイブする
+  $ tar -C /path/to/ -czf /path/to/target.tar.gz target
   ```
 
 <a id="markdown-umask---デフォルトの権限を決定する" name="umask---デフォルトの権限を決定する"></a>
