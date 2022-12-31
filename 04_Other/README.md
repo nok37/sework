@@ -33,3 +33,5 @@
 
 * ZFS(Zettabyte File System)  
 Oracle開発の大規模ファイルシステム
+
+てすと
