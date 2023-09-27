@@ -19,7 +19,7 @@
 - [５．性能／パフォーマンス](#５．性能／パフォーマンス)
     - [実行計画・統計情報](#実行計画・統計情報)
     - [索引](#索引)
-    - [チューニング](#チューニング)
+    - [AWR(Automatic Workload Repository)](#awrautomatic-workload-repository)
 - [６．用語](#６．用語)
     - [DWH （データウェアハウス）](#dwh-データウェアハウス)
     - [CWH （セントラルウェアハウス）](#cwh-セントラルウェアハウス)
@@ -369,20 +369,23 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 
 * 索引のメンテナンス<br>
 
-<a id="markdown-チューニング" name="チューニング"></a>
-### チューニング
+<a id="markdown-awrautomatic-workload-repository" name="awrautomatic-workload-repository"></a>
+### AWR(Automatic Workload Repository)  
+負荷状況・問題追及で使用する。
 
-* 待機イベント  
-    ```sql
-    -- 確認
-    SQL> select program, event from v$session where EVENT='Streams AQ: enqueue blocked on low memory';
-    SQL> select shrink_phase_knlasg from X$KNLASG;
+* 待機状況（Top 5 Timed Events）  
+    時間が長かった待機イベントの上位５項目が表示される。  
+    ⇒DB CPUが通常の処理時間なので、それ以上に割合を占めている待機イベントが
 
-    -- 削除
-    SQL> alter system set events 'immediate trace name mman_create_def_request level 6';
-    ```
+* 処理状況（Load Profile）  
+    SQLの実行回数や1秒間のREDO生成量が表示される。  
+    ⇒過去と比較して
+
+* メモリ使用状況（Instance Efficiency Indicators）  
+
 
 <br>
+
 <!-- NEXT INDENT -->
 
 <a id="markdown-６．用語" name="６．用語"></a>
