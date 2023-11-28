@@ -21,12 +21,9 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定／全般" name="１．設定／全般"></a>
 ## １．設定／全般
 
-<a id="markdown-接続" name="接続"></a>
 ### 接続
 
 ```postgres
@@ -34,10 +31,8 @@
 $ psql -U [ユーザ]
 ```
 
-<a id="markdown-情報表示オプションd" name="情報表示オプションd"></a>
 ### 情報表示オプション(d)
 
-<a id="markdown-スキーマの確認" name="スキーマの確認"></a>
 #### スキーマの確認 
 ```postgres
 postgres=# \dn
@@ -48,7 +43,6 @@ postgres=# \dn
 (1 行)
 ```
 
-<a id="markdown-拡張機能の確認" name="拡張機能の確認"></a>
 #### 拡張機能の確認
 ```postgres
 postgres=# \dx
@@ -60,7 +54,6 @@ postgres=# \dx
 (2 行)
 ```
 
-<a id="markdown-バックアップ" name="バックアップ"></a>
 ### バックアップ
 
 ```postgres
@@ -76,10 +69,8 @@ d: ディレクトリ
 */
 ```
 
-<a id="markdown-その他" name="その他"></a>
 ### その他
 
-<a id="markdown-文字コード" name="文字コード"></a>
 #### 文字コード
 
 ```postgres
@@ -89,12 +80,9 @@ postgres=# select * from information_schema.
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．関数" name="２．関数"></a>
 ## ２．関数
 
-<a id="markdown-日付／時刻" name="日付／時刻"></a>
 ### 日付／時刻
 
 ```postgres
@@ -109,10 +97,8 @@ SELECT CLOCK_TIMESTAMP();
 SELECT CAST(CURRENT_TIMESTAMP AS DATE);
 ```
 
-<a id="markdown-文字列関数と演算子" name="文字列関数と演算子"></a>
 ### 文字列関数と演算子
 
-<a id="markdown-chr文字コードからasciiコードを返却" name="chr文字コードからasciiコードを返却"></a>
 #### CHR（文字コードからASCIIコードを返却）
 
 ```postgres
@@ -134,15 +120,11 @@ postgres=# SELECT CHR(10);
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-３．解析用" name="３．解析用"></a>
 ## ３．解析用
 
-<a id="markdown-クエリ解析" name="クエリ解析"></a>
 ### クエリ解析
 
-<a id="markdown-稼働統計情報ビューpg_stat_activity" name="稼働統計情報ビューpg_stat_activity"></a>
 #### 稼働統計情報ビュー(pg_stat_activity)
 
 ```postgres
@@ -176,4 +158,3 @@ postgres=# show max_connections;
 ```
 
 <br>
-<!-- NEXT INDENT -->

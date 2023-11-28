@@ -15,29 +15,22 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．ショートカット" name="２．ショートカット"></a>
 ## ２．ショートカット
 
-<a id="markdown-一覧" name="一覧"></a>
 ### 一覧
 | コマンド | 意味 |
 | ---- | ---- |
 | ctrl + e | フラッシュフィル（法則性のあるデータの自動入力） |
 
-<a id="markdown-３．アクセスキー一覧" name="３．アクセスキー一覧"></a>
 ## ３．アクセスキー一覧
 
 ★よく使う
 
-<a id="markdown-書式option" name="書式option"></a>
 ### 書式(Option)
 | コマンド | 意味 |
 | ---- | ---- |
@@ -50,22 +43,17 @@
 | ALT → O → C → H | 行の非表示（Cell Hide） |
 | ALT → O → C → U | 行非表示の取消（Cell Undo） |
 
-<a id="markdown-挿入insert" name="挿入insert"></a>
 ### 挿入(Insert)
 |  コマンド  |  意味  |
 | ---- | ---- |
 | ALT → I → B | 改ページの挿入 |
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-４．マクロ" name="４．マクロ"></a>
 ## ４．マクロ
 
-<a id="markdown-自作マクロ" name="自作マクロ"></a>
 ### 自作マクロ
 
-<a id="markdown-ファイル抽出" name="ファイル抽出"></a>
 #### ファイル抽出
 
 ```vb
@@ -138,4 +126,3 @@ End Sub
 ```
 
 <br>
-<!-- NEXT INDENT -->

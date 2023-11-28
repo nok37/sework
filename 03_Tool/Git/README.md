@@ -12,18 +12,13 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．コマンド" name="２．コマンド"></a>
 ## ２．コマンド
 
-<a id="markdown-ブランチ操作" name="ブランチ操作"></a>
 ### ブランチ操作
 
 ```bash
@@ -65,7 +60,6 @@ Deleted branch sample1 (was b1eca08).
   sample1
 ```
 
-<a id="markdown-追加／コミット" name="追加／コミット"></a>
 ### 追加／コミット
 
 ```bash
@@ -110,7 +104,6 @@ Deleted branch sample1 (was b1eca08).
 
 ```
 
-<a id="markdown-豆知識" name="豆知識"></a>
 ### 豆知識
 
 ```bash
@@ -121,7 +114,6 @@ Deleted branch sample1 (was b1eca08).
 > git config --global http.sslVerify false
 ```
 
-<a id="markdown-その他" name="その他"></a>
 ### その他
 
 ```bash
@@ -133,4 +125,3 @@ Deleted branch sample1 (was b1eca08).
 ```
 
 <br>
-<!-- NEXT INDENT -->

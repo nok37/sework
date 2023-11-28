@@ -32,12 +32,9 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
 
-<a id="markdown-プロキシ" name="プロキシ"></a>
 ### プロキシ
 
 * 基本的な設定
@@ -57,12 +54,9 @@
     ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．コマンドプロンプトcmd" name="２．コマンドプロンプトcmd"></a>
 ## ２．コマンドプロンプト(cmd)
 
-<a id="markdown-全般" name="全般"></a>
 ### 全般
 ctrl + r → cmd で起動する。
 * 基本
@@ -73,7 +67,6 @@ ctrl + r → cmd で起動する。
     | winver | Windowsのバージョン情報 |
     | systeminfo | システム情報の表示 |
 
-<a id="markdown-curl　サーバへデータ転送を行う" name="curl　サーバへデータ転送を行う"></a>
 ### curl　#サーバへデータ転送を行う
 
 * 基本
@@ -98,7 +91,6 @@ ctrl + r → cmd で起動する。
     Date: Sun, 31 Jan 2021 08:25:10 GMT
     ```
 
-<a id="markdown-dir　配下のファイルを一覧で取得" name="dir　配下のファイルを一覧で取得"></a>
 ### dir　#配下のファイルを一覧で取得
 
 * 基本
@@ -116,7 +108,6 @@ ctrl + r → cmd で起動する。
     C:\Users\naoki\Desktop\test\sub\TEST4.xlsx
     ```
 
-<a id="markdown-doskey　マクロエイリアスの登録" name="doskey　マクロエイリアスの登録"></a>
 ### doskey　#マクロ（エイリアス）の登録
 
 * 基本
@@ -138,7 +129,6 @@ ctrl + r → cmd で起動する。
     >doskey /macrofile=c:\test\macros.txt
     ```
 
-<a id="markdown-fc　ファイルの比較を行う" name="fc　ファイルの比較を行う"></a>
 ### fc　#ファイルの比較を行う
 ※デフォルトはASCII
 
@@ -163,7 +153,6 @@ ctrl + r → cmd で起動する。
     FC: 相違点は検出されませんでした
     ```
 
-<a id="markdown-find　ファイル内の文字列を検索する" name="find　ファイル内の文字列を検索する"></a>
 ### find　#ファイル内の文字列を検索する
 
 * 基本
@@ -186,7 +175,6 @@ ctrl + r → cmd で起動する。
     10
     ```
 
-<a id="markdown-findstr　findの多機能版" name="findstr　findの多機能版"></a>
 ### findstr　#findの多機能版
 
 * 基本
@@ -208,7 +196,6 @@ ctrl + r → cmd で起動する。
     OS Name:                   Microsoft Windows 10 Pro
     ```
 
-<a id="markdown-net　ネットワーク関係の設定や現在の状態を表示する" name="net　ネットワーク関係の設定や現在の状態を表示する"></a>
 ### net　#ネットワーク関係の設定や現在の状態を表示する
 
 * 基本
@@ -221,7 +208,6 @@ ctrl + r → cmd で起動する。
     >net use p: \\192.168.11.2\share password /user:naoki
     ```
 
-<a id="markdown-netsh　ネットワーク関係のパラメータの設定" name="netsh　ネットワーク関係のパラメータの設定"></a>
 ### netsh　#ネットワーク関係のパラメータの設定
 
 * 便利な使い方
@@ -250,7 +236,6 @@ ctrl + r → cmd で起動する。
     netsh interface ip show config
     ```
 
-<a id="markdown-pushd--popd　カレントディレクトリを変更" name="pushd--popd　カレントディレクトリを変更"></a>
 ### pushd / popd　#カレントディレクトリを変更
 
 * 基本
@@ -280,7 +265,6 @@ ctrl + r → cmd で起動する。
     C:\Users\naoki>
     ```
 
-<a id="markdown-tree　配下のファイルをツリー階層で取得" name="tree　配下のファイルをツリー階層で取得"></a>
 ### tree　#配下のファイルをツリー階層で取得
 
 * 基本
@@ -296,22 +280,17 @@ ctrl + r → cmd で起動する。
     ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-３．バッチファイルbat" name="３．バッチファイルbat"></a>
 ## ３．バッチファイル(bat)
 
-<a id="markdown-コメント" name="コメント"></a>
 ### コメント
 
 ```bat
 rem コメント
 ```
 
-<a id="markdown-独自のバッチファイル" name="独自のバッチファイル"></a>
 ### 独自のバッチファイル
 
-<a id="markdown-仕事開始startbat" name="仕事開始startbat"></a>
 #### 仕事開始（start.bat）
 
 ```bat
@@ -326,12 +305,9 @@ rem ########################################
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-４．プログラムから実行win--r" name="４．プログラムから実行win--r"></a>
 ## ４．プログラムから実行(win + r)
 
-<a id="markdown-設定系" name="設定系"></a>
 ### 設定系
 | コマンド | 実行内容 |
 | --- | --- |
@@ -343,7 +319,6 @@ rem ########################################
 | msinfo32 | システム情報 |
 | \ | Cドライブを開く |
 
-<a id="markdown-アプリ起動系" name="アプリ起動系"></a>
 ### アプリ起動系
 
 | コマンド | メモ |
@@ -355,7 +330,6 @@ rem ########################################
 powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge '-private %OPENFILE%'　Edgeのプライベート起動
 
 
-<a id="markdown-独自コマンドの実行" name="独自コマンドの実行"></a>
 ### 独自コマンドの実行
 
 1. 任意のコマンド格納フォルダを用意
@@ -405,12 +379,9 @@ powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!Micr
 5. win + r　から「set」などの独自のコマンドを実行できる！
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-５．powershell" name="５．powershell"></a>
 ## ５．PowerShell
 
-<a id="markdown-tnc　テスト接続test-netconnection" name="tnc　テスト接続test-netconnection"></a>
 ### tnc　#テスト接続Test-NetConnection
 
 * 基本
@@ -427,12 +398,9 @@ powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!Micr
     ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-６．その他ショートカット" name="６．その他ショートカット"></a>
 ## ６．その他ショートカット  
 
-<a id="markdown-win" name="win"></a>
 ### win
 | コマンド | メモ |
 | --- | --- |
@@ -440,4 +408,3 @@ powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!Micr
 | ctrl + win + o | スクリーンキーボード開く |
 
 <br>
-<!-- NEXT INDENT -->

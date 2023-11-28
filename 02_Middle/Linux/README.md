@@ -86,12 +86,9 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
 
-<a id="markdown-コマンドの実行パス" name="コマンドの実行パス"></a>
 ### コマンドの実行パス
 コマンド実行時は左から順にパスを確認しコマンド実行する。  
 
@@ -106,7 +103,6 @@
   $ export PATH=$NODE_HOME/bin:$PATH
   ```
 
-<a id="markdown-bash設定" name="bash設定"></a>
 ### bash設定
 
 * .bash_profile  
@@ -153,7 +149,6 @@
 ・インタラクティブシェル→ .bashrc  
 ・非インタラクティブシェル→ なし
 
-<a id="markdown-cron" name="cron"></a>
 ### cron
 
 * 基本
@@ -174,10 +169,8 @@
   0 0 * * * cat /dev/null > /var/spool/mail/root
   ```
 
-<a id="markdown-ショートカット" name="ショートカット"></a>
 ### ショートカット
 
-<a id="markdown-ターミナル操作系" name="ターミナル操作系"></a>
 #### ターミナル操作系
 
 | ショートカット | 内容 |
@@ -185,7 +178,6 @@
 | ctrl + d  | ログアウト |
 | alt + v　 | ターミナルの複製 |
  
-<a id="markdown-カーソル・文字操作系" name="カーソル・文字操作系"></a>
 #### カーソル・文字操作系
 
 | ショートカット | 内容 |
@@ -195,7 +187,6 @@
 | ctrl + w | 直前の単語を削除 |
 | ctrl + u | 直前を削除 |
 
-<a id="markdown-その他" name="その他"></a>
 #### その他
 
 | ショートカット | 内容 |
@@ -210,7 +201,6 @@
 (reverse-i-search)`d': date
 ```
 
-<a id="markdown-特殊なデバイスdev系" name="特殊なデバイスdev系"></a>
 ### 特殊なデバイス（/dev/***系）
 
 * /dev/null<br>
@@ -221,10 +211,8 @@
   0x00（NULL文字）を常に出力し続ける特殊なデバイス。<br>
   NULL文字でデータ上書きする場合などで使用。
 
-<a id="markdown-豆知識" name="豆知識"></a>
 ### 豆知識
 
-<a id="markdown-ssh接続時に表示される文言---motd" name="ssh接続時に表示される文言---motd"></a>
 #### ssh接続時に表示される文言 - motd
 Message of the dayの略
 
@@ -233,12 +221,9 @@ Message of the dayの略
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．コマンド" name="２．コマンド"></a>
 ## ２．コマンド
 
-<a id="markdown-ac---ユーザの接続時間についての統計を表示する" name="ac---ユーザの接続時間についての統計を表示する"></a>
 ### ac - ユーザの接続時間についての統計を表示する
 
 * 必須レベル：★☆☆☆☆
@@ -255,7 +240,6 @@ Message of the dayの略
   -rw-rw-r--. 1 root utmp 26496  4月 21 21:25 /var/log/wtmp
   ```
 
-<a id="markdown-awk---パターン検索と文字処理" name="awk---パターン検索と文字処理"></a>
 ### awk - パターン検索と文字処理
 
 * 必須レベル：★★★★☆<br>
@@ -296,7 +280,6 @@ Message of the dayの略
   /usr/bin/vimtutor
   ```
 
-<a id="markdown-bc---任意精度の計算言語" name="bc---任意精度の計算言語"></a>
 ### bc - 任意精度の計算言語
 
 * 必須レベル：★☆☆☆☆
@@ -314,7 +297,6 @@ Message of the dayの略
   15
   ```
 
-<a id="markdown-cancel---ジョブの取り消しを行う" name="cancel---ジョブの取り消しを行う"></a>
 ### cancel - ジョブの取り消しを行う
 
 * 必須レベル：★★☆☆☆
@@ -326,7 +308,6 @@ Message of the dayの略
   $ cancel -a TESTPRT
   ```
 
-<a id="markdown-cd---カレントディレクトリの変更" name="cd---カレントディレクトリの変更"></a>
 ### cd - カレントディレクトリの変更
 
 * 必須レベル：★★★★★
@@ -359,7 +340,6 @@ Message of the dayの略
   /home/takahana
   ```
 
-<a id="markdown-chmod---ファイルの権限を変更する" name="chmod---ファイルの権限を変更する"></a>
 ### chmod - ファイルの権限を変更する
 
 * 必須レベル：★★★★★<br>
@@ -394,7 +374,6 @@ Message of the dayの略
   $ chmod -R 777 dir
   ```
 
-<a id="markdown-cupsdisable---プリンタ無効化" name="cupsdisable---プリンタ無効化"></a>
 ### cupsdisable - プリンタ無効化
 
 * 必須レベル：★★☆☆☆
@@ -405,7 +384,6 @@ Message of the dayの略
   $ cupsdisable TESTPRT
   ```
 
-<a id="markdown-cupsenable---プリンタ有効化" name="cupsenable---プリンタ有効化"></a>
 ### cupsenable - プリンタ有効化
 
 * 必須レベル：★★☆☆☆
@@ -416,7 +394,6 @@ Message of the dayの略
   $ cupsenable TESTPRT
   ```
 
-<a id="markdown-curl---httpなどの通信プロトコルでデータを転送する" name="curl---httpなどの通信プロトコルでデータを転送する"></a>
 ### curl - HTTPなどの通信プロトコルでデータを転送する
 
 * 必須レベル：★★★☆☆
@@ -530,7 +507,6 @@ Message of the dayの略
   $ curl --proxy 'http://★user:★pass@proxy.co.jp:8080' 'http://localhost:5050/api/'
   ```
 
-<a id="markdown-cut---各行から一部分を取り除く" name="cut---各行から一部分を取り除く"></a>
 ### cut - 各行から一部分を取り除く
 
 * 必須レベル：★★★☆☆
@@ -556,7 +532,6 @@ Message of the dayの略
   1 2
   ```
 
-<a id="markdown-dc---無限精度の計算が行える卓上計算機" name="dc---無限精度の計算が行える卓上計算機"></a>
 ### dc - 無限精度の計算が行える卓上計算機
 
 * 必須レベル：★☆☆☆☆
@@ -571,7 +546,6 @@ Message of the dayの略
   6
   ```
 
-<a id="markdown-dd---ファイルの変換とコピーを行う" name="dd---ファイルの変換とコピーを行う"></a>
 ### dd - ファイルの変換とコピーを行う
 
 * 必須レベル：★★☆☆☆
@@ -602,7 +576,6 @@ Message of the dayの略
   23045500
   ```
 
-<a id="markdown-df---ディスク容量を確認する" name="df---ディスク容量を確認する"></a>
 ### df - ディスク容量を確認する
 
 * 必須レベル：★★★★☆
@@ -633,7 +606,6 @@ Message of the dayの略
   C:\             914G  294G  620G  33% /mnt/c
   ```
   
-<a id="markdown-echo---テキストの行を表示する" name="echo---テキストの行を表示する"></a>
 ### echo - テキストの行を表示する
 
 * 必須レベル：★★★★★
@@ -659,7 +631,6 @@ Message of the dayの略
   test
   ```
 
-<a id="markdown-eval---引数を読み込み一つのコマンドとして実行する" name="eval---引数を読み込み一つのコマンドとして実行する"></a>
 ### eval - 引数を読み込み一つのコマンドとして実行する
 
 * 必須レベル：★★★☆☆
@@ -670,7 +641,6 @@ Message of the dayの略
   test
   ```
 
-<a id="markdown-find---条件を満たすファイルを検索する" name="find---条件を満たすファイルを検索する"></a>
 ### find - 条件を満たすファイルを検索する
 
 * 必須レベル：★★★★★
@@ -698,7 +668,6 @@ Message of the dayの略
   # アクション指定
   ```
 
-<a id="markdown-grep---パターンにマッチする行を表示する" name="grep---パターンにマッチする行を表示する"></a>
 ### grep - パターンにマッチする行を表示する
 
 * 必須レベル：★★★★★
@@ -718,7 +687,6 @@ Message of the dayの略
     
 * 使い方
 
-<a id="markdown-head---ファイルの最初の部分を表示する" name="head---ファイルの最初の部分を表示する"></a>
 ### head - ファイルの最初の部分を表示する
 
 * 必須レベル：★★★☆☆
@@ -743,7 +711,6 @@ Message of the dayの略
   #include<stdio.h>
   ```
 
-<a id="markdown-hostname---システムのホスト名ipアドレスを表示・設定する" name="hostname---システムのホスト名ipアドレスを表示・設定する"></a>
 ### hostname - システムのホスト名（IPアドレス）を表示・設定する
 
 * 必須レベル：★★★☆☆
@@ -755,7 +722,6 @@ Message of the dayの略
   10.x.x.xx 192.168.122.1
   ```
 
-<a id="markdown-ifconfig---ネットワークインターフェースの管理" name="ifconfig---ネットワークインターフェースの管理"></a>
 ### ifconfig - ネットワークインターフェースの管理
 
 * 必須レベル：★★★☆☆
@@ -772,7 +738,6 @@ Message of the dayの略
           TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
   ```
 
-<a id="markdown-jobs---アクティブなジョブリストの表示" name="jobs---アクティブなジョブリストの表示"></a>
 ### jobs - アクティブなジョブリストの表示
 
 * 必須レベル：★★☆☆☆
@@ -794,7 +759,6 @@ Message of the dayの略
   $ fg 2
   ```
 
-<a id="markdown-keytool---鍵と証明書を管理" name="keytool---鍵と証明書を管理"></a>
 ### keytool - 鍵と証明書を管理
 
 * 必須レベル：★★☆☆☆
@@ -809,7 +773,6 @@ Message of the dayの略
   $ keytool -list -alias xxxCA -keystore ${JAVA_HOME}\jre\lib\security\cacerts
   ```
 
-<a id="markdown-last---ログイン履歴を表示する" name="last---ログイン履歴を表示する"></a>
 ### last - ログイン履歴を表示する
 
 * 必須レベル：★☆☆☆☆
@@ -830,7 +793,6 @@ Message of the dayの略
   $ last -ad
   ```
 
-<a id="markdown-ls---ディレクトリの内容を表示する" name="ls---ディレクトリの内容を表示する"></a>
 ### ls - ディレクトリの内容を表示する
 
 * 必須レベル：★★★★★
@@ -845,7 +807,6 @@ Message of the dayの略
   # 
   ```
 
-<a id="markdown-md5sum---md5メッセージダイジェストの計算と照合を行う" name="md5sum---md5メッセージダイジェストの計算と照合を行う"></a>
 ### md5sum - MD5メッセージダイジェストの計算と照合を行う
 
 * 必須レベル：★★★★☆
@@ -867,7 +828,6 @@ Message of the dayの略
 
   ```
 
-<a id="markdown-mt---磁気テープドライブの操作を制御する" name="mt---磁気テープドライブの操作を制御する"></a>
 ### mt - 磁気テープドライブの操作を制御する
 
 * 必須レベル：★★☆☆☆
@@ -920,7 +880,6 @@ Message of the dayの略
   $ mt -f /dev/nst0 rewind
   ```
 
-<a id="markdown-nl---ファイルに行番号を付与する" name="nl---ファイルに行番号を付与する"></a>
 ### nl - ファイルに行番号を付与する
 
 * 必須レベル：★★★☆☆
@@ -949,7 +908,6 @@ Message of the dayの略
     18  }
   ```
 
-<a id="markdown-nohup---ログアウトの影響を受けずコマンドを実行する" name="nohup---ログアウトの影響を受けずコマンドを実行する"></a>
 ### nohup - ログアウトの影響を受けずコマンドを実行する
 
 * 必須レベル：★★★☆☆
@@ -966,7 +924,6 @@ Message of the dayの略
     * Running on https://localhost:8080/ (Press CTRL+C to quit)
   ```
 
-<a id="markdown-od---8進数やその他の形式でダンプする" name="od---8進数やその他の形式でダンプする"></a>
 ### od - 8進数やその他の形式でダンプする
 
 * 必須レベル：★★☆☆☆
@@ -1002,7 +959,6 @@ Message of the dayの略
   0000010
   ```
 
-<a id="markdown-openssl---証明書の作成" name="openssl---証明書の作成"></a>
 ### openssl - 証明書の作成
 
 * 必須レベル：★★☆☆☆
@@ -1049,7 +1005,6 @@ Message of the dayの略
   Getting Private key
   ```
 
-<a id="markdown-ps---現在実行されているプロセスのスナップショットを表示する" name="ps---現在実行されているプロセスのスナップショットを表示する"></a>
 ### ps - 現在実行されているプロセスのスナップショットを表示する
 
 * 必須レベル：★★☆☆☆
@@ -1070,7 +1025,6 @@ Message of the dayの略
   takahana  7043  2828  0 16:45 pts/0    00:00:00 vim test2
   ```
 
-<a id="markdown-route---ルーティングテーブルの管理" name="route---ルーティングテーブルの管理"></a>
 ### route - ルーティングテーブルの管理
 
 * 必須レベル：★★☆☆☆
@@ -1085,7 +1039,6 @@ Message of the dayの略
   192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
   ```
 
-<a id="markdown-sed---文字列置換などのテキスト処理" name="sed---文字列置換などのテキスト処理"></a>
 ### sed - 文字列置換などのテキスト処理
 
 * 必須レベル：★★☆☆☆
@@ -1146,7 +1099,6 @@ Message of the dayの略
   test2.txt
   ```
 
-<a id="markdown-tar---アーカイブの作成" name="tar---アーカイブの作成"></a>
 ### tar - アーカイブの作成
 
 * 必須レベル：★★★★☆<br>
@@ -1222,7 +1174,6 @@ Message of the dayの略
   $ tar -C /path/to/ -czf /path/to/target.tar.gz target
   ```
 
-<a id="markdown-tee---出力を複数のファイルやプロセスにリダイレクトする" name="tee---出力を複数のファイルやプロセスにリダイレクトする"></a>
 ### tee - 出力を複数のファイルやプロセスにリダイレクトする
 
 * 必須レベル：★★☆☆☆<br>
@@ -1238,7 +1189,6 @@ Message of the dayの略
   $ ./tool.sh 2>&1 | tee -a tool.log
   ```
 
-<a id="markdown-umask---デフォルトの権限を決定する" name="umask---デフォルトの権限を決定する"></a>
 ### umask - デフォルトの権限を決定する
 
 * 必須レベル：★★☆☆☆
@@ -1260,14 +1210,11 @@ Message of the dayの略
   fi
   ```
 
-<a id="markdown-unzip---ファイル解凍をするzipを参照" name="unzip---ファイル解凍をするzipを参照"></a>
 ### unzip - ファイル解凍をする（zipを参照）
 
 
-<a id="markdown-vi---vimを参照" name="vi---vimを参照"></a>
 ### vi - vimを参照
 
-<a id="markdown-vim---高機能なテキストエディタ" name="vim---高機能なテキストエディタ"></a>
 ### vim - 高機能なテキストエディタ  
 
 * 必須レベル：★★★★★
@@ -1473,7 +1420,6 @@ Message of the dayの略
   " tp 前のタブ
   ```
 
-<a id="markdown-xargs---引数からコマンドを組み立て実行する" name="xargs---引数からコマンドを組み立て実行する"></a>
 ### xargs - 引数からコマンドを組み立て実行する
 
 * 必須レベル：★★★★☆
@@ -1485,7 +1431,6 @@ Message of the dayの略
   ccd981a6716bb3b91569e45d336b28d0 *README.md
   ```
 
-<a id="markdown-xxd---2進数でダンプする" name="xxd---2進数でダンプする"></a>
 ### xxd - 2進数でダンプする  
 
 * 必須レベル：★★☆☆☆
@@ -1521,7 +1466,6 @@ Message of the dayの略
   ※EBCDICのf2⇒数値の2
   ```
 
-<a id="markdown-yum---redhat系で利用されるパッケージ管理ツール" name="yum---redhat系で利用されるパッケージ管理ツール"></a>
 ### yum - RedHat系で利用されるパッケージ管理ツール
 
 * 必須レベル：★★☆☆☆
@@ -1533,7 +1477,6 @@ Message of the dayの略
   #!/usr/bin/python
   ```
 
-<a id="markdown-w---ログインしている人とその人がやっていることを表示する" name="w---ログインしている人とその人がやっていることを表示する"></a>
 ### w - ログインしている人とその人がやっていることを表示する
 
 * 必須レベル：★★☆☆☆
@@ -1546,7 +1489,6 @@ Message of the dayの略
   takahana pts/0    gateway          10:37    0.00s  1.42s  0.03s w
   ```
 
-<a id="markdown-wc--各ファイルの改行数ワード数バイト数を表示する" name="wc--各ファイルの改行数ワード数バイト数を表示する"></a>
 ### wc -各ファイルの改行数、ワード数、バイト数を表示する
 
 * 必須レベル：★★★☆☆
@@ -1585,7 +1527,6 @@ Message of the dayの略
   18 sample1.c
   ```
 
-<a id="markdown-which---コマンドのフルパスを表示する" name="which---コマンドのフルパスを表示する"></a>
 ### which - コマンドのフルパスを表示する
 
 * 必須レベル：★★★★★
@@ -1596,7 +1537,6 @@ Message of the dayの略
   /usr/bin/echo
   ```
 
-<a id="markdown-whoami---実効ユーザ名を出力する" name="whoami---実効ユーザ名を出力する"></a>
 ### whoami - 実効ユーザ名を出力する
 
 * 必須レベル：★★★☆☆
@@ -1607,7 +1547,6 @@ Message of the dayの略
   takahana
   ```
 
-<a id="markdown-zgrep---圧縮されている可能性のあるファイルで正規表現の検索をする" name="zgrep---圧縮されている可能性のあるファイルで正規表現の検索をする"></a>
 ### zgrep - 圧縮されている可能性のあるファイルで、正規表現の検索をする
 
 * 必須レベル：★★★☆☆
@@ -1617,7 +1556,6 @@ Message of the dayの略
 
   ```
 
-<a id="markdown-zip---ファイル圧縮をする" name="zip---ファイル圧縮をする"></a>
 ### zip - ファイル圧縮をする
 
 * 必須レベル：★★★★☆
@@ -1644,7 +1582,6 @@ Message of the dayの略
   -rw-rw-r--. 1 takahana takahana    5045  4月 24 22:29 5Mb.zip
   ```
   
-<a id="markdown----直前のコマンドを実行" name="---直前のコマンドを実行"></a>
 ### !! - 直前のコマンドを実行
 
 * 必須レベル：★★★☆☆
@@ -1668,20 +1605,16 @@ Message of the dayの略
   vi `find ./ -name "*md"`
   ```
 
-<a id="markdown----出力リダイレクト" name="---出力リダイレクト"></a>
 ### > - 出力リダイレクト
 
-<a id="markdown----出力リダイレクト追記" name="---出力リダイレクト追記"></a>
 ### >> - 出力リダイレクト（追記）
 
 * 必須レベル：★★★★★
 
 * 使い方
 
-<a id="markdown----入力リダイレクト" name="---入力リダイレクト"></a>
 ### < - 入力リダイレクト
 
-<a id="markdown----入力リダイレクト追記" name="---入力リダイレクト追記"></a>
 ### << - 入力リダイレクト（追記）
 
 * 必須レベル：★★★☆☆
@@ -1689,15 +1622,11 @@ Message of the dayの略
 * 使い方
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-３．シェル" name="３．シェル"></a>
 ## ３．シェル
 
-<a id="markdown-用語説明" name="用語説明"></a>
 ### 用語説明
 
-<a id="markdown-シェバン" name="シェバン"></a>
 #### シェバン  
 シェルの1行目に記載し、このシェルは「bin/bash」で動かしますの意味
 
@@ -1705,7 +1634,6 @@ Message of the dayの略
   #!/bin/bash
   ```
 
-<a id="markdown-セカンダリプロンプト" name="セカンダリプロンプト"></a>
 #### セカンダリプロンプト  
 行末の「\」のことで、まだコマンドは終了していないことを意味する
 
@@ -1714,7 +1642,6 @@ Message of the dayの略
   "Hello, World!"
   ```
 
-<a id="markdown-引数／特殊変数" name="引数／特殊変数"></a>
 ### 引数／特殊変数
 
   ```bash
@@ -1744,16 +1671,12 @@ Message of the dayの略
   $? = 0
   ```
 
-<a id="markdown-比較" name="比較"></a>
 ### 比較
 
-<a id="markdown-文字列比較" name="文字列比較"></a>
 #### 文字列比較
 
-<a id="markdown-数値比較" name="数値比較"></a>
 #### 数値比較
 
-<a id="markdown-サンプル" name="サンプル"></a>
 ### サンプル
 
   ```bash
@@ -1797,12 +1720,9 @@ Message of the dayの略
   ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-４．組み合わせ便利コマンド" name="４．組み合わせ便利コマンド"></a>
 ## ４．組み合わせ便利コマンド
 
-<a id="markdown-無限ループwhile-true" name="無限ループwhile-true"></a>
 ### 無限ループ（while true）
 
   ```bash
@@ -1810,7 +1730,6 @@ Message of the dayの略
   while true; do date; echo "hello !"; sleep 1s; done
   ```
 
-<a id="markdown-リスト読込for--in" name="リスト読込for--in"></a>
 ### リスト読込（for ～ in）
 
   ```bash
@@ -1818,7 +1737,6 @@ Message of the dayの略
   for f in */.git;do (f=${f%/*}; if [ $f != "xxx" ]; then cd $f; git pull; fi);done;
   ```
 
-<a id="markdown-ファイル読込while-read" name="ファイル読込while-read"></a>
 ### ファイル読込（while read）
 
   ```bash
@@ -1826,7 +1744,6 @@ Message of the dayの略
   while read line; do md5sum $line;done <bkup.txt
   ```
 
-<a id="markdown-ファイル存在確認if" name="ファイル存在確認if"></a>
 ### ファイル存在確認（if）
 
   ```bash
@@ -1834,7 +1751,6 @@ Message of the dayの略
   if [ -e $FILE ];then echo "OK";else echo "NG";fi
   ```
 
-<a id="markdown-文字列の比較if" name="文字列の比較if"></a>
 ### 文字列の比較（if）
 
   ```bash
@@ -1844,4 +1760,3 @@ Message of the dayの略
 
 
 <br>
-<!-- NEXT INDENT -->

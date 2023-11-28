@@ -17,12 +17,9 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．コンパイル／ビルド" name="１．コンパイル／ビルド"></a>
 ## １．コンパイル／ビルド
 
-<a id="markdown-コンパイル" name="コンパイル"></a>
 ### コンパイル
 
 * 基本
@@ -30,10 +27,8 @@
     $ gcc sample1.c -o sample1.o
     ```
 
-<a id="markdown-ライブラリの作成" name="ライブラリの作成"></a>
 ### ライブラリの作成
 
-<a id="markdown-静的ライブラリ" name="静的ライブラリ"></a>
 #### 静的ライブラリ
 プログラムの構築時に組み込まれるライブラリ。(拡張子は .a)  
 <br>
@@ -79,7 +74,6 @@
     Hello, World!
     ```
 
-<a id="markdown-共有ライブラリ" name="共有ライブラリ"></a>
 #### 共有ライブラリ
 プログラム実行と同時にメモリ上に展開されるライブラリ(拡張子は .so)  
 
@@ -90,30 +84,24 @@
     libgreet.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=8ca16b06f3784a2040f58528f711677b877c74a4, not stripped
     ```
 
-<a id="markdown-動的ライブラリ≒共有ライブラリ" name="動的ライブラリ≒共有ライブラリ"></a>
 #### 動的ライブラリ(≒共有ライブラリ)
 プログラム実行中の任意の時点で読み込まれるライブラリ。  
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．メモリとスコープ" name="２．メモリとスコープ"></a>
 ## ２．メモリとスコープ
 
-<a id="markdown-静的static--大域global" name="静的static--大域global"></a>
 ### 静的(Static) / 大域(Global)
 
  * プログラム開始時に割り当てられ、プログラム終了時まで維持される  
  * 静的変数は変数定義を行った関数内にアクセスが制限され、大域変数はすべての関数からアクセスすることができる
 
-<a id="markdown-自動automatic" name="自動automatic"></a>
 ### 自動(Automatic)
 
  * 普通のローカル変数のこと  
  * 関数の中で宣言され、関数が呼ばれた時に割り当てられる  
  * 変数定義を行った関数内にアクセスが制限される
  
-<a id="markdown-動的dynamic" name="動的dynamic"></a>
 ### 動的(Dynamic)
 
  * メモリはヒープから割り当てられ、必要に応じて解放される  
@@ -128,9 +116,7 @@
 変数のスコープを理解し、ポインタを通してメモリ管理することがC言語の基本！
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-３．自作ファイル" name="３．自作ファイル"></a>
 ## ３．自作ファイル
 
 * 基本
@@ -158,4 +144,3 @@
 * ポインタ
 
 <br>
-<!-- NEXT INDENT -->

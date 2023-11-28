@@ -14,12 +14,9 @@
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
 
-<a id="markdown-トピックツリーf11" name="トピックツリーf11"></a>
 ### トピックツリー(F11)
 
 ```
@@ -34,15 +31,11 @@
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．マクロ" name="２．マクロ"></a>
 ## ２．マクロ
 
-<a id="markdown-オススメ" name="オススメ"></a>
 ### オススメ
 
-<a id="markdown-選択文字をハイライト・コピーする" name="選択文字をハイライト・コピーする"></a>
 #### 選択文字をハイライト・コピーする
  
 ```java
@@ -56,7 +49,6 @@ S_SearchClearMark(0);
 S_Copy();
 ```
 
-<a id="markdown-選択文字をハイライト・全てマークする" name="選択文字をハイライト・全てマークする"></a>
 #### 選択文字をハイライト・全てマークする
 
 ```java
@@ -70,7 +62,6 @@ S_SearchClearMark(0);
 S_BookmarkPattern('', 0);
 ```
 
-<a id="markdown-外部コマンドcmd_exeを指定行を引数に実行する" name="外部コマンドcmd_exeを指定行を引数に実行する"></a>
 #### 外部コマンド(cmd_exe)を指定行を引数に実行する
 
 ```java
@@ -85,10 +76,7 @@ ExecCommand('cmd_exe "$C"', 0);
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-３．便利な使い方" name="３．便利な使い方"></a>
 ## ３．便利な使い方
 
 <br>
-<!-- NEXT INDENT -->

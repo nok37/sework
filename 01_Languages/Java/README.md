@@ -2,36 +2,32 @@
 
 <!-- TOC -->
 
-- [１．設定](#１．設定)
-- [２．基本クラス](#２．基本クラス)
+- [Java](#java)
+  - [１．設定](#１設定)
+  - [２．基本クラス](#２基本クラス)
     - [豆知識](#豆知識)
     - [Integerクラス](#integerクラス)
     - [Stringクラス](#stringクラス)
     - [StringBufferクラス](#stringbufferクラス)
     - [StringBuilderクラス](#stringbuilderクラス)
-- [３．ビルド](#３．ビルド)
+  - [３．ビルド](#３ビルド)
     - [JARファイル](#jarファイル)
     - [WARファイル](#warファイル)
     - [EARファイル](#earファイル)
-- [４．用語集](#４．用語集)
+  - [４．用語集](#４用語集)
     - [staticメソッド](#staticメソッド)
     - [ラッパークラス](#ラッパークラス)
 
 <!-- /TOC -->
 ---
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-１．設定" name="１．設定"></a>
 ## １．設定
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-２．基本クラス" name="２．基本クラス"></a>
 ## ２．基本クラス
 
-<a id="markdown-豆知識" name="豆知識"></a>
 ### 豆知識
 
 ```java
@@ -39,7 +35,6 @@
 Object.getClass().getSimpleName()
 ```
 
-<a id="markdown-integerクラス" name="integerクラス"></a>
 ### Integerクラス  
 プリミティブ型intの値をオブジェクトにラップする。  
 intをStringに、Stringをintに変換するなど各種メソッドを提供する。
@@ -68,7 +63,6 @@ Integer intNumber2 = Integer.valueOf(123);
 Integer intNumber3 = Integer.valueOf("123");
 ```
 
-<a id="markdown-stringクラス" name="stringクラス"></a>
 ### Stringクラス  
 Stringクラスは文字列を表す。リテラル文字列はすべて、このクラスのインスタンスとして実行される。
 Stringクラスには、文字列の比較、文字列の検索など各種メソッドを提供する。
@@ -98,13 +92,11 @@ String[] strArray = str3.split(",");
 System.out.println(strArray[0]);  // TEST0
 ```
 
-<a id="markdown-stringbufferクラス" name="stringbufferクラス"></a>
 ### StringBufferクラス  
 スレッドセーフな可変の文字列。  
 ⇒文字列バッファは複数のスレッドによって安全に使用することができる。  
 ⇒安全だが高速に処理できるStringBuilderでいい
 
-<a id="markdown-stringbuilderクラス" name="stringbuilderクラス"></a>
 ### StringBuilderクラス  
 文字の可変シーケンス。StringBufferと互換性があるが、同期化は保証ない。
 
@@ -128,42 +120,33 @@ String sql1 = sql.toString();
 ```
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-３．ビルド" name="３．ビルド"></a>
 ## ３．ビルド
 
 javaファイルをコンパイルするとclassファイルが作成され、以下ZIP形式の圧縮ファイルとして各サービスに配布される。
 
-<a id="markdown-jarファイル" name="jarファイル"></a>
 ### JARファイル
 複数のJavaクラスや、それに関連するメタデータファイル、テキストやイメージファイル、設定ファイル(XML)をひとつのファイルに統合した形式。  
 ※Java ARchiveの略
 
-<a id="markdown-warファイル" name="warファイル"></a>
 ### WARファイル
 JavaベースのWebアプリケーションやコンポーネントを圧縮した形式で、Webサーバ上で動作する。  ApacheのTomcatのようなWebアプリケーションを導入したWebサーバ上で動作させることができる。  
 ※Web Application Resources(Web ARchive)の略
 
-<a id="markdown-earファイル" name="earファイル"></a>
 ### EARファイル
 J2EEサーバー上にアプリケーションをデプロイするのに適した形式で、J2EEサーバーはエンタープライズシステム向けのJavaプラットフォームのこと。  
 ※Enterprise Archiveの略
 
 <br>
-<!-- NEXT INDENT -->
 
-<a id="markdown-４．用語集" name="４．用語集"></a>
 ## ４．用語集
 
-<a id="markdown-staticメソッド" name="staticメソッド"></a>
 ### staticメソッド
 * 複数のインスタンスの間で共有されつづける情報、共有資源にして欲しいフィールドに static をつける。
 * インスタンスを生成しなくても呼び出せる。  
 * 定数定義の際にfinal static で宣言することで、new する度に同じ値がインスタンスに複製されることが防止され、メモリの節約ができる。
 * static が付かない一般のメソッドは非 static メソッド、インスタンスメソッドという
 
-<a id="markdown-ラッパークラス" name="ラッパークラス"></a>
 ### ラッパークラス
 プリミティブ型をラップしているクラスのことで、それぞれのクラスで便利なメソッドが容易されている。
 
@@ -180,4 +163,3 @@ J2EEサーバー上にアプリケーションをデプロイするのに適し�
 ※Stringは当初からオブジェクト
 
 <br>
-<!-- NEXT INDENT -->
