@@ -1,41 +1,38 @@
 # Java
 
 <!-- TOC -->
-
-- [Java](#java)
-  - [１．設定](#１設定)
-  - [２．基本クラス](#２基本クラス)
-    - [豆知識](#豆知識)
-    - [Integerクラス](#integerクラス)
-    - [Stringクラス](#stringクラス)
-    - [StringBufferクラス](#stringbufferクラス)
-    - [StringBuilderクラス](#stringbuilderクラス)
-  - [３．ビルド](#３ビルド)
-    - [JARファイル](#jarファイル)
-    - [WARファイル](#warファイル)
-    - [EARファイル](#earファイル)
-  - [４．用語集](#４用語集)
-    - [staticメソッド](#staticメソッド)
-    - [ラッパークラス](#ラッパークラス)
-
-<!-- /TOC -->
+- [1. 設定](#1-設定)
+- [2. 基本クラス](#2-基本クラス)
+  - [2.1. 豆知識](#21-豆知識)
+  - [2.2. Integerクラス](#22-integerクラス)
+  - [2.3. Stringクラス](#23-stringクラス)
+  - [2.4. StringBufferクラス](#24-stringbufferクラス)
+  - [2.5. StringBuilderクラス](#25-stringbuilderクラス)
+- [3. ビルド](#3-ビルド)
+  - [3.1. JARファイル](#31-jarファイル)
+  - [3.2. WARファイル](#32-warファイル)
+  - [3.3. EARファイル](#33-earファイル)
+- [4. 用語集](#4-用語集)
+  - [4.1. staticメソッド](#41-staticメソッド)
+  - [4.2. ラッパークラス](#42-ラッパークラス)
 ---
 <br>
+<!-- /TOC -->
 
-## １．設定
+## 1. 設定
 
 <br>
 
-## ２．基本クラス
+## 2. 基本クラス
 
-### 豆知識
+### 2.1. 豆知識
 
 ```java
 // 型の確認
 Object.getClass().getSimpleName()
 ```
 
-### Integerクラス  
+### 2.2. Integerクラス  
 プリミティブ型intの値をオブジェクトにラップする。  
 intをStringに、Stringをintに変換するなど各種メソッドを提供する。
 
@@ -63,7 +60,7 @@ Integer intNumber2 = Integer.valueOf(123);
 Integer intNumber3 = Integer.valueOf("123");
 ```
 
-### Stringクラス  
+### 2.3. Stringクラス  
 Stringクラスは文字列を表す。リテラル文字列はすべて、このクラスのインスタンスとして実行される。
 Stringクラスには、文字列の比較、文字列の検索など各種メソッドを提供する。
 
@@ -92,12 +89,12 @@ String[] strArray = str3.split(",");
 System.out.println(strArray[0]);  // TEST0
 ```
 
-### StringBufferクラス  
+### 2.4. StringBufferクラス  
 スレッドセーフな可変の文字列。  
 ⇒文字列バッファは複数のスレッドによって安全に使用することができる。  
 ⇒安全だが高速に処理できるStringBuilderでいい
 
-### StringBuilderクラス  
+### 2.5. StringBuilderクラス  
 文字の可変シーケンス。StringBufferと互換性があるが、同期化は保証ない。
 
 ```java
@@ -121,33 +118,33 @@ String sql1 = sql.toString();
 
 <br>
 
-## ３．ビルド
+## 3. ビルド
 
 javaファイルをコンパイルするとclassファイルが作成され、以下ZIP形式の圧縮ファイルとして各サービスに配布される。
 
-### JARファイル
+### 3.1. JARファイル
 複数のJavaクラスや、それに関連するメタデータファイル、テキストやイメージファイル、設定ファイル(XML)をひとつのファイルに統合した形式。  
 ※Java ARchiveの略
 
-### WARファイル
+### 3.2. WARファイル
 JavaベースのWebアプリケーションやコンポーネントを圧縮した形式で、Webサーバ上で動作する。  ApacheのTomcatのようなWebアプリケーションを導入したWebサーバ上で動作させることができる。  
 ※Web Application Resources(Web ARchive)の略
 
-### EARファイル
+### 3.3. EARファイル
 J2EEサーバー上にアプリケーションをデプロイするのに適した形式で、J2EEサーバーはエンタープライズシステム向けのJavaプラットフォームのこと。  
 ※Enterprise Archiveの略
 
 <br>
 
-## ４．用語集
+## 4. 用語集
 
-### staticメソッド
+### 4.1. staticメソッド
 * 複数のインスタンスの間で共有されつづける情報、共有資源にして欲しいフィールドに static をつける。
 * インスタンスを生成しなくても呼び出せる。  
 * 定数定義の際にfinal static で宣言することで、new する度に同じ値がインスタンスに複製されることが防止され、メモリの節約ができる。
 * static が付かない一般のメソッドは非 static メソッド、インスタンスメソッドという
 
-### ラッパークラス
+### 4.2. ラッパークラス
 プリミティブ型をラップしているクラスのことで、それぞれのクラスで便利なメソッドが容易されている。
 
 | プリミティブ型 | ラッパークラス |
