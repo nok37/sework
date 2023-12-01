@@ -36,20 +36,10 @@
 ### 2.1. オススメ
 
 #### 2.1.1. 選択文字をハイライト・コピーする
-[highlight.mac](./highlight.mac)
+[highlight.mac](./mac/highlight.mac)
 
 #### 2.1.2. 選択文字をハイライト・全てマークする
-
-```java
-// ########################################
-// # 名前：booking.mac
-// # 機能：選択文字をハイライト・全てマークする
-// # 割当：alt + b
-// ########################################
-S_SelectWord(0);
-S_SearchClearMark(0);
-S_BookmarkPattern('', 0);
-```
+[booking.mac](./mac/booking.mac)
 
 #### 2.1.3. 外部コマンド(cmd_exe)を指定行を引数に実行する
 
