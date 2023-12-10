@@ -7,9 +7,10 @@
   - [1.3. プロキシ](#13-プロキシ)
 - [2. 基本](#2-基本)
   - [2.1. コーディング](#21-コーディング)
-  - [2.2. 基本関数](#22-基本関数)
-    - [2.2.1. 【print】文字表示](#221-print文字表示)
-  - [2.3. 文字操作関数](#23-文字操作関数)
+  - [2.2. 代入とコピー](#22-代入とコピー)
+  - [2.3. 基本関数](#23-基本関数)
+    - [2.3.1. 【print】文字表示](#231-print文字表示)
+  - [2.4. 文字操作関数](#24-文字操作関数)
 - [3. 言語構文](#3-言語構文)
   - [3.1. tuple](#31-tuple)
   - [3.2. list](#32-list)
@@ -17,9 +18,12 @@
   - [3.4. set](#34-set)
   - [3.5. その他データ型](#35-その他データ型)
 - [4. 制御構文](#4-制御構文)
-  - [4.1. if/for/while/break/continue](#41-ifforwhilebreakcontinue)
-  - [4.2. with xxx as](#42-with-xxx-as)
-  - [4.3. リスト内方式](#43-リスト内方式)
+  - [4.1. if](#41-if)
+  - [4.2. for](#42-for)
+  - [4.3. while/break/continue](#43-whilebreakcontinue)
+  - [4.4. range](#44-range)
+  - [4.5. with xxx as](#45-with-xxx-as)
+  - [4.6. リスト内方式](#46-リスト内方式)
 - [5. 関数](#5-関数)
   - [5.1. 関数の作成](#51-関数の作成)
   - [5.2. 無名関数](#52-無名関数)
@@ -75,9 +79,45 @@ set HTTPS_PROXY=https://user:pass@host:port
 # -*- coding: cp1252 -*-
 ```
 
-### 2.2. 基本関数
+### 2.2. 代入とコピー
 
-#### 2.2.1. 【print】文字表示
+```python
+>>> import copy
+>>> l_org = [0, 1, [2, 3]]
+>>> l_assign = l_org
+>>> l_copy = l_org.copy()
+>>> l_deepcopy = copy.deepcopy(l_org)
+>>> l_org[1] = 100
+>>> l_org[2][0] = 200
+
+>>> print(l_org)
+[0, 100, [200, 3]]
+
+>>> # assignment(代入)
+>>> print(l_assign)
+[0, 100, [200, 3]]
+
+>>> # shallow copy(浅いコピー)
+>>> print(l_copy)
+[0, 1, [200, 3]]
+
+>>> # deep copy(深いコピー)
+>>> print(l_deepcopy)
+[0, 1, [2, 3]]
+```
+
+```python
+# multiple assignment(複数同時の代入)
+>>> a,b = 0,1
+>>> print(a)
+0
+>>> print(b)
+1
+```
+
+### 2.3. 基本関数
+
+#### 2.3.1. 【print】文字表示
 
 ```python
 # シングルクォート ('...') とダブルクォート ("...") に違いはない
@@ -85,19 +125,34 @@ set HTTPS_PROXY=https://user:pass@host:port
 hello!
 >>> print('hello!')
 hello!
+
+# 要素の間に空白が挿入される
+>>> print(1,2)
+1 2
+
+# 引数endで末尾を変更できる
+>>> print(1,end=',')
+1,>>>
 ```
 
-### 2.3. 文字操作関数
+
+### 2.4. 文字操作関数
 
 ```python
 >>> print(word)
 Python
 >>> len(word)
 6
-# 最初から2番目まで+2番目から最後まで
->>> word[:2] + word[2:]
-'Python'
-# 最初から後ろから2番目まで
+# 最初の文字のインデックスは0
+>>> word[0]
+'P'
+# 最初の文字～2番目まで　※注意　終了値は含まない！
+>>> word[:2]
+'Py'
+# 2番目の文字～最後まで
+>>> word[2:]
+'thon'
+# 最初の文字～後ろから2番目まで
 >>> word[:-2]
 'Pyth'
 ```
@@ -106,34 +161,88 @@ Python
 
 ## 3. 言語構文
 
-###  3.1. tuple
+### 3.1. tuple
 
-###  3.2. list
+### 3.2. list
 ```python
-squares = [1, 4, 9, 16, 25]
+>>> squares
+[1, 4, 9, 16, 25]
+>>> squares.append(2)
+>>> squares
+[1, 4, 9, 16, 25, 2]
 ```
 
-###  3.3. dict
-###  3.4. set
-###  3.5. その他データ型
+### 3.3. dict
+### 3.4. set
+### 3.5. その他データ型
 
 <br>
 
 ## 4. 制御構文
 
-###  4.1. if/for/while/break/continue
-###  4.2. with xxx as
-###  4.3. リスト内方式
+### 4.1. if
+```python
+# 基本
+>>> x = int(input("数値を入力してください："))
+数値を入力してください：32
+
+>>> if x < 0:
+...     print("less")
+... elif x == 0:
+...     print("zero")
+... else:
+...     print("more")
+...
+more
+```
+
+### 4.2. for
+```python
+# 基本
+>>> words = ['m21', 'c4', 'tell sea i']
+>>> for w in words:
+...     print(w, len(w))
+...
+m21 3
+c4 2
+tell sea i 10
+```
+
+```python
+# 反復処理の場合はrange関数が便利
+>>> for i in range(3):
+...     print(i)
+...
+0
+1
+2
+
+# 開始値、終了値、増加量も指定できる
+>>> for j in range(3,30,5):
+...     print(j)
+...
+3
+8
+13
+18
+23
+28
+```
+
+### 4.3. while/break/continue
+### 4.4. range
+### 4.5. with xxx as
+### 4.6. リスト内方式
 
 <br>
 
 ## 5. 関数
 
-###  5.1. 関数の作成
+### 5.1. 関数の作成
 
-###  5.2. 無名関数
+### 5.2. 無名関数
 
-###  5.3. 特殊メソッド(__str__、__repr__など)
+### 5.3. 特殊メソッド(__str__、__repr__など)
 
 ### 5.4. オリジナル関数
 
