@@ -20,8 +20,10 @@
 ### 1.1. クイックアクセスツールバー
 1. Excelのオプションを開く。（ショートカット：alt → f → t ）
 2. クイックアクセスツールバーで自分好みにカスタマイズする。<br>
-[おすすめ設定](Excel%20Customizations.exportedUI)  
+[おすすめ設定](./Excel%20Customizations.exportedUI)  
 ※端末にダウンロードして、ユーザー設定からインポートする。
+
+![](./image.png)
 <br>
 <br>
 
