@@ -23,7 +23,7 @@
 [おすすめ設定](./Excel%20Customizations.exportedUI)  
 ※端末にダウンロードして、ユーザー設定からインポートする。
 
-![](./image.png)
+![image](./exportedUI.png)
 <br>
 <br>
 
