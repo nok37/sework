@@ -6,25 +6,40 @@
   - [1.2. パスワード・プロファイル](#12-パスワードプロファイル)
   - [1.3. 起動・停止](#13-起動停止)
   - [1.4. 表領域](#14-表領域)
-- [2. 基本](#2-基本)
-  - [2.1. テーブル操作](#21-テーブル操作)
-  - [2.2. データパンプ（データポンプ）](#22-データパンプデータポンプ)
-  - [2.3. viewファイルの確認](#23-viewファイルの確認)
-- [3. 関数](#3-関数)
-- [4. 冗長性／可用性](#4-冗長性可用性)
-  - [4.1. アーカイブログ](#41-アーカイブログ)
-  - [4.2. Data Guard](#42-data-guard)
-  - [4.3. パーテーション](#43-パーテーション)
-- [5. 性能／パフォーマンス](#5-性能パフォーマンス)
-  - [5.1. 実行計画・統計情報](#51-実行計画統計情報)
-  - [5.2. 索引](#52-索引)
-  - [5.3. AWR(Automatic Workload Repository)](#53-awrautomatic-workload-repository)
-- [6. 用語](#6-用語)
-  - [6.1. DWH （データウェアハウス）](#61-dwh-データウェアハウス)
-  - [6.2. CWH （セントラルウェアハウス）](#62-cwh-セントラルウェアハウス)
-  - [6.3. データマート](#63-データマート)
-  - [6.4. マテビュー](#64-マテビュー)
-  - [6.5. SCN （System Change Number）](#65-scn-system-change-number)
+- [2. SQL](#2-sql)
+  - [2.1. データ操作言語（DML）](#21-データ操作言語dml)
+  - [2.2. SELECT](#22-select)
+  - [2.3. データ定義（DDL）](#23-データ定義ddl)
+  - [2.4. CREATE](#24-create)
+  - [2.5. DROP](#25-drop)
+  - [2.6. ALTER](#26-alter)
+- [3. オブジェクト](#3-オブジェクト)
+  - [3.1. テーブル](#31-テーブル)
+  - [3.2. ビュー](#32-ビュー)
+  - [3.3. マテビュー](#33-マテビュー)
+  - [3.4. DBリンク](#34-dbリンク)
+  - [3.5. ディレクトリ](#35-ディレクトリ)
+  - [3.6. シーケンス](#36-シーケンス)
+  - [3.7. パッケージ](#37-パッケージ)
+  - [3.8. シノニム](#38-シノニム)
+  - [3.9. その他](#39-その他)
+- [4. ユーティリティ](#4-ユーティリティ)
+  - [4.1. 【expdp】データエクスポート](#41-expdpデータエクスポート)
+  - [4.2. 【impdp】インポート](#42-impdpインポート)
+- [5. 冗長性／可用性](#5-冗長性可用性)
+  - [5.1. アーカイブログ](#51-アーカイブログ)
+  - [5.2. Data Guard](#52-data-guard)
+  - [5.3. パーテーション](#53-パーテーション)
+- [6. 性能／パフォーマンス](#6-性能パフォーマンス)
+  - [6.1. 実行計画・統計情報](#61-実行計画統計情報)
+  - [6.2. 索引](#62-索引)
+  - [6.3. AWR(Automatic Workload Repository)](#63-awrautomatic-workload-repository)
+- [7. 用語](#7-用語)
+  - [7.1. DWH （データウェアハウス）](#71-dwh-データウェアハウス)
+  - [7.2. CWH （セントラルウェアハウス）](#72-cwh-セントラルウェアハウス)
+  - [7.3. データマート](#73-データマート)
+  - [7.4. マテビュー](#74-マテビュー)
+  - [7.5. SCN （System Change Number）](#75-scn-system-change-number)
 ---
 <br>
 <!-- /TOC -->
@@ -35,7 +50,7 @@
 
 * バージョンの確認
     ```sql
-    SQL> SELECT * FROM V$VERSION;
+    SELECT * FROM V$VERSION;
     ```
 
 ###  1.2. パスワード・プロファイル
@@ -51,14 +66,14 @@
     | LOCKED | 管理者による手動ロック |
     ```sql
     -- 書式設定
-    SQL> set lin 100
-    SQL> col USERNAME for a20
-    SQL> col PROFILE for a25
-    SQL> col ACCOUNT_STATUS for a25
-    SQL> col EXPIRY_DATE for a25
+    set lin 100
+    col USERNAME for a20
+    col PROFILE for a25
+    col ACCOUNT_STATUS for a25
+    col EXPIRY_DATE for a25
     
     -- DBA_USERSからプロファイルとアカウントステータスを取得
-    SQL> SELECT USERNAME, PROFILE, ACCOUNT_STATUS, EXPIRY_DATE FROM DBA_USERS ORDER BY USERNAME;
+    SELECT USERNAME, PROFILE, ACCOUNT_STATUS, EXPIRY_DATE FROM DBA_USERS ORDER BY USERNAME;
 
     USERNAME             PROFILE                   ACCOUNT_STATUS            EXPIRY_DATE
     -------------------- ------------------------- ------------------------- -------------------------
@@ -67,10 +82,10 @@
     USER3                DEFAULT                   EXPIRED & LOCKED          2019/04/16
 
     --パスワード変更
-    SQL> ALTER USER USER1 IDENTIFIED BY pass;
+    ALTER USER USER1 IDENTIFIED BY pass;
 
     --プロファイルの変更
-    SQL> ALTER USER USER1 PROFILE UNLOCKUSER;
+    ALTER USER USER1 PROFILE UNLOCKUSER;
     ```
 
 ###  1.3. 起動・停止  
@@ -84,28 +99,28 @@
 
     ```sql
     -- インスタンスを起動し、データベースをマウントしてオープンする方法
-    SQL> STARTUP
+    STARTUP
 
     -- インスタンスを起動するが、データベースをマウントしない方法
-    SQL> STARTUP NOMOUNT
+    STARTUP NOMOUNT
 
     -- インスタンスを起動し、データベースをマウントする方法（オープンはしない）
-    SQL> STARTUP MOUNT
+    STARTUP MOUNT
 
     -- インスタンスにデータベースをマウントする方法
-    SQL> ALTER DATABASE MOUNT;
+    ALTER DATABASE MOUNT;
 
     -- クローズしているデータベースをオープンする方法
-    SQL> ALTER DATABASE OPEN;
+    ALTER DATABASE OPEN;
 
     -- NORMALモードによる停止（接続しているすべてのユーザーが切断するまで待機してから、データベースが停止）
-    SQL> SHUTDOWN [NORMAL]
+    SHUTDOWN [NORMAL]
 
     -- IMMEDIATEモードによる停止（実行中のSQL文を終了、ユーザーを切断、アクティブなトランザクションを終了し、コミットされていない変更をロールバックして停止）
-    SQL> SHUTDOWN IMMEDIATE
+    SHUTDOWN IMMEDIATE
 
     -- TRANSACTIONALモードによる停止（現在のトランザクションがすべて完了するまで待機してから停止）
-    SQL> SHUTDOWN TRANSACTIONAL
+    SHUTDOWN TRANSACTIONAL
     ```
 
 ###  1.4. 表領域
@@ -113,12 +128,12 @@
 * 表領域（table space）とは、データ保管のためにストレージ上に確保した領域
     ```sql
     -- 書式設定
-    SQL> col FILE_NAME for a60
-    SQL> col SIZE(MB) for 99,999,999
-    SQL> set linesize 120 pagesize 50000
+    col FILE_NAME for a60
+    col SIZE(MB) for 99,999,999
+    set linesize 120 pagesize 50000
 
     -- 表領域の確認
-    SQL> select TABLESPACE_NAME, FILE_NAME, BYTES/1024/1024 "SIZE(MB)" from DBA_DATA_FILES;
+    select TABLESPACE_NAME, FILE_NAME, BYTES/1024/1024 "SIZE(MB)" from DBA_DATA_FILES;
 
     TABLESPACE_NAME   FILE_NAME                                         SIZE(MB)
     ----------------- ---------------------------------------------- -----------
@@ -128,10 +143,10 @@
     USERS             +DATA/ORCL/DATAFILE/users.274.1012011961                 5
 
     -- 拡張
-    SQL> alter tablespace TEST_SMALL add datafile size 4096M;
+    alter tablespace TEST_SMALL add datafile size 4096M;
 
     -- 削除
-    SQL> alter tablespace TEST_SMALL drop datafile size 4096M;
+    alter tablespace TEST_SMALL drop datafile size 4096M;
 
     set lines 120
     set pages 100
@@ -160,100 +175,219 @@
 
 <br>
 
-## 2. 基本
+## 2. SQL
 
-###  2.1. テーブル操作
+### 2.1. データ操作言語（DML）
 
-* ALTER<br>
-    オルターと読む
-    ```sql
-    ---カラムの変更
-    ALTER TABLE table MODIFY (column VARCHAR2(45));
-    ```
-
-###  2.2. データパンプ（データポンプ）
-
-* データエクスポート
-    ```sql
-    -- 基本
-    SQL> expdp user/pass@db01 CONTENT=data_only DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=exp.log
-    
-    -- テーブル指定
-    TABLES=tbl01
-    
-    -- 指定された時刻に最も近いSCNを検出し、このSCNを使用してフラッシュバック・ユーティリティを使用可能にする
-    FLASHBACK_TIME="TO_TIMESTAMP('27-10-2012 13:16:00', 'DD-MM-YYYY HH24:MI:SS')"
-    
-    -- デフォルトでログを作成するかどうか（YES指定で作成されない）
-    NOLOGFILE=yes
-    ```
-
-* インポート
-    ```sql
-    -- 基本
-    SQL> impdp user/pass@db01 TABLE_EXISTS_ACTION=truncate DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=imp.log
-
-    -- スキーマ変更
-    REMAP_SCHEMA=source_schema:target_schema
-    ```
-
-* データポンプの停止
-    ```sql
-    -- 実行中のDATA PUMPを確認
-    SQL> SELECT * FROM DBA_DATAPUMP_JOBS;
-
-    -- 該当のジョブにアタッチ
-    $ expdp user/pass@inst attach='job_name'
-    $ impdp user/pass@inst attach='job_name'
-
-    -- ジョブのキル
-    $ kill_job
-    ```
-
-###  2.3. viewファイルの確認
-
+### 2.2. SELECT
+レコードを抽出する。
 ```sql
-SQL> set long 10000
-SQL> set pagesize 0
+SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 
-SQL> SELECT TEXT FROM USER_VIEWS WHERE VIEW_NAME = '＜ビュー名（大文字）＞';
+-- ヒント句についての補足
+/*+ parallel(8) */
+/*+ full(A) */
+```
+
+### 2.3. データ定義（DDL）
+
+### 2.4. CREATE
+データオブジェクトを作成する。
+```sql
+-- CTAS(既存テーブルからデータを引き継いで新規テーブル作成)
+CREATE TABLE newtableA AS SELECT * FROM tableA;
+
+-- CTAS(既存テーブルから新規テーブル作成)
+CREATE TABLE newtableA AS SELECT * FROM tableA WHERE 1<>2; 
+```
+
+### 2.5. DROP
+データオブジェクトを削除する。
+```sql
+-- テーブル削除
+DROP TABLE tableA;
+
+-- テーブル完全削除
+DROP TABLE tableA PURGE;
+```
+
+### 2.6. ALTER
+データオブジェクトを変更する。（※オルターと読む）
+```sql
+-- カラムの変更
+ALTER TABLE tableA MODIFY (column1 VARCHAR2(45));
 ```
 
 <br>
 
-## 3. 関数
+## 3. オブジェクト
+
+### 3.1. テーブル
+```sql
+-- テーブル一覧
+col table_name for a32
+SELECT count(1) FROM user_tables WHERE table_name LIKE 'T%';
+SELECT table_name FROM user_tables;
+
+TABLE_NAME
+----------------
+TABLE0000
+```
+
+
+### 3.2. ビュー
+```sql
+-- ビュー一覧
+col view_name for a32
+SELECT view_name FROM user_views;
+```
+
+### 3.3. マテビュー
+```sql
+-- マテビュー一覧
+col owner for a16
+col mview_name for a32
+col master_link for a32
+SELECT owner,mview_name,master_link FROM user_mviews ORDER BY 1,2,3;
+
+OWNER            MVIEW_NAME                       MASTER_LINK
+---------------- -------------------------------- ----------------
+SCXXX111         MV0000                           @"LINK0000"
+```
+
+### 3.4. DBリンク
+```sql
+-- DBリンク一覧
+col object_name for a16
+SELECT object_name FROM user_objects WHERE object_type = 'DATABASE LINK';
+
+OBJECT_NAME
+----------------
+LINK0000
+```
+
+### 3.5. ディレクトリ
+```sql
+-- ディレクトリ一覧
+col owner for a16
+col directory_name for a32
+col directory_path for a64
+SELECT owner,directory_name,directory_path FROM all_directories;
+
+OWNER            DIRECTORY_NAME
+---------------- --------------------------------
+DIRECTORY_PATH
+----------------------------------------------------------------
+SYS              DIRXXX111
+/opt1/xxx/oracleio
+```
+
+### 3.6. シーケンス
+```sql
+-- シーケンス一覧
+col owner for a16
+col directory_name for a32
+col directory_path for a64
+SELECT owner,directory_name,directory_path FROM all_directories;
+
+OWNER            DIRECTORY_NAME
+---------------- --------------------------------
+DIRECTORY_PATH
+----------------------------------------------------------------
+SYS              DIRXXX111
+/opt1/xxx/oracleio
+```
+
+### 3.7. パッケージ
+```sql
+-- パッケージ一覧
+
+```
+
+### 3.8. シノニム
+```sql
+-- シノニム一覧
+
+```
+
+### 3.9. その他
+```sql
+-- 無効オブジェクト確認
+
+```
 
 <br>
 
-## 4. 冗長性／可用性  
+## 4. ユーティリティ
 
-###  4.1. アーカイブログ
+### 4.1. 【expdp】データエクスポート
+```sql
+-- 基本
+expdp user/pass@db01 CONTENT=data_only DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=exp.log
+
+-- テーブル指定
+TABLES=tbl01
+
+-- 指定された時刻に最も近いSCNを検出し、このSCNを使用してフラッシュバック・ユーティリティを使用可能にする
+FLASHBACK_TIME="TO_TIMESTAMP('27-10-2012 13:16:00', 'DD-MM-YYYY HH24:MI:SS')"
+
+-- デフォルトでログを作成するかどうか（YES指定で作成されない）
+NOLOGFILE=yes
+```
+
+### 4.2. 【impdp】インポート
+```sql
+-- 基本
+impdp user/pass@db01 TABLE_EXISTS_ACTION=truncate DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=imp.log
+
+-- スキーマ変更
+REMAP_SCHEMA=source_schema:target_schema
+```
+
+* データポンプの停止
+```sql
+-- 実行中のDATA PUMPを確認
+SELECT * FROM DBA_DATAPUMP_JOBS;
+
+-- 該当のジョブにアタッチ(Linuxの場合)
+$ expdp user/pass@inst attach='job_name'
+$ impdp user/pass@inst attach='job_name'
+
+-- ジョブのキル
+$ kill_job
+```
+
+<br>
+
+## 5. 冗長性／可用性  
+
+###  5.1. アーカイブログ
 
 ```sql
 --oracleユーザで接続
 $ sqlplus / as sysdba
 
 --【確認】
-SQL> select log_mode from v$database;
+select log_mode from v$database;
  LOG_MODE
  ------------
  ARCHIVELOG
 
 --【変更】（必要に応じてクラスタをメンテナンスにする）
 --Oracleの停止をする
-SQL> shutdown immediate
+shutdown immediate
 
 --Oracleの起動（マウント状態）をする
-SQL> startup mount
+startup mount
 
 --noarchivelogモードに変更する
-SQL> alter database noarchivelog;
+alter database noarchivelog;
 
 --Oracleの起動をする。
-SQL> alter database open;
+alter database open;
 
 --現在の状態を確認
-SQL> select log_mode from v$database;
+select log_mode from v$database;
  LOG_MODE
  ------------
  NOARCHIVELOG
@@ -275,7 +409,7 @@ RMAN> DELETE EXPIRED ARCHIVELOG ALL;
 
 ```
 
-###  4.2. Data Guard
+###  5.2. Data Guard
 自然災害などが発生した場合を想定し、遠隔地のスタンバイデータベースとネットワーク経由でフェイルオーバーを可能にする機能  
 
 1. フィジカル・スタンバイ構成  
@@ -284,16 +418,16 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 2. ロジカル・スタンバイ構成  
 プライマリ・データベースから転送されたREDOデータをSQLに変換して、スタンバイ・データベースにSQLを実行（SQL Apply）してデータの同期を取る構成。スタンバイ・データベース側はオープンしている状態なので、いつでもデータの確認をすることができる。
 
-### 4.3. パーテーション
+### 5.3. パーテーション
 
 * 概要<br>
 パーティション化により、表、索引および索引構成表をより細かい単位に細分化できるようになる。
 
 <br>
 
-## 5. 性能／パフォーマンス
+## 6. 性能／パフォーマンス
 
-###  5.1. 実行計画・統計情報
+###  6.1. 実行計画・統計情報
 具体的なSQL実行の流れは以下の通り  
 
 1. パーサーがSQL文の構文解析(パース)を実行
@@ -327,7 +461,7 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
   
 <u>実行計画と統計情報とデータベースの三者は整合性取れてる必要がある。</u>  
 
-### 5.2. 索引
+### 6.2. 索引
 
 * 説明<br>
 テーブル内の特定のデータだけにアクセスする場合に、索引を使用することで効果的にアクセスできる。数%のデータにアクセスする場合は索引スキャンは非常に高速だが、アクセスするデータが多いと逆にフル・スキャンより遅くなる。
@@ -345,7 +479,7 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 
 * 索引のメンテナンス<br>
 
-### 5.3. AWR(Automatic Workload Repository)  
+### 6.3. AWR(Automatic Workload Repository)  
 負荷状況・問題追及で使用する。
 
 * 待機状況（Top 5 Timed Events）  
@@ -362,25 +496,25 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
 <br>
 
 
-## 6. 用語
+## 7. 用語
 
-### 6.1. DWH （データウェアハウス）
+### 7.1. DWH （データウェアハウス）
 
 * トランザクション処理用ではなく、問合せおよび分析用に設計されたリレーショナル・データベース。
 
-### 6.2. CWH （セントラルウェアハウス）
+### 7.2. CWH （セントラルウェアハウス）
 
 * データウェアハウスの利用において、中心となるデータを統合管理する部分を指す。
 
-### 6.3. データマート
+### 7.3. データマート
 
 * 販売、マーケティング、金融など、特定のビジネス分野に対して設計されたデータ・ウェアハウス。
 
-### 6.4. マテビュー
+### 7.4. マテビュー
 
 * 調査や分析の対象となるデータ（通常は数値データや加算的データ）の集計データまたは結合データで構成される事前計算表。サマリーまたは集計表とも呼ばれえる。**リフレッシュ**することでマテリアライズド・ビューを変更して新しいデータを反映する。
 
-### 6.5. SCN （System Change Number）
+### 7.5. SCN （System Change Number）
 
 * トランザクションの毎に、シーケンシャルに割り振られる番号。この番号を元に障害の有無を判別し、リカバリも行ったりする非常に重要な番号。
 

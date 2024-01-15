@@ -32,6 +32,7 @@
 | コマンド | 意味 |
 | ---- | ---- |
 | ctrl + e | フラッシュフィル（法則性のあるデータの自動入力） |
+| ctrl + shift + マウスホイール | 左右スクロール |
 <br>
 
 ## 3. アクセスキー一覧
@@ -44,7 +45,7 @@
 | ALT → O → R → H | 行の非表示（Row Hide） |
 | ALT → O → R → U | 行非表示の取消（Row Undo） |
 | ALT → O → C → W | セル幅の任意編集（Cell Width） |
-| ALT → O → C → A | セル幅の自動編集（Cell Auto）★ |
+| ALT → O → C → A | セル幅の自動編集（Cell Auto） |
 | ALT → O → C → H | 行の非表示（Cell Hide） |
 | ALT → O → C → U | 行非表示の取消（Cell Undo） |
 
