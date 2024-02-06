@@ -25,8 +25,9 @@
   - [4.3. 独自コマンドの実行](#43-独自コマンドの実行)
 - [5. PowerShell](#5-powershell)
   - [5.1. tnc　#テスト接続Test-NetConnection](#51-tncテスト接続test-netconnection)
-- [6. その他ショートカット](#6-その他ショートカット)
-  - [6.1. win](#61-win)
+- [6. その他ツール](#6-その他ツール)
+- [7. その他ショートカット](#7-その他ショートカット)
+  - [7.1. win](#71-win)
 ---
 <br>
 <!-- /TOC -->
@@ -397,9 +398,18 @@ powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!Micr
 
 <br>
 
-## 6. その他ショートカット  
+## 6. その他ツール
 
-### 6.1. win
+```cmd
+--SVNの指定日以降のログ履歴を取得
+svn log svn://xx.xx.xxx.xx/hoge -r {2024-01-01}:HEAD -v
+```
+
+<br>
+
+## 7. その他ショートカット  
+
+### 7.1. win
 | コマンド | メモ |
 | --- | --- |
 | win + 1（～9） | タスクバーのアプリを実行 |

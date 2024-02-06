@@ -8,11 +8,12 @@
   - [1.4. 表領域](#14-表領域)
 - [2. SQL](#2-sql)
   - [2.1. データ操作言語（DML）](#21-データ操作言語dml)
-  - [2.2. SELECT](#22-select)
-  - [2.3. データ定義（DDL）](#23-データ定義ddl)
-  - [2.4. CREATE](#24-create)
-  - [2.5. DROP](#25-drop)
-  - [2.6. ALTER](#26-alter)
+    - [2.1.1. SELECT](#211-select)
+    - [2.1.2. INSERT](#212-insert)
+  - [2.2. データ定義（DDL）](#22-データ定義ddl)
+    - [2.2.1. CREATE](#221-create)
+    - [2.2.2. DROP](#222-drop)
+    - [2.2.3. ALTER](#223-alter)
 - [3. オブジェクト](#3-オブジェクト)
   - [3.1. テーブル](#31-テーブル)
   - [3.2. ビュー](#32-ビュー)
@@ -29,11 +30,11 @@
 - [5. 冗長性／可用性](#5-冗長性可用性)
   - [5.1. アーカイブログ](#51-アーカイブログ)
   - [5.2. Data Guard](#52-data-guard)
-  - [5.3. パーテーション](#53-パーテーション)
 - [6. 性能／パフォーマンス](#6-性能パフォーマンス)
   - [6.1. 実行計画・統計情報](#61-実行計画統計情報)
   - [6.2. 索引](#62-索引)
   - [6.3. AWR(Automatic Workload Repository)](#63-awrautomatic-workload-repository)
+  - [6.4. パーテーション](#64-パーテーション)
 - [7. 用語](#7-用語)
   - [7.1. DWH （データウェアハウス）](#71-dwh-データウェアハウス)
   - [7.2. CWH （セントラルウェアハウス）](#72-cwh-セントラルウェアハウス)
@@ -179,7 +180,7 @@
 
 ### 2.1. データ操作言語（DML）
 
-### 2.2. SELECT
+#### 2.1.1. SELECT
 レコードを抽出する。
 ```sql
 SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
@@ -189,9 +190,26 @@ SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 /*+ full(A) */
 ```
 
-### 2.3. データ定義（DDL）
+#### 2.1.2. INSERT
+データを登録する。
+```sql
+INSERT 
 
-### 2.4. CREATE
+```
+
+* ダイレクト・パス・インサート<br>
+  大量にデータをインサートする際に使用する。<br>
+  * 初期データエントリ
+  * パーティション単位のデータエントリ
+
+  ```sql
+  --使用例
+  INSERT /*+ APPEND */ INTO dest_table SELECT * FROM source_table ;
+  ```
+
+### 2.2. データ定義（DDL）
+
+#### 2.2.1. CREATE
 データオブジェクトを作成する。
 ```sql
 -- CTAS(既存テーブルからデータを引き継いで新規テーブル作成)
@@ -201,7 +219,7 @@ CREATE TABLE newtableA AS SELECT * FROM tableA;
 CREATE TABLE newtableA AS SELECT * FROM tableA WHERE 1<>2; 
 ```
 
-### 2.5. DROP
+#### 2.2.2. DROP
 データオブジェクトを削除する。
 ```sql
 -- テーブル削除
@@ -211,11 +229,20 @@ DROP TABLE tableA;
 DROP TABLE tableA PURGE;
 ```
 
-### 2.6. ALTER
+#### 2.2.3. ALTER
 データオブジェクトを変更する。（※オルターと読む）
 ```sql
 -- カラムの変更
 ALTER TABLE tableA MODIFY (column1 VARCHAR2(45));
+
+-- DMLのパラレル有効化　※SELECTと異なり宣言必要
+ALTER SESSION ENABLE PARALLEL DML;
+
+-- テーブル圧縮解除
+ALTER TABLE テーブル名 MOVE PARTITION パーティション名 NOCOMPRESS UPDATE INDEX PARALLEL 8:
+
+-- テーブル圧縮（HCC圧縮　※他にOLTPなど）
+ALTER TABLE テーブル名 MOVE PARTITION パーティション名 COMPRESS FOR QUERY HIGH UPDATE INDEX PARALLEL 8:
 ```
 
 <br>
@@ -285,17 +312,7 @@ SYS              DIRXXX111
 ### 3.6. シーケンス
 ```sql
 -- シーケンス一覧
-col owner for a16
-col directory_name for a32
-col directory_path for a64
-SELECT owner,directory_name,directory_path FROM all_directories;
 
-OWNER            DIRECTORY_NAME
----------------- --------------------------------
-DIRECTORY_PATH
-----------------------------------------------------------------
-SYS              DIRXXX111
-/opt1/xxx/oracleio
 ```
 
 ### 3.7. パッケージ
@@ -321,41 +338,69 @@ SYS              DIRXXX111
 ## 4. ユーティリティ
 
 ### 4.1. 【expdp】データエクスポート
-```sql
--- 基本
-expdp user/pass@db01 CONTENT=data_only DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=exp.log
 
--- テーブル指定
-TABLES=tbl01
+* 基本コマンド
+  ```bash
+  # エクスポート
+  $ expdp user/pass@db01 CONTENT=data_only DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=exp.log
+  ```
 
--- 指定された時刻に最も近いSCNを検出し、このSCNを使用してフラッシュバック・ユーティリティを使用可能にする
-FLASHBACK_TIME="TO_TIMESTAMP('27-10-2012 13:16:00', 'DD-MM-YYYY HH24:MI:SS')"
+* オプション
+  ```bash
+  # テーブル指定
+  TABLES=tbl01
 
--- デフォルトでログを作成するかどうか（YES指定で作成されない）
-NOLOGFILE=yes
-```
+  # パラレル度指定　※dmpファイルは%uで可変となる（01～08）
+  PARALLEL=8
+
+  # 他のRACインスタンスで実施できるか指定　※デフォルトYES
+  CLUSTER=NO
+
+  # 使用するサービス名を指定　※CLUSTER=YESと合わせて使用
+  SERVICE_NAME=service001
+
+  # ログ作成有無の指定（YES指定で作成されない）
+  NOLOGFILE=YES
+  ```
+
+* 豆知識
+  * PARALLELオプションについて<br>
+    以下のような抽出オブジェクトが複数の場合効果あり。<br>
+    1. パーティションテーブル
+    2. コンポジットパーティションテーブルのメインパーティション
+
+  * PARALLELで作成されるdmpファイル<br>
+    PARALLEL=8でdmpファイル名に%uを使用すると、通常01～08のファイルが作成されるが、***PARALLEL数以上のファイルが作成されることがある***。ファイル名を固定（dmp01,dmp02...）することで回避可能。
 
 ### 4.2. 【impdp】インポート
-```sql
--- 基本
-impdp user/pass@db01 TABLE_EXISTS_ACTION=truncate DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=imp.log
 
--- スキーマ変更
-REMAP_SCHEMA=source_schema:target_schema
-```
+* 基本コマンド
+  ```bash
+  # インポート
+  $ impdp user/pass@db01 TABLE_EXISTS_ACTION=truncate DIRECTORY=dir01 DUMPFILE=data.dmp LOGFILE=imp.log
+  ```
 
-* データポンプの停止
-```sql
--- 実行中のDATA PUMPを確認
-SELECT * FROM DBA_DATAPUMP_JOBS;
+* オプション
+  ```bash
+  # スキーマ変更
+  REMAP_SCHEMA=source_schema:target_schema
+  ```
 
--- 該当のジョブにアタッチ(Linuxの場合)
-$ expdp user/pass@inst attach='job_name'
-$ impdp user/pass@inst attach='job_name'
+* 豆知識
+  * データポンプの停止
+    ```sql
+    -- 実行中のDATA PUMPを確認
+    SQL> SELECT * FROM DBA_DATAPUMP_JOBS;
+    ```
 
--- ジョブのキル
-$ kill_job
-```
+    ```bash
+    # 該当のジョブにアタッチ(Linuxの場合)
+    $ expdp user/pass@inst attach='job_name'
+    $ impdp user/pass@inst attach='job_name'
+
+    # ジョブのキル
+    $ kill_job
+    ```
 
 <br>
 
@@ -363,65 +408,67 @@ $ kill_job
 
 ###  5.1. アーカイブログ
 
-```sql
---oracleユーザで接続
-$ sqlplus / as sysdba
+* 確認
+  ```sql
+  --oracleユーザで接続
+  $ sqlplus / as sysdba
 
---【確認】
-select log_mode from v$database;
- LOG_MODE
- ------------
- ARCHIVELOG
+  --状態の確認
+  SQL> select log_mode from v$database;
+  LOG_MODE
+  ------------
+  ARCHIVELOG
+  ```
 
---【変更】（必要に応じてクラスタをメンテナンスにする）
---Oracleの停止をする
-shutdown immediate
+* 変更
+  ```sql
+  --※必要に応じてクラスタをメンテナンスにする
+  --Oracleの停止をする
+  shutdown immediate
 
---Oracleの起動（マウント状態）をする
-startup mount
+  --Oracleの起動（マウント状態）をする
+  startup mount
 
---noarchivelogモードに変更する
-alter database noarchivelog;
+  --noarchivelogモードに変更する
+  alter database noarchivelog;
 
---Oracleの起動をする。
-alter database open;
+  --Oracleの起動をする。
+  alter database open;
 
---現在の状態を確認
-select log_mode from v$database;
- LOG_MODE
- ------------
- NOARCHIVELOG
+  --現在の状態を確認
+  select log_mode from v$database;
+  LOG_MODE
+  ------------
+  NOARCHIVELOG
+  ```
 
---【削除】
---アーカイブログの確認
-$ rman target /
-RMAN> list archivelog all;
+* 削除
+  ```sql
+  --【削除】
+  --アーカイブログの確認
+  $ rman target /
+  RMAN> list archivelog all;
 
---アーカイブログの削除
-RMAN> delete archivelog all;
+  --アーカイブログの削除
+  RMAN> delete archivelog all;
 
---アーカイブログの確認
-RMAN> list archivelog all;
+  --アーカイブログの確認
+  RMAN> list archivelog all;
 
---※インポート中に実施した際に必要
-RMAN> CROSSCHECK ARCHIVELOG ALL;
-RMAN> DELETE EXPIRED ARCHIVELOG ALL;
-
-```
+  --※インポート中に実施した際に必要
+  RMAN> CROSSCHECK ARCHIVELOG ALL;
+  RMAN> DELETE EXPIRED ARCHIVELOG ALL;
+  ```
 
 ###  5.2. Data Guard
 自然災害などが発生した場合を想定し、遠隔地のスタンバイデータベースとネットワーク経由でフェイルオーバーを可能にする機能  
 
 1. フィジカル・スタンバイ構成  
-REDOデータをプライマリ・データベースからスタンバイ・データベースに転送し、適用（Redo Apply）していく構成。REDOデータはマウント状態で適用していく必要があるため、スタンバイ・データベースは通常マウント状態になる。スタンバイ・データベース側でデータを確認したいときは、REDOデータの適用を一時的に止めて、読み取り専用（READ ONLY）でスタンバイ・データベースをオープンする。
+  REDOデータをプライマリ・データベースからスタンバイ・データベースに転送し、適用（Redo Apply）していく構成。REDOデータはマウント状態で適用していく必要があるため、スタンバイ・データベースは通常マウント状態になる。スタンバイ・データベース側でデータを確認したいときは、REDOデータの適用を一時的に止めて、読み取り専用（READ ONLY）でスタンバイ・データベースをオープンする。
 
 2. ロジカル・スタンバイ構成  
-プライマリ・データベースから転送されたREDOデータをSQLに変換して、スタンバイ・データベースにSQLを実行（SQL Apply）してデータの同期を取る構成。スタンバイ・データベース側はオープンしている状態なので、いつでもデータの確認をすることができる。
+  プライマリ・データベースから転送されたREDOデータをSQLに変換して、スタンバイ・データベースにSQLを実行（SQL Apply）してデータの同期を取る構成。スタンバイ・データベース側はオープンしている状態なので、いつでもデータの確認をすることができる。
 
-### 5.3. パーテーション
-
-* 概要<br>
-パーティション化により、表、索引および索引構成表をより細かい単位に細分化できるようになる。
 
 <br>
 
@@ -491,6 +538,11 @@ REDOデータをプライマリ・データベースからスタンバイ・デ�
     ⇒過去と比較して
 
 * メモリ使用状況（Instance Efficiency Indicators）  
+
+### 6.4. パーテーション
+
+* 概要<br>
+パーティション化により、表、索引および索引構成表をより細かい単位に細分化できるようになる。
 
 
 <br>
