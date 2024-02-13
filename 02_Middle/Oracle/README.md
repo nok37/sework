@@ -1,7 +1,7 @@
 # Oracle
 
 <!-- TOC -->
-- [1. 設定](#1-設定)
+- [1. 全般](#1-全般)
   - [1.1. バージョン](#11-バージョン)
   - [1.2. 構成](#12-構成)
     - [1.2.1. ノード](#121-ノード)
@@ -15,7 +15,7 @@
   - [2.1. データ操作言語（DML）](#21-データ操作言語dml)
     - [2.1.1. SELECT](#211-select)
     - [2.1.2. INSERT](#212-insert)
-  - [2.2. データ定義（DDL）](#22-データ定義ddl)
+  - [2.2. データ定義言語（DDL）](#22-データ定義言語ddl)
     - [2.2.1. CREATE](#221-create)
     - [2.2.2. DROP](#222-drop)
     - [2.2.3. ALTER](#223-alter)
@@ -49,7 +49,7 @@
 <br>
 <!-- /TOC -->
 
-## 1. 設定
+## 1. 全般
 
 ### 1.1. バージョン
 
@@ -258,6 +258,11 @@ SQL> SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 -- ヒント句についての補足
 /*+ parallel(8) */
 /*+ full(A) */
+★後でやってみる
+explain plan for 
+  SELECT /*+ PARALLEL */ cust_first_name, cust_last_name 
+   FROM customers c, sales s WHERE c.cust_id = s.cust_id;
+
 ```
 
 #### 2.1.2. INSERT
@@ -282,10 +287,10 @@ SQL> INSERT
 
   ```sql
   --使用例
-  INSERT /*+ APPEND */ INTO テーブル名 SELECT * FROM 引用元テーブル名;
+  SQL> INSERT /*+ APPEND */ INTO テーブル名 SELECT * FROM 引用元テーブル名;
   ```
 
-### 2.2. データ定義（DDL）
+### 2.2. データ定義言語（DDL）
 
 #### 2.2.1. CREATE
 データオブジェクトを作成する。
@@ -320,16 +325,16 @@ SQL> DROP TABLE テーブル名 PURGE;
 データオブジェクトを変更する。（※オルターと読む）
 ```sql
 -- カラムの変更
-ALTER TABLE テーブル名 MODIFY (カラム名 VARCHAR2(45));
+SQL> ALTER TABLE テーブル名 MODIFY (カラム名 VARCHAR2(45));
 
 -- DMLのパラレル有効化　※SELECTは宣言不要でパラレル動作する
-ALTER SESSION ENABLE PARALLEL DML;
+SQL> ALTER SESSION ENABLE PARALLEL DML;
 
 -- テーブル圧縮解除
-ALTER TABLE テーブル名 MOVE PARTITION パーティション名 NOCOMPRESS UPDATE INDEX PARALLEL 8:
+SQL> ALTER TABLE テーブル名 MOVE PARTITION パーティション名 NOCOMPRESS UPDATE INDEX PARALLEL 8:
 
 -- テーブル圧縮（HCC圧縮　※他にOLTPなど）
-ALTER TABLE テーブル名 MOVE PARTITION パーティション名 COMPRESS FOR QUERY HIGH UPDATE INDEX PARALLEL 8:
+SQL> ALTER TABLE テーブル名 MOVE PARTITION パーティション名 COMPRESS FOR QUERY HIGH UPDATE INDEX PARALLEL 8:
 ```
 
 <br>
