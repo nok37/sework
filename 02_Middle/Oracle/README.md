@@ -1,11 +1,16 @@
 # Oracle
 
 <!-- TOC -->
-- [1. 設定／全般／用語](#1-設定全般用語)
+- [1. 設定](#1-設定)
   - [1.1. バージョン](#11-バージョン)
-  - [1.2. パスワード・プロファイル](#12-パスワードプロファイル)
-  - [1.3. 起動・停止](#13-起動停止)
-  - [1.4. 表領域](#14-表領域)
+  - [1.2. 構成](#12-構成)
+    - [1.2.1. ノード](#121-ノード)
+    - [1.2.2. インスタンス](#122-インスタンス)
+  - [1.3. ユーザ](#13-ユーザ)
+    - [1.3.1. 権限・ロール](#131-権限ロール)
+    - [1.3.2. パスワード・プロファイル](#132-パスワードプロファイル)
+  - [1.4. 起動・停止](#14-起動停止)
+  - [1.5. 表領域](#15-表領域)
 - [2. SQL](#2-sql)
   - [2.1. データ操作言語（DML）](#21-データ操作言語dml)
     - [2.1.1. SELECT](#211-select)
@@ -21,7 +26,7 @@
   - [3.4. DBリンク](#34-dbリンク)
   - [3.5. ディレクトリ](#35-ディレクトリ)
   - [3.6. シーケンス](#36-シーケンス)
-  - [3.7. パッケージ](#37-パッケージ)
+  - [3.7. パッケージ・ファンクション](#37-パッケージファンクション)
   - [3.8. シノニム](#38-シノニム)
   - [3.9. その他](#39-その他)
 - [4. ユーティリティ](#4-ユーティリティ)
@@ -39,13 +44,12 @@
   - [7.1. DWH （データウェアハウス）](#71-dwh-データウェアハウス)
   - [7.2. CWH （セントラルウェアハウス）](#72-cwh-セントラルウェアハウス)
   - [7.3. データマート](#73-データマート)
-  - [7.4. マテビュー](#74-マテビュー)
-  - [7.5. SCN （System Change Number）](#75-scn-system-change-number)
+  - [7.4. SCN （System Change Number）](#74-scn-system-change-number)
 ---
 <br>
 <!-- /TOC -->
 
-## 1. 設定／全般／用語
+## 1. 設定
 
 ### 1.1. バージョン
 
@@ -54,7 +58,63 @@
     SELECT * FROM V$VERSION;
     ```
 
-###  1.2. パスワード・プロファイル
+### 1.2. 構成
+
+#### 1.2.1. ノード
+
+* サーバやホストなどのネットワークリソース。
+
+#### 1.2.2. インスタンス
+
+* データベース・ファイルを管理する一連のメモリー構造。
+* インスタンスが起動されると、システム・グローバル領域(SGA)と呼ばれるメモリー領域が割り当てられ、1つ以上のバックグラウンド・プロセスが起動する。
+* 単一インスタンス構成またはOracle Real Application Clusters (Oracle RAC)構成のいずれかで実行される。
+
+###  1.3. ユーザ
+
+#### 1.3.1. 権限・ロール
+```sql
+-- 権限の確認
+SQL> col USERNAME for a16
+SQL> SELECT * FROM user_sys_privs ORDER BY 1, 2;
+
+USERNAME         PRIVILGE                         ADM COM INH
+---------------- -------------------------------- --- --- ---
+ユーザ名          CREATE ANY DIRECTORY             NO  NO  NO
+ユーザ名          CREATE ANY SYNONYM               NO  NO  NO
+ユーザ名          CREATE DATABASE LINK             NO  NO  NO
+ユーザ名          DROP ANY DIRECTORY               NO  NO  NO
+ユーザ名          SELECT ANY DIRECTORY             NO  NO  NO
+ユーザ名          UNLIMITED TABLESPACE             NO  NO  NO
+```
+
+```sql
+-- 付与されたロールの確認
+SQL> col USERNAME for a16
+SQL> col GRANTED_ROLE for a32
+SQL> SELECT * FROM user_role_privs ORDER BY 1, 2;
+
+USERNAME         GRANTED_ROLE                     ADM DEL DEF OS_ COM INH
+---------------- -------------------------------- --- --- --- --- --- --- 
+ユーザ名          SELECT_CATALOG_ROLE (*1)         NO  NO  YES NO  NO  NO 
+ユーザ名          業務AP用権限                      NO  NO  YES NO  NO  NO 
+
+*1 データ・ディクショナリ内のオブジェクトに対するSELECT権限
+
+-- ロール内容の確認
+SQL> col ROLE for a16
+SQL> col PRIVILEGE for a32
+SQL> SELECT * FROM ROLE_SYS_PRIVS WHERE ROLE='ロール名' ORDER BY 2;
+
+USERNAME         PRIVILEGE                        ADM COM INH
+---------------- -------------------------------- --- --- --- 
+ロール名          ALTER SESSION                    NO  NO  NO 
+ロール名          CREATE SEQUENCE                  NO  NO  NO 
+ロール名          CREATE TABLE                     NO  NO  NO 
+ロール名          CREATE VIEW                      NO  NO  NO 
+```
+
+#### 1.3.2. パスワード・プロファイル
 
 * プロファイル／パスワード期限の確認<br>
     ※アカウントステータスについて
@@ -89,7 +149,7 @@
     ALTER USER USER1 PROFILE UNLOCKUSER;
     ```
 
-###  1.3. 起動・停止  
+###  1.4. 起動・停止  
 
 * インスタンスの起動<br>
 バックグラウンド・プロセスを制御し、Oracle Databaseに接続するためのメモリー領域を割り当てること
@@ -124,9 +184,10 @@
     SHUTDOWN TRANSACTIONAL
     ```
 
-###  1.4. 表領域
+###  1.5. 表領域
 
 * 表領域（table space）とは、データ保管のためにストレージ上に確保した領域
+
     ```sql
     -- 書式設定
     col FILE_NAME for a60
@@ -142,7 +203,9 @@
     SYSAUX            +DATA/ORCL/DATAFILE/sysaux.262.1012010305              600
     UNDOTBS1          +DATA/ORCL/DATAFILE/undotbs1.263.1012010333            130
     USERS             +DATA/ORCL/DATAFILE/users.274.1012011961                 5
+    ```
 
+    ```sql
     -- 拡張
     alter tablespace TEST_SMALL add datafile size 4096M;
 
@@ -159,8 +222,10 @@
     col "USED(MB)" format a20
     col "FREE(MB)" format a20
     col "USED(%)" format 990.99
-
-    -- 使用量の確認
+    ```
+    
+    ```sql
+    -- 容量の確認
     select
     tablespace_name,
     to_char(nvl(total_bytes / 1024 /1024,0),'999,999,999') as "size(MB)",
@@ -172,6 +237,7 @@
     (select tablespace_name free_tablespace_name,sum(bytes) free_total_bytes from dba_free_space group by tablespace_name)
     where tablespace_name = free_tablespace_name(+)
     /
+    ★表示例を追記する
     ```
 
 <br>
@@ -183,7 +249,11 @@
 #### 2.1.1. SELECT
 レコードを抽出する。
 ```sql
-SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
+-- 全カラムを取得
+SQL> SELECT * FROM table A;
+
+-- テーブル件数を取得
+SQL> SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 
 -- ヒント句についての補足
 /*+ parallel(8) */
@@ -193,18 +263,26 @@ SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 #### 2.1.2. INSERT
 データを登録する。
 ```sql
-INSERT 
+SQL> INSERT
 
 ```
 
 * ダイレクト・パス・インサート<br>
   大量にデータをインサートする際に使用する。<br>
-  * 初期データエントリ
-  * パーティション単位のデータエントリ
+
+  * 特徴
+  1. 初期データエントリ
+  2. パーティション単位のデータエントリ
+  3. Oracle内で処理するので高速
+
+  * 注意事項
+  1. テーブル（またはパーティション）が排他ロックされる。
+  2. コミット完了しないと、INSERTしたレコードを参照できない。
+  3. インデックス再構築などにより、多くの一時表領域を消費する。
 
   ```sql
   --使用例
-  INSERT /*+ APPEND */ INTO dest_table SELECT * FROM source_table ;
+  INSERT /*+ APPEND */ INTO テーブル名 SELECT * FROM 引用元テーブル名;
   ```
 
 ### 2.2. データ定義（DDL）
@@ -212,30 +290,39 @@ INSERT
 #### 2.2.1. CREATE
 データオブジェクトを作成する。
 ```sql
+SQL> CREATE TABLE
+
+
 -- CTAS(既存テーブルからデータを引き継いで新規テーブル作成)
-CREATE TABLE newtableA AS SELECT * FROM tableA;
+SQL> CREATE TABLE 新テーブル名 AS SELECT * FROM 旧テーブル名;
 
 -- CTAS(既存テーブルから新規テーブル作成)
-CREATE TABLE newtableA AS SELECT * FROM tableA WHERE 1<>2; 
+SQL> CREATE TABLE 新テーブル名 AS SELECT * FROM 旧テーブル名 WHERE 1<>2; 
 ```
+
+* 遅延セグメント作成<br>
+  表作成でセグメントを作成せず、データが挿入された場合にセグメントを実体化する。デフォルトで有効になっている。
+  ```sql
+  ★確認方法を追記する
+  ```
 
 #### 2.2.2. DROP
 データオブジェクトを削除する。
 ```sql
 -- テーブル削除
-DROP TABLE tableA;
+SQL> DROP TABLE テーブル名;
 
 -- テーブル完全削除
-DROP TABLE tableA PURGE;
+SQL> DROP TABLE テーブル名 PURGE;
 ```
 
 #### 2.2.3. ALTER
 データオブジェクトを変更する。（※オルターと読む）
 ```sql
 -- カラムの変更
-ALTER TABLE tableA MODIFY (column1 VARCHAR2(45));
+ALTER TABLE テーブル名 MODIFY (カラム名 VARCHAR2(45));
 
--- DMLのパラレル有効化　※SELECTと異なり宣言必要
+-- DMLのパラレル有効化　※SELECTは宣言不要でパラレル動作する
 ALTER SESSION ENABLE PARALLEL DML;
 
 -- テーブル圧縮解除
@@ -252,9 +339,9 @@ ALTER TABLE テーブル名 MOVE PARTITION パーティション名 COMPRESS FOR
 ### 3.1. テーブル
 ```sql
 -- テーブル一覧
-col table_name for a32
-SELECT count(1) FROM user_tables WHERE table_name LIKE 'T%';
-SELECT table_name FROM user_tables;
+SQL> col table_name for a32
+SQL> SELECT count(1) FROM user_tables WHERE table_name LIKE 'T%';
+SQL> SELECT table_name FROM user_tables;
 
 TABLE_NAME
 ----------------
@@ -265,28 +352,71 @@ TABLE0000
 ### 3.2. ビュー
 ```sql
 -- ビュー一覧
-col view_name for a32
-SELECT view_name FROM user_views;
+SQL> col view_name for a32
+SQL> SELECT view_name FROM user_views;
 ```
 
 ### 3.3. マテビュー
+
+* マテビューとは
+  * 調査や分析の対象となるデータ（通常は数値データや加算的データ）の集計データまたは結合データで構成される事前計算表。サマリーまたは集計表とも呼ばれえる。***リフレッシュすることでマテリアライズド・ビューを変更して新しいデータを反映する***。
+
 ```sql
 -- マテビュー一覧
-col owner for a16
-col mview_name for a32
-col master_link for a32
-SELECT owner,mview_name,master_link FROM user_mviews ORDER BY 1,2,3;
+SQL> col owner for a16
+SQL> col mview_name for a32
+SQL> col master_link for a32
+SQL> SELECT owner,mview_name,master_link FROM user_mviews ORDER BY 1,2,3;
 
 OWNER            MVIEW_NAME                       MASTER_LINK
 ---------------- -------------------------------- ----------------
 SCXXX111         MV0000                           @"LINK0000"
 ```
 
+* マテビューログ作成
+  ```sql
+  -- マテビューのスキーマに接続
+  SQL> conn ユーザ名/スキーマ名@サービス名
+
+  -- マテビューログ作成
+  SQL> CREATE MATERIALIZED VIEW LOG ON マテビュー名;
+
+  -- マテビューログ作成確認
+  SQL> col MASETER for a32
+  SQL> col LOG_TABLE for a32
+  SQL> SELECT maseter, log_table FROM user_mview_logs;
+  ★出力例を追記する
+
+  -- テーブル確認
+  SQL> col TABLE_NAME for a32
+  SQL> SELECT table_name FROM user_tables order by 1;
+
+  TABLE_NAME
+  --------------------------------
+  MLOG$_テーブル名　★差分格納テーブル
+  RUPD$_テーブル名　★差分格納一時テーブル
+  テーブル名
+  ```
+
+* マテビューリフレッシュ
+  ```sql
+  -- リフレッシュ
+  -- ※1回目は完全リフレッシュ、2回目以降は差分リフレッシュ（高速リフレッシュ）となる。
+  SQL> EXECUTE DBMS_MVIEW.REFRESH('マテビュー名');
+
+  -- 完全リフレッシュ 
+  SQL> EXECUTE DBMS_MVIEW.REFRESH('マテビュー名', 'c');
+
+  -- リフレッシュ状態の確認
+  SQL> col MVIEW_NAME for a32
+  SQL> SELECT mview_name, last_refresh_type, last_refresh_date FROM ALL_MVIEWS ORDER BY 1;
+  ```
+
 ### 3.4. DBリンク
 ```sql
 -- DBリンク一覧
-col object_name for a16
-SELECT object_name FROM user_objects WHERE object_type = 'DATABASE LINK';
+SQL> col object_name for a16
+SQL> SELECT object_name FROM user_objects WHERE object_type = 'DATABASE LINK';
 
 OBJECT_NAME
 ----------------
@@ -296,10 +426,10 @@ LINK0000
 ### 3.5. ディレクトリ
 ```sql
 -- ディレクトリ一覧
-col owner for a16
-col directory_name for a32
-col directory_path for a64
-SELECT owner,directory_name,directory_path FROM all_directories;
+SQL> col owner for a16
+SQL> col directory_name for a32
+SQL> col directory_path for a64
+SQL> SELECT owner,directory_name,directory_path FROM all_directories;
 
 OWNER            DIRECTORY_NAME
 ---------------- --------------------------------
@@ -312,25 +442,25 @@ SYS              DIRXXX111
 ### 3.6. シーケンス
 ```sql
 -- シーケンス一覧
-
+SQL> SELECT object_name, status FROM user_objects WHERE object_type = 'SEQUENCE';
 ```
 
-### 3.7. パッケージ
+### 3.7. パッケージ・ファンクション
 ```sql
--- パッケージ一覧
-
+-- パッケージ・ファンクション一覧
+SQL> SELECT object_name, status FROM user_objects WHERE object_type = 'PACKAGE' OR object_type = 'FUNCTION' OR object_type = 'PACKAGE_BODY';
 ```
 
 ### 3.8. シノニム
 ```sql
 -- シノニム一覧
-
+SQL> SELECT object_name FROM user_objects where object_type = 'SYNONYM';
 ```
 
 ### 3.9. その他
 ```sql
 -- 無効オブジェクト確認
-
+SQL> SELECT object_type, object_name, status FROM dba_objects WHERE status = 'INVALID' ORDER BY 1,2;
 ```
 
 <br>
@@ -370,7 +500,9 @@ SYS              DIRXXX111
     2. コンポジットパーティションテーブルのメインパーティション
 
   * PARALLELで作成されるdmpファイル<br>
-    PARALLEL=8でdmpファイル名に%uを使用すると、通常01～08のファイルが作成されるが、***PARALLEL数以上のファイルが作成されることがある***。ファイル名を固定（dmp01,dmp02...）することで回避可能。
+    PARALLEL=8でdmpファイル名に%uを使用すると、通常01～08のファイルが作成されるが、***PARALLEL数以上（または未満）のファイルが作成されることがある***。ファイル名を固定（dmp01,dmp02...）することで回避可能。
+  
+  * CLUSTERオプション未指定の場合、全ノードで分散処理される。効率的に抽出できるが、処理負荷が想定できない。これを避ける場合はSERVICE_NAMEのオプションで抽出ノードを指定する。
 
 ### 4.2. 【impdp】インポート
 
@@ -562,11 +694,7 @@ SYS              DIRXXX111
 
 * 販売、マーケティング、金融など、特定のビジネス分野に対して設計されたデータ・ウェアハウス。
 
-### 7.4. マテビュー
-
-* 調査や分析の対象となるデータ（通常は数値データや加算的データ）の集計データまたは結合データで構成される事前計算表。サマリーまたは集計表とも呼ばれえる。**リフレッシュ**することでマテリアライズド・ビューを変更して新しいデータを反映する。
-
-### 7.5. SCN （System Change Number）
+### 7.4. SCN （System Change Number）
 
 * トランザクションの毎に、シーケンシャルに割り振られる番号。この番号を元に障害の有無を判別し、リカバリも行ったりする非常に重要な番号。
 
