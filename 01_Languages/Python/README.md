@@ -9,9 +9,9 @@
     - [1.4.1. Windows embeddable package](#141-windows-embeddable-package)
 - [2. 基本](#2-基本)
   - [2.1. コーディング](#21-コーディング)
-  - [2.2. 代入とコピー](#22-代入とコピー)
-  - [2.3. 基本関数](#23-基本関数)
-    - [2.3.1. 【print】文字表示](#231-print文字表示)
+  - [2.2. 基本関数](#22-基本関数)
+    - [2.2.1. 【print】文字表示](#221-print文字表示)
+  - [2.3. 代入とコピー](#23-代入とコピー)
   - [2.4. 文字操作関数](#24-文字操作関数)
 - [3. 言語構文](#3-言語構文)
   - [3.1. tuple](#31-tuple)
@@ -37,15 +37,26 @@
 - [7. クラス](#7-クラス)
   - [7.1. クラス生成](#71-クラス生成)
   - [7.2. pythonにおけるカプセル化](#72-pythonにおけるカプセル化)
-- [8. フレームワーク](#8-フレームワーク)
-  - [8.1. Flask](#81-flask)
-    - [8.1.1. 爆速でFlaskスタブサーバを作成／起動する](#811-爆速でflaskスタブサーバを作成起動する)
-- [9. その他](#9-その他)
-  - [9.1. モジュール](#91-モジュール)
-  - [9.2. pythonにおけるMixin](#92-pythonにおけるmixin)
-  - [9.3. pythonにおける文字列操作](#93-pythonにおける文字列操作)
-  - [9.4. flaskを使ったbackend開発](#94-flaskを使ったbackend開発)
-  - [9.5. djangoを使ったbackend開発](#95-djangoを使ったbackend開発)
+- [8. ライブラリ](#8-ライブラリ)
+  - [8.1. openpyxl：エクセル操作](#81-openpyxlエクセル操作)
+    - [8.1.1. ファイル操作](#811-ファイル操作)
+    - [8.1.2. シート操作](#812-シート操作)
+    - [8.1.3. セル操作](#813-セル操作)
+    - [8.1.4. セルの書式設定（表示形式）](#814-セルの書式設定表示形式)
+    - [8.1.5. セルの書式設定（配置）](#815-セルの書式設定配置)
+    - [8.1.6. セルの書式設定（フォント）](#816-セルの書式設定フォント)
+    - [8.1.7. セルの書式設定（罫線）](#817-セルの書式設定罫線)
+    - [8.1.8. セルの書式設定（塗りつぶし）](#818-セルの書式設定塗りつぶし)
+  - [8.2. xlwings：エクセル操作](#82-xlwingsエクセル操作)
+- [9. フレームワーク](#9-フレームワーク)
+  - [9.1. Flask](#91-flask)
+    - [9.1.1. 爆速でFlaskスタブサーバを作成／起動する](#911-爆速でflaskスタブサーバを作成起動する)
+- [10. その他](#10-その他)
+  - [10.1. モジュール](#101-モジュール)
+  - [10.2. pythonにおけるMixin](#102-pythonにおけるmixin)
+  - [10.3. pythonにおける文字列操作](#103-pythonにおける文字列操作)
+  - [10.4. flaskを使ったbackend開発](#104-flaskを使ったbackend開発)
+  - [10.5. djangoを使ったbackend開発](#105-djangoを使ったbackend開発)
 ---
 <br>
 <!-- /TOC -->
@@ -75,9 +86,38 @@ set HTTPS_PROXY=https://user:pass@host:port
 
 1. 公式サイトからzipファイルを入手し、任意の場所で展開する。
 2. pipを使えるようにする。
-   ```python:python312._pth
-   ```
-3. 
+     * pthファイルの修正
+       ```
+       python312._pth(修正前)
+       #import site
+
+       python312._pth(修正後)
+       import site
+       ```
+
+     * get-pipの入手（PowerShell）
+       ```powershell
+       # 一時的にTLS1.2を有効化
+       > [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+       # Wget
+       > wget "https://bootstrap.pypa.io/get-pip.py" -O "get-pip.py"
+       ```
+     * pipインストール
+       ```cmd
+       > python get-pip.py
+       ```
+
+3. ライブラリをインストールする。
+    ```cmd
+    > python -m pip install wxpython
+
+    > python -m pip freeze
+    pillow==10.2.0
+    setuptools==69.1.0
+    six==1.16.0
+    wheel==0.42.0
+    wxPython==4.2.1 ★new!
+    ```
 
 <br>
 
@@ -92,7 +132,28 @@ set HTTPS_PROXY=https://user:pass@host:port
 # -*- coding: cp1252 -*-
 ```
 
-### 2.2. 代入とコピー
+
+### 2.2. 基本関数
+
+#### 2.2.1. 【print】文字表示
+
+```python
+# シングルクォート ('...') とダブルクォート ("...") に違いはない
+>>> print("hello!")
+hello!
+>>> print('hello!')
+hello!
+
+# 要素の間に空白が挿入される
+>>> print(1,2)
+1 2
+
+# 引数endで末尾を変更できる
+>>> print(1,end=',')
+1,>>>
+```
+
+### 2.3. 代入とコピー
 
 ```python
 >>> import copy
@@ -128,29 +189,7 @@ set HTTPS_PROXY=https://user:pass@host:port
 1
 ```
 
-### 2.3. 基本関数
-
-#### 2.3.1. 【print】文字表示
-
-```python
-# シングルクォート ('...') とダブルクォート ("...") に違いはない
->>> print("hello!")
-hello!
->>> print('hello!')
-hello!
-
-# 要素の間に空白が挿入される
->>> print(1,2)
-1 2
-
-# 引数endで末尾を変更できる
->>> print(1,end=',')
-1,>>>
-```
-
-
 ### 2.4. 文字操作関数
-
 ```python
 >>> print(word)
 Python
@@ -281,18 +320,106 @@ print(os.path.dirname(Cookies))
 <br>
 
 ## 7. クラス
-
-###  7.1. クラス生成
-###  7.2. pythonにおけるカプセル化
+### 7.1. クラス生成
+### 7.2. pythonにおけるカプセル化
 
 
 <br>
 
-## 8. フレームワーク
+## 8. ライブラリ
+### 8.1. openpyxl：エクセル操作
+```python
+import openpyxl
+```
 
-### 8.1. Flask
+#### 8.1.1. ファイル操作
+```python
+# 新規作成
+wb = openpyxl.Workbook()
 
-#### 8.1.1. 爆速でFlaskスタブサーバを作成／起動する
+# 既存ファイル読み込み
+wb = openpyxl.load_workbook('FILEPATH')
+
+# 保存
+wb.save('FILEPATH')
+```
+
+#### 8.1.2. シート操作
+```python
+# 新規シート作成（左に追加）
+ws = wb.create_sheet(0)
+# 新規シート作成（右に追加）
+ws = wb.create_sheet()
+# 新規シート作成（シート名指定で追加）
+ws = wb.create_sheet(title='SHEETNAME')
+
+# シート名から選択
+ws = wb.get_sheet_by_name('SHEETNAME')
+
+# アクティブシート選択
+ws = wb.active
+
+# シート名変更
+ws.title = 'New Title'
+```
+
+#### 8.1.3. セル操作
+```python
+# セル書き込み（セル名指定）
+ws['A1'].value = 'nok37'
+# セル書き込み（行列指定）
+ws.cell(row=2, column=1).value = 'takahana'
+# セル書き込み（行列指定　※省略版）
+ws.cell(3, 1, 'm21')
+```
+
+#### 8.1.4. セルの書式設定（表示形式）
+```python
+```
+
+#### 8.1.5. セルの書式設定（配置）
+```python
+from openpyxl.styles import Alignment
+ws['A1'].alignment = Alignment(
+    wrap_text=False,  # 折り返し改行
+    horizontal='general',  # 水平位置
+    vertical='bottom'  # 上下位置
+)
+# vertical  : 縦位置[*1]
+# horizontal: 横位置[*1]
+# wrap_text : 折り返し改行[True/False]
+# *1 
+#  general : 標準
+#  bottom  :
+```
+
+#### 8.1.6. セルの書式設定（フォント）
+```python
+from openpyxl.styles import Font
+ws['A1'].font = Font(
+    name='Meiryo UI',
+    size=12,
+    bold=True,
+    italic=False,
+    color='FF000000'
+)
+```
+
+#### 8.1.7. セルの書式設定（罫線）
+```python
+```
+
+#### 8.1.8. セルの書式設定（塗りつぶし）
+```python
+```
+
+### 8.2. xlwings：エクセル操作
+
+<br>
+
+## 9. フレームワーク
+### 9.1. Flask
+#### 9.1.1. 爆速でFlaskスタブサーバを作成／起動する
 
 1. Swagger EditorでAPIを定義する　⇒例
 2. コード自動生成で「Flask」を選択する
@@ -379,12 +506,12 @@ print(os.path.dirname(Cookies))
 
 <br>
 
-## 9. その他
+## 10. その他
 
-###  9.1. モジュール
-###  9.2. pythonにおけるMixin
-###  9.3. pythonにおける文字列操作
-###  9.4. flaskを使ったbackend開発
+###  10.1. モジュール
+###  10.2. pythonにおけるMixin
+###  10.3. pythonにおける文字列操作
+###  10.4. flaskを使ったbackend開発
 概要説明
 install/ひな型作成
 実処理作成/データベースアクセス
@@ -394,7 +521,7 @@ APIサーバとしてJSONレスポンスを返す。
 スタティックファイルの扱い
 pytestをつかったunitテスト
 デプロイ
-###  9.5. djangoを使ったbackend開発
+###  10.5. djangoを使ったbackend開発
 概要説明
 install/ひな型作成
 実処理作成/データベースアクセス(django.model)
