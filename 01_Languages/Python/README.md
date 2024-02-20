@@ -5,6 +5,8 @@
   - [1.1. バージョン](#11-バージョン)
   - [1.2. 環境構築](#12-環境構築)
   - [1.3. プロキシ](#13-プロキシ)
+  - [1.4. 構築](#14-構築)
+    - [1.4.1. Windows embeddable package](#141-windows-embeddable-package)
 - [2. 基本](#2-基本)
   - [2.1. コーディング](#21-コーディング)
   - [2.2. 代入とコピー](#22-代入とコピー)
@@ -65,6 +67,17 @@
 set HTTP_PROXY=http://host:port
 set HTTP_PROXY=http://user:pass@host:port
 set HTTPS_PROXY=https://user:pass@host:port
+
+### 1.4. 構築
+
+#### 1.4.1. Windows embeddable package
+組み込み用のため、インストール不要で使えるので便利。
+
+1. 公式サイトからzipファイルを入手し、任意の場所で展開する。
+2. pipを使えるようにする。
+   ```python:python312._pth
+   ```
+3. 
 
 <br>
 
