@@ -10,7 +10,8 @@
 - [2. 基本](#2-基本)
   - [2.1. コーディング](#21-コーディング)
   - [2.2. 基本関数](#22-基本関数)
-    - [2.2.1. 【print】文字表示](#221-print文字表示)
+    - [2.2.1. 【print】文字列出力](#221-print文字列出力)
+    - [2.2.2. 【dir】オブジェクトの属性をリストで取得](#222-dirオブジェクトの属性をリストで取得)
   - [2.3. 代入とコピー](#23-代入とコピー)
   - [2.4. 文字操作関数](#24-文字操作関数)
 - [3. 言語構文](#3-言語構文)
@@ -135,7 +136,7 @@ set HTTPS_PROXY=https://user:pass@host:port
 
 ### 2.2. 基本関数
 
-#### 2.2.1. 【print】文字表示
+#### 2.2.1. 【print】文字列出力
 
 ```python
 # シングルクォート ('...') とダブルクォート ("...") に違いはない
@@ -151,6 +152,13 @@ hello!
 # 引数endで末尾を変更できる
 >>> print(1,end=',')
 1,>>>
+```
+
+#### 2.2.2. 【dir】オブジェクトの属性をリストで取得
+```python
+>>> import os
+>>> dir(os)
+['DirEntry', 'EX_OK', 'F_OK', 'GenericAlias', 'Mapping', 'MutableMapping', 'O_APPEND', 'O_BINARY', 'O_CREAT', 'O_EXCL', 'O_NOINHERIT', 'O_RANDOM', 'O_RDONLY', 'O_RDWR', 'O_SEQUENTIAL', 'O_SHORT_LIVED', 'O_TEMPORARY', 'O_TEXT', 'O_TRUNC', 'O_WRONLY', 'P_DETACH', 'P_NOWAIT', 'P_NOWAITO', 'P_OVERLAY', 'P_WAIT', 'PathLike', 'R_OK', 'SEEK_CUR', 'SEEK_END', 'SEEK_SET', 'TMP_MAX', 'W_OK', 'X_OK', '_AddedDllDirectory', '_Environ', '__all__', '__builtins__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_check_methods', '_execvpe', '_exists', '_exit', '_fspath', '_get_exports_list', '_wrap_close', 'abc', 'abort', 'access', 'add_dll_directory', 'altsep', 'chdir', 'chmod', 'close', 'closerange', 'cpu_count', 'curdir', 'defpath', 'device_encoding', 'devnull', 'dup', 'dup2', 'environ', 'error', 'execl', 'execle', 'execlp', 'execlpe', 'execv', 'execve', 'execvp', 'execvpe', 'extsep', 'fdopen', 'fsdecode', 'fsencode', 'fspath', 'fstat', 'fsync', 'ftruncate', 'get_blocking', 'get_exec_path', 'get_handle_inheritable', 'get_inheritable', 'get_terminal_size', 'getcwd', 'getcwdb', 'getenv', 'getlogin', 'getpid', 'getppid', 'isatty', 'kill', 'linesep', 'link', 'listdir', 'listdrives', 'listmounts', 'listvolumes', 'lseek', 'lstat', 'makedirs', 'mkdir', 'name', 'open', 'pardir', 'path', 'pathsep', 'pipe', 'popen', 'putenv', 'read', 'readlink', 'remove', 'removedirs', 'rename', 'renames', 'replace', 'rmdir', 'scandir', 'sep', 'set_blocking', 'set_handle_inheritable', 'set_inheritable', 'spawnl', 'spawnle', 'spawnv', 'spawnve', 'st', 'startfile', 'stat', 'stat_result', 'statvfs_result', 'strerror', 'supports_bytes_environ', 'supports_dir_fd', 'supports_effective_ids', 'supports_fd', 'supports_follow_symlinks', 'symlink', 'sys', 'system', 'terminal_size', 'times', 'times_result', 'truncate', 'umask', 'uname_result', 'unlink', 'unsetenv', 'urandom', 'utime', 'waitpid', 'waitstatus_to_exitcode', 'walk', 'write']
 ```
 
 ### 2.3. 代入とコピー
@@ -338,10 +346,10 @@ import openpyxl
 wb = openpyxl.Workbook()
 
 # 既存ファイル読み込み
-wb = openpyxl.load_workbook('FILEPATH')
+wb = openpyxl.load_workbook('myfile.xlsx')
 
 # 保存
-wb.save('FILEPATH')
+wb.save('myfile.xlsx')
 ```
 
 #### 8.1.2. シート操作
@@ -351,16 +359,16 @@ ws = wb.create_sheet(0)
 # 新規シート作成（右に追加）
 ws = wb.create_sheet()
 # 新規シート作成（シート名指定で追加）
-ws = wb.create_sheet(title='SHEETNAME')
+ws = wb.create_sheet(title='mysheet')
 
 # シート名から選択
-ws = wb.get_sheet_by_name('SHEETNAME')
+ws = wb.get_sheet_by_name('mysheet')
 
 # アクティブシート選択
 ws = wb.active
 
 # シート名変更
-ws.title = 'New Title'
+ws.title = 'newsheet'
 ```
 
 #### 8.1.3. セル操作
@@ -381,16 +389,24 @@ ws.cell(3, 1, 'm21')
 ```python
 from openpyxl.styles import Alignment
 ws['A1'].alignment = Alignment(
-    wrap_text=False,  # 折り返し改行
-    horizontal='general',  # 水平位置
-    vertical='bottom'  # 上下位置
+    # 横位置
+    horizontal='center',
+    # 縦位置
+    vertical='bottom',
+    # 方向
+    text_rotation=0,
+    # 折り返して全体を表示
+    wrap_text=False,
+    # 縮小して全体表示
+    shrink_to_fit=False,
+    # インデント
+    indent=0
 )
-# vertical  : 縦位置[*1]
-# horizontal: 横位置[*1]
-# wrap_text : 折り返し改行[True/False]
-# *1 
+
+# 横位置／縦位置の指定
 #  general : 標準
-#  bottom  :
+#  bottom  : 下詰め
+#  center  : 中央揃え
 ```
 
 #### 8.1.6. セルの書式設定（フォント）
@@ -398,9 +414,11 @@ ws['A1'].alignment = Alignment(
 from openpyxl.styles import Font
 ws['A1'].font = Font(
     name='Meiryo UI',
-    size=12,
     bold=True,
     italic=False,
+    size=12,
+    #下線
+    #文字飾り
     color='FF000000'
 )
 ```
