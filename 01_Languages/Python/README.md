@@ -9,55 +9,44 @@
     - [1.4.1. Windows embeddable package](#141-windows-embeddable-package)
 - [2. 基本](#2-基本)
   - [2.1. コーディング](#21-コーディング)
-  - [2.2. 基本関数](#22-基本関数)
-    - [2.2.1. 【print】文字列出力](#221-print文字列出力)
-    - [2.2.2. 【dir】オブジェクトの属性をリストで取得](#222-dirオブジェクトの属性をリストで取得)
+  - [2.2. 関数](#22-関数)
+    - [2.2.1. 【dir】オブジェクトの属性をリストで取得](#221-dirオブジェクトの属性をリストで取得)
+    - [2.2.2. 【print】文字列出力](#222-print文字列出力)
   - [2.3. 代入とコピー](#23-代入とコピー)
-  - [2.4. 文字操作関数](#24-文字操作関数)
-- [3. 言語構文](#3-言語構文)
-  - [3.1. tuple](#31-tuple)
-  - [3.2. list](#32-list)
-  - [3.3. dict](#33-dict)
-  - [3.4. set](#34-set)
-  - [3.5. その他データ型](#35-その他データ型)
-- [4. 制御構文](#4-制御構文)
-  - [4.1. if](#41-if)
-  - [4.2. for](#42-for)
-  - [4.3. while/break/continue](#43-whilebreakcontinue)
-  - [4.4. range](#44-range)
-  - [4.5. with xxx as](#45-with-xxx-as)
-  - [4.6. リスト内方式](#46-リスト内方式)
-- [5. 関数](#5-関数)
-  - [5.1. 関数の作成](#51-関数の作成)
-  - [5.2. 無名関数](#52-無名関数)
-  - [5.3. 特殊メソッド(__str__、\_\_repr\_\_など)](#53-特殊メソッドstr__repr__など)
-  - [5.4. オリジナル関数](#54-オリジナル関数)
-    - [5.4.1. ログ出力](#541-ログ出力)
-- [6. サンプル集](#6-サンプル集)
-  - [6.1. スクリプトパスの取得](#61-スクリプトパスの取得)
-- [7. クラス](#7-クラス)
-  - [7.1. クラス生成](#71-クラス生成)
-  - [7.2. pythonにおけるカプセル化](#72-pythonにおけるカプセル化)
-- [8. ライブラリ](#8-ライブラリ)
-  - [8.1. openpyxl：エクセル操作](#81-openpyxlエクセル操作)
-    - [8.1.1. ファイル操作](#811-ファイル操作)
-    - [8.1.2. シート操作](#812-シート操作)
-    - [8.1.3. セル操作](#813-セル操作)
-    - [8.1.4. セルの書式設定（表示形式）](#814-セルの書式設定表示形式)
-    - [8.1.5. セルの書式設定（配置）](#815-セルの書式設定配置)
-    - [8.1.6. セルの書式設定（フォント）](#816-セルの書式設定フォント)
-    - [8.1.7. セルの書式設定（罫線）](#817-セルの書式設定罫線)
-    - [8.1.8. セルの書式設定（塗りつぶし）](#818-セルの書式設定塗りつぶし)
-  - [8.2. xlwings：エクセル操作](#82-xlwingsエクセル操作)
-- [9. フレームワーク](#9-フレームワーク)
-  - [9.1. Flask](#91-flask)
-    - [9.1.1. 爆速でFlaskスタブサーバを作成／起動する](#911-爆速でflaskスタブサーバを作成起動する)
-- [10. その他](#10-その他)
-  - [10.1. モジュール](#101-モジュール)
-  - [10.2. pythonにおけるMixin](#102-pythonにおけるmixin)
-  - [10.3. pythonにおける文字列操作](#103-pythonにおける文字列操作)
-  - [10.4. flaskを使ったbackend開発](#104-flaskを使ったbackend開発)
-  - [10.5. djangoを使ったbackend開発](#105-djangoを使ったbackend開発)
+  - [2.4. 文字操作](#24-文字操作)
+  - [2.5. 数値](#25-数値)
+  - [2.6. 配列](#26-配列)
+    - [2.6.1. tuple ()](#261-tuple-)
+    - [2.6.2. list \[\]](#262-list-)
+    - [2.6.3. dict](#263-dict)
+    - [2.6.4. set {}](#264-set-)
+- [3. 制御構文](#3-制御構文)
+  - [3.1. if](#31-if)
+  - [3.2. for](#32-for)
+  - [3.3. while/break/continue](#33-whilebreakcontinue)
+  - [3.4. with xxx as](#34-with-xxx-as)
+  - [3.5. リスト内方式](#35-リスト内方式)
+- [4. 関数](#4-関数)
+  - [4.1. 関数の作成](#41-関数の作成)
+  - [4.2. 無名関数](#42-無名関数)
+  - [4.3. 特殊メソッド(__str__、\_\_repr\_\_など)](#43-特殊メソッドstr__repr__など)
+  - [4.4. オリジナル関数](#44-オリジナル関数)
+    - [4.4.1. ログ出力](#441-ログ出力)
+- [5. サンプル集](#5-サンプル集)
+  - [5.1. スクリプトパスの取得](#51-スクリプトパスの取得)
+- [6. クラス](#6-クラス)
+  - [6.1. クラス生成](#61-クラス生成)
+  - [6.2. pythonにおけるカプセル化](#62-pythonにおけるカプセル化)
+- [7. ライブラリ](#7-ライブラリ)
+  - [7.1. 【csv】csvファイルの読み込み](#71-csvcsvファイルの読み込み)
+  - [7.2. 【openpyxl】エクセル操作（基本）](#72-openpyxlエクセル操作基本)
+  - [7.3. 【xlwings】エクセル操作（開いて図形追加）](#73-xlwingsエクセル操作開いて図形追加)
+- [8. フレームワーク](#8-フレームワーク)
+  - [8.1. Flask](#81-flask)
+    - [8.1.1. 爆速でFlaskスタブサーバを作成／起動する](#811-爆速でflaskスタブサーバを作成起動する)
+- [9. その他](#9-その他)
+  - [9.1. モジュール](#91-モジュール)
+  - [9.2. pythonにおけるMixin](#92-pythonにおけるmixin)
 ---
 <br>
 <!-- /TOC -->
@@ -101,7 +90,7 @@ set HTTPS_PROXY=https://user:pass@host:port
        # 一時的にTLS1.2を有効化
        > [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
        # Wget
-       > wget "https://bootstrap.pypa.io/get-pip.py" -O "get-pip.py"
+       > wget 'https://bootstrap.pypa.io/get-pip.py' -O 'get-pip.py'
        ```
      * pipインストール
        ```cmd
@@ -134,13 +123,20 @@ set HTTPS_PROXY=https://user:pass@host:port
 ```
 
 
-### 2.2. 基本関数
+### 2.2. 関数
 
-#### 2.2.1. 【print】文字列出力
+#### 2.2.1. 【dir】オブジェクトの属性をリストで取得
+```python
+>>> import os
+>>> dir(os)
+['mkdir', 'rename'...など]
+```
+
+#### 2.2.2. 【print】文字列出力
 
 ```python
-# シングルクォート ('...') とダブルクォート ("...") に違いはない
->>> print("hello!")
+# シングルクォート ('...') とダブルクォート ('...') に違いはない
+>>> print('hello!')
 hello!
 >>> print('hello!')
 hello!
@@ -154,42 +150,37 @@ hello!
 1,>>>
 ```
 
-#### 2.2.2. 【dir】オブジェクトの属性をリストで取得
-```python
->>> import os
->>> dir(os)
-['DirEntry', 'EX_OK', 'F_OK', 'GenericAlias', 'Mapping', 'MutableMapping', 'O_APPEND', 'O_BINARY', 'O_CREAT', 'O_EXCL', 'O_NOINHERIT', 'O_RANDOM', 'O_RDONLY', 'O_RDWR', 'O_SEQUENTIAL', 'O_SHORT_LIVED', 'O_TEMPORARY', 'O_TEXT', 'O_TRUNC', 'O_WRONLY', 'P_DETACH', 'P_NOWAIT', 'P_NOWAITO', 'P_OVERLAY', 'P_WAIT', 'PathLike', 'R_OK', 'SEEK_CUR', 'SEEK_END', 'SEEK_SET', 'TMP_MAX', 'W_OK', 'X_OK', '_AddedDllDirectory', '_Environ', '__all__', '__builtins__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_check_methods', '_execvpe', '_exists', '_exit', '_fspath', '_get_exports_list', '_wrap_close', 'abc', 'abort', 'access', 'add_dll_directory', 'altsep', 'chdir', 'chmod', 'close', 'closerange', 'cpu_count', 'curdir', 'defpath', 'device_encoding', 'devnull', 'dup', 'dup2', 'environ', 'error', 'execl', 'execle', 'execlp', 'execlpe', 'execv', 'execve', 'execvp', 'execvpe', 'extsep', 'fdopen', 'fsdecode', 'fsencode', 'fspath', 'fstat', 'fsync', 'ftruncate', 'get_blocking', 'get_exec_path', 'get_handle_inheritable', 'get_inheritable', 'get_terminal_size', 'getcwd', 'getcwdb', 'getenv', 'getlogin', 'getpid', 'getppid', 'isatty', 'kill', 'linesep', 'link', 'listdir', 'listdrives', 'listmounts', 'listvolumes', 'lseek', 'lstat', 'makedirs', 'mkdir', 'name', 'open', 'pardir', 'path', 'pathsep', 'pipe', 'popen', 'putenv', 'read', 'readlink', 'remove', 'removedirs', 'rename', 'renames', 'replace', 'rmdir', 'scandir', 'sep', 'set_blocking', 'set_handle_inheritable', 'set_inheritable', 'spawnl', 'spawnle', 'spawnv', 'spawnve', 'st', 'startfile', 'stat', 'stat_result', 'statvfs_result', 'strerror', 'supports_bytes_environ', 'supports_dir_fd', 'supports_effective_ids', 'supports_fd', 'supports_follow_symlinks', 'symlink', 'sys', 'system', 'terminal_size', 'times', 'times_result', 'truncate', 'umask', 'uname_result', 'unlink', 'unsetenv', 'urandom', 'utime', 'waitpid', 'waitstatus_to_exitcode', 'walk', 'write']
-```
 
 ### 2.3. 代入とコピー
 
 ```python
 >>> import copy
 >>> l_org = [0, 1, [2, 3]]
+
+>>> # 代入(assignment)　⇒オリジナル更新を反映
 >>> l_assign = l_org
->>> l_copy = l_org.copy()
->>> l_deepcopy = copy.deepcopy(l_org)
 >>> l_org[1] = 100
 >>> l_org[2][0] = 200
-
->>> print(l_org)
-[0, 100, [200, 3]]
-
->>> # assignment(代入)
 >>> print(l_assign)
 [0, 100, [200, 3]]
 
->>> # shallow copy(浅いコピー)
+>>> # 浅いコピー(shallow copy)　⇒オリジナル更新は一部反映
+>>> l_copy = l_org.copy()
+>>> l_org[1] = 100
+>>> l_org[2][0] = 200
 >>> print(l_copy)
 [0, 1, [200, 3]]
 
->>> # deep copy(深いコピー)
+>>> # 深いコピー(deep copy)　⇒オリジナル更新は反映されない
+>>> l_deepcopy = copy.deepcopy(l_org)
+>>> l_org[1] = 100
+>>> l_org[2][0] = 200
 >>> print(l_deepcopy)
 [0, 1, [2, 3]]
 ```
 
 ```python
-# multiple assignment(複数同時の代入)
+# 複数同時の代入(multiple assignment)
 >>> a,b = 0,1
 >>> print(a)
 0
@@ -197,75 +188,189 @@ hello!
 1
 ```
 
-### 2.4. 文字操作関数
+### 2.4. 文字操作
 ```python
 >>> print(word)
 Python
+
+# 文字列の長さを取得
 >>> len(word)
 6
+
 # 最初の文字のインデックスは0
 >>> word[0]
 'P'
-# 最初の文字～2番目まで　※注意　終了値は含まない！
+
+# 最初の文字～インデックス2まで（終端は含まない）
 >>> word[:2]
 'Py'
-# 2番目の文字～最後まで
+
+# インデックス2～最後の文字
 >>> word[2:]
 'thon'
-# 最初の文字～後ろから2番目まで
+
+# 最初の文字～インデックスから2番目
 >>> word[:-2]
 'Pyth'
 ```
+### 2.5. 数値
 
-<br>
-
-## 3. 言語構文
-
-### 3.1. tuple
-
-### 3.2. list
+### 2.6. 配列
+#### 2.6.1. tuple ()
 ```python
->>> squares
-[1, 4, 9, 16, 25]
->>> squares.append(2)
->>> squares
+>>> tuple_num = (1, 2, 3)
+
+# 要素のアクセス
+>>> print(tuple_num[0])
+1
+>>> print(tuple_num[:2])
+(1, 2)
+```
+
+```python
+# tupleはイミュータブル（更新不可）
+>>> tuple_num[0] = 100
+TypeError: 'tuple' object does not support item assignment
+
+>>> tuple_num.append(100)
+AttributeError: 'tuple' object has no attribute 'append'
+
+# 連結して新しいオブジェクト作成は可能
+>>> tuple_num + tuple_num
+(1, 2, 3, 1, 2, 3)
+```
+
+```python
+# tips
+# listと比較してメモリ使用量が少ない
+>>> from sys import getsizeof
+>>> getsizeof([1, 4, 9, 16, 25])
+104
+>>> getsizeof((1, 4, 9, 16, 25))
+80
+```
+
+#### 2.6.2. list []
+```python
+>>> list_num = [1, 4, 9, 16, 25]
+
+# 要素のアクセス
+>>> list_num[2]
+9
+
+# 要素のインデックスも取得できる
+>>> for idx,num in enumerate(list_num):
+...     print(idx,num)
+...
+0 1
+1 4
+2 9
+3 16
+4 25
+```
+
+```python
+# 要素の追加
+>>> list_num.append(2)
+>>> list_num
 [1, 4, 9, 16, 25, 2]
 ```
 
-### 3.3. dict
-### 3.4. set
-### 3.5. その他データ型
+#### 2.6.3. dict
+```python
+>>> dict_profile  = {'name': 'nok37', 'age': 28, 'city': 'Gunma'}
+
+# 要素のアクセス（キーを使用）
+>>> dict_profile['name']
+'nok37'
+```
+
+```python
+# キーの取得
+>>> dict_profile.keys()
+dict_keys(['name', 'age', 'city'])
+
+# 値の取得
+>>> dict_profile.values()
+dict_values(['nok37', 28, 'Gunma'])
+```
+
+#### 2.6.4. set {}
+```python
+# setでは重複値は無視され、生成時の順序は保持されない
+>>> set_num = {1, 9, 9, 4, 6, 3}
+>>> set_num
+{1, 3, 4, 6, 9}
+```
+
+```python
+# 要素の追加
+>>> set_num.add(3)
+>>> set_num.add(7)
+>>> set_num
+{1, 3, 4, 6, 7, 9}
+```
+
+```python
+>>> s1 = {1, 9, 9, 4, 6, 3}
+>>> s2 = {1, 9, 9, 5, 1, 2, 1, 4}
+
+# 和集合
+>>> s1 | s2
+{1, 2, 3, 4, 5, 6, 9}
+>>> s1.union(s2)
+{1, 2, 3, 4, 5, 6, 9}
+
+
+# 積集合
+>>> s1 & s2
+{1, 4, 9}
+>>> s1.intersection(s2)
+{1, 4, 9}
+
+# 差集合
+>>> s1 - s2
+{3, 6}
+>>> s1.difference(s2)
+{3, 6}
+
+# 対称差集合
+>>> s1 ^ s2
+{2, 3, 5, 6}
+>>> s1.symmetric_difference(s2)
+{2, 3, 5, 6}
+```
 
 <br>
 
-## 4. 制御構文
+## 3. 制御構文
 
-### 4.1. if
+### 3.1. if
 ```python
 # 基本
->>> x = int(input("数値を入力してください："))
+>>> x = int(input('数値を入力してください：'))
 数値を入力してください：32
 
 >>> if x < 0:
-...     print("less")
+...     print('less')
 ... elif x == 0:
-...     print("zero")
+...     print('zero')
 ... else:
-...     print("more")
+...     print('more')
 ...
 more
 ```
 
-### 4.2. for
+### 3.2. for
 ```python
-# 基本
->>> words = ['m21', 'c4', 'tell sea i']
+# 配列でループ
+>>> words = ['m21', 'c4', 'tel sea i']
 >>> for w in words:
 ...     print(w, len(w))
 ...
 m21 3
 c4 2
-tell sea i 10
+tel sea i 10
 ```
 
 ```python
@@ -278,7 +383,7 @@ tell sea i 10
 2
 
 # 開始値、終了値、増加量も指定できる
->>> for j in range(3,30,5):
+>>> for j in range(3, 30,5):
 ...     print(j)
 ...
 3
@@ -289,24 +394,23 @@ tell sea i 10
 28
 ```
 
-### 4.3. while/break/continue
-### 4.4. range
-### 4.5. with xxx as
-### 4.6. リスト内方式
+### 3.3. while/break/continue
+### 3.4. with xxx as
+### 3.5. リスト内方式
 
 <br>
 
-## 5. 関数
+## 4. 関数
 
-### 5.1. 関数の作成
+### 4.1. 関数の作成
 
-### 5.2. 無名関数
+### 4.2. 無名関数
 
-### 5.3. 特殊メソッド(__str__、__repr__など)
+### 4.3. 特殊メソッド(__str__、__repr__など)
 
-### 5.4. オリジナル関数
+### 4.4. オリジナル関数
 
-#### 5.4.1. ログ出力
+#### 4.4.1. ログ出力
 通常のprintだと即時反映されないため。
 
 ```python
@@ -316,9 +420,9 @@ def log_print(text):
 
 <br>
 
-## 6. サンプル集
+## 5. サンプル集
 
-### 6.1. スクリプトパスの取得
+### 5.1. スクリプトパスの取得
 ```python
 import os
 print(os.path.dirname(Cookies))
@@ -327,117 +431,176 @@ print(os.path.dirname(Cookies))
 
 <br>
 
-## 7. クラス
-### 7.1. クラス生成
-### 7.2. pythonにおけるカプセル化
+## 6. クラス
+### 6.1. クラス生成
+### 6.2. pythonにおけるカプセル化
 
 
 <br>
 
-## 8. ライブラリ
-### 8.1. openpyxl：エクセル操作
+## 7. ライブラリ
+### 7.1. 【csv】csvファイルの読み込み
 ```python
-import openpyxl
+import csv
+
+# ファイルオープン
+csv_file = open('./my.csv', 'r', encoding='ms932')
+
+# ファイルクローズ
+csv_file.close()
 ```
 
-#### 8.1.1. ファイル操作
 ```python
-# 新規作成
-wb = openpyxl.Workbook()
+# リスト形式で読み込み
+>>> f = csv.reader(
+...     csv_file,
+...     delimiter=',',
+...     doublequote=True,
+...     lineterminator='\r\n',
+...     quotechar="'",
+...     skipinitialspace=True
+...     )
 
-# 既存ファイル読み込み
-wb = openpyxl.load_workbook('myfile.xlsx')
+# 値の取得
+>>> next(f)
+['nok37', 'takahana']
+>>> next(f)
+['m21', 'matsuis']
+>>> next(f)
+StopIteration # ここで終わり
 
-# 保存
-wb.save('myfile.xlsx')
+# 値を取得してリスト作成
+>>> list = []
+>>> for row in f:
+...     list.append(row)
+...
+>>> list
+[['nok37', 'takahana'], ['m21', 'matsuis']]
 ```
 
-#### 8.1.2. シート操作
 ```python
-# 新規シート作成（左に追加）
-ws = wb.create_sheet(0)
-# 新規シート作成（右に追加）
-ws = wb.create_sheet()
-# 新規シート作成（シート名指定で追加）
-ws = wb.create_sheet(title='mysheet')
+# 辞書形式で読み込み
+>>> f = csv.DictReader(
+...     csv_file,
+...     delimiter=',',
+...     doublequote=True,
+...     lineterminator='\r\n',
+...     quotechar="'",
+...     skipinitialspace=True
+...     )
 
-# シート名から選択
-ws = wb.get_sheet_by_name('mysheet')
-
-# アクティブシート選択
-ws = wb.active
-
-# シート名変更
-ws.title = 'newsheet'
+# 値を辞書形式で取得
+>>> for row in f:
+...     print(row)
+...
+{'name': 'nok37', 'adomain': 'takahana'}
+{'name': 'm21', 'adomain': 'matsuis'}
 ```
 
-#### 8.1.3. セル操作
-```python
-# セル書き込み（セル名指定）
-ws['A1'].value = 'nok37'
-# セル書き込み（行列指定）
-ws.cell(row=2, column=1).value = 'takahana'
-# セル書き込み（行列指定　※省略版）
-ws.cell(3, 1, 'm21')
-```
+### 7.2. 【openpyxl】エクセル操作（基本）
+  ```python
+  import openpyxl
+  ```
 
-#### 8.1.4. セルの書式設定（表示形式）
-```python
-```
+* ファイル操作
+  ```python
+  # 新規作成
+  wb = openpyxl.Workbook()
 
-#### 8.1.5. セルの書式設定（配置）
-```python
-from openpyxl.styles import Alignment
-ws['A1'].alignment = Alignment(
-    # 横位置
-    horizontal='center',
-    # 縦位置
-    vertical='bottom',
-    # 方向
-    text_rotation=0,
-    # 折り返して全体を表示
-    wrap_text=False,
-    # 縮小して全体表示
-    shrink_to_fit=False,
-    # インデント
-    indent=0
-)
+  # 既存ファイル読み込み
+  wb = openpyxl.load_workbook('myfile.xlsx')
 
-# 横位置／縦位置の指定
-#  general : 標準
-#  bottom  : 下詰め
-#  center  : 中央揃え
-```
+  # 保存
+  wb.save('myfile.xlsx')
+  ```
 
-#### 8.1.6. セルの書式設定（フォント）
-```python
-from openpyxl.styles import Font
-ws['A1'].font = Font(
-    name='Meiryo UI',
-    bold=True,
-    italic=False,
-    size=12,
-    #下線
-    #文字飾り
-    color='FF000000'
-)
-```
+* シート操作
+  ```python
+  # 新規シート作成（左に追加）
+  ws = wb.create_sheet(0)
+  # 新規シート作成（右に追加）
+  ws = wb.create_sheet()
+  # 新規シート作成（シート名指定で追加）
+  ws = wb.create_sheet(title='mysheet')
 
-#### 8.1.7. セルの書式設定（罫線）
-```python
-```
+  # シート名から選択
+  ws = wb.get_sheet_by_name('mysheet')
 
-#### 8.1.8. セルの書式設定（塗りつぶし）
-```python
-```
+  # アクティブシート選択
+  ws = wb.active
 
-### 8.2. xlwings：エクセル操作
+  # シート名変更
+  ws.title = 'newsheet'
+  ```
+
+* セル操作
+  ```python
+  # セル書き込み（セル名指定）
+  ws['A1'].value = 'nok37'
+  # セル書き込み（行列指定）
+  ws.cell(row=2, column=1).value = 'takahana'
+  # セル書き込み（行列指定　※省略版）
+  ws.cell(3, 1, 'm21')
+  ```
+
+* セルの書式設定（表示形式）
+  ```python
+  ```
+
+* セルの書式設定（配置）
+  ```python
+  from openpyxl.styles import Alignment
+  ws['A1'].alignment = Alignment(
+      # 横位置
+      horizontal='center',
+      # 縦位置
+      vertical='bottom',
+      # 方向
+      text_rotation=0,
+      # 折り返して全体を表示
+      wrap_text=False,
+      # 縮小して全体表示
+      shrink_to_fit=False,
+      # インデント
+      indent=0
+  )
+  ```
+
+  | 位置指定 | 内容 |
+  | --- | --- |
+  | general　| 標準 |
+  | bottom   | 下詰め |
+  | center   | 中央揃え |
+
+* セルの書式設定（フォント）
+  ```python
+  from openpyxl.styles import Font
+  ws['A1'].font = Font(
+      name='Meiryo UI',
+      bold=True,
+      italic=False,
+      size=12,
+      #下線
+      #文字飾り
+      color='FF000000'
+  )
+  ```
+
+* セルの書式設定（罫線）
+  ```python
+  ```
+
+* セルの書式設定（塗りつぶし）
+  ```python
+  ```
+
+### 7.3. 【xlwings】エクセル操作（開いて図形追加）
 
 <br>
 
-## 9. フレームワーク
-### 9.1. Flask
-#### 9.1.1. 爆速でFlaskスタブサーバを作成／起動する
+## 8. フレームワーク
+### 8.1. Flask
+#### 8.1.1. 爆速でFlaskスタブサーバを作成／起動する
 
 1. Swagger EditorでAPIを定義する　⇒例
 2. コード自動生成で「Flask」を選択する
@@ -514,7 +677,7 @@ ws['A1'].font = Font(
 
     ```bash
     $ python -m swagger_server
-    * Serving Flask app "__main__" (lazy loading)
+    * Serving Flask app '__main__' (lazy loading)
     * Environment: production
     WARNING: This is a development server. Do not use it in a production deployment.
     Use a production WSGI server instead.
@@ -524,29 +687,9 @@ ws['A1'].font = Font(
 
 <br>
 
-## 10. その他
+## 9. その他
 
-###  10.1. モジュール
-###  10.2. pythonにおけるMixin
-###  10.3. pythonにおける文字列操作
-###  10.4. flaskを使ったbackend開発
-概要説明
-install/ひな型作成
-実処理作成/データベースアクセス
-blueprintとルーティング
-template(jinja2)
-APIサーバとしてJSONレスポンスを返す。
-スタティックファイルの扱い
-pytestをつかったunitテスト
-デプロイ
-###  10.5. djangoを使ったbackend開発
-概要説明
-install/ひな型作成
-実処理作成/データベースアクセス(django.model)
-ルーティング
-template
-APIサーバとしてJSONレスポンスを返す。(JsonResponse)
-ユニットテスト
-デプロイ
+###  9.1. モジュール
+###  9.2. pythonにおけるMixin
 
 <br>
