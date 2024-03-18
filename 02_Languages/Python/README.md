@@ -450,52 +450,54 @@ csv_file = open('./my.csv', 'r', encoding='ms932')
 csv_file.close()
 ```
 
-```python
-# リスト形式で読み込み
->>> f = csv.reader(
-...     csv_file,
-...     delimiter=',',
-...     doublequote=True,
-...     lineterminator='\r\n',
-...     quotechar="'",
-...     skipinitialspace=True
-...     )
+* リスト形式
+  ```python
+  # リスト形式で読み込み
+  >>> f = csv.reader(
+  ...     csv_file,
+  ...     delimiter=',',
+  ...     doublequote=True,
+  ...     lineterminator='\r\n',
+  ...     quotechar="'",
+  ...     skipinitialspace=True
+  ...     )
 
-# 値の取得
->>> next(f)
-['nok37', 'takahana']
->>> next(f)
-['m21', 'matsuis']
->>> next(f)
-StopIteration # ここで終わり
+  # 値の取得
+  >>> next(f)
+  ['nok37', 'takahana']
+  >>> next(f)
+  ['m21', 'matsuis']
+  >>> next(f)
+  StopIteration # ここで終わり
 
-# 値を取得してリスト作成
->>> list = []
->>> for row in f:
-...     list.append(row)
-...
->>> list
-[['nok37', 'takahana'], ['m21', 'matsuis']]
-```
+  # 値を取得してリスト作成
+  >>> list = []
+  >>> for row in f:
+  ...     list.append(row)
+  ...
+  >>> list
+  [['nok37', 'takahana'], ['m21', 'matsuis']]
+  ```
 
-```python
-# 辞書形式で読み込み
->>> f = csv.DictReader(
-...     csv_file,
-...     delimiter=',',
-...     doublequote=True,
-...     lineterminator='\r\n',
-...     quotechar="'",
-...     skipinitialspace=True
-...     )
+* 辞書形式
+  ```python
+  # 辞書形式で読み込み
+  >>> f = csv.DictReader(
+  ...     csv_file,
+  ...     delimiter=',',
+  ...     doublequote=True,
+  ...     lineterminator='\r\n',
+  ...     quotechar="'",
+  ...     skipinitialspace=True
+  ...     )
 
-# 値を辞書形式で取得
->>> for row in f:
-...     print(row)
-...
-{'name': 'nok37', 'adomain': 'takahana'}
-{'name': 'm21', 'adomain': 'matsuis'}
-```
+  # 値を辞書形式で取得
+  >>> for row in f:
+  ...     print(row)
+  ...
+  {'name': 'nok37', 'adomain': 'takahana'}
+  {'name': 'm21', 'adomain': 'matsuis'}
+  ```
 
 ### 7.2. 【openpyxl】エクセル操作（基本）
   ```python
@@ -618,7 +620,7 @@ StopIteration # ここで終わり
     def main():
         app = connexion.App(__name__, specification_dir='./swagger/')
         app.app.json_encoder = encoder.JSONEncoder
-        app.add_api('swagger.yaml', arguments={'title': 'Swagger alpha-kinpo'})
+        app.add_api('swagger.yaml', arguments={'title': 'SwaggerTest'})
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.load_cert_chain('server.crt', 'server.key')
         app.run(host='localhost', port=8080, ssl_context=context)
