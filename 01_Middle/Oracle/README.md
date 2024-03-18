@@ -11,6 +11,7 @@
     - [1.3.2. パスワード・プロファイル](#132-パスワードプロファイル)
   - [1.4. 起動・停止](#14-起動停止)
   - [1.5. 表領域](#15-表領域)
+  - [1.6. NLSパラメータ](#16-nlsパラメータ)
 - [2. SQL](#2-sql)
   - [2.1. データ操作言語（DML）](#21-データ操作言語dml)
     - [2.1.1. SELECT](#211-select)
@@ -57,6 +58,10 @@
     ```sql
     SELECT * FROM V$VERSION;
     ```
+
+* 経験値
+  1. TBDやったことあるやつ書く
+  2. TBD
 
 ### 1.2. 構成
 
@@ -237,8 +242,39 @@ USERNAME         PRIVILEGE                        ADM COM INH
     (select tablespace_name free_tablespace_name,sum(bytes) free_total_bytes from dba_free_space group by tablespace_name)
     where tablespace_name = free_tablespace_name(+)
     /
-    ★表示例を追記する
+    TBD 表示例を追記する
     ```
+
+### 1.6. NLSパラメータ
+
+National Language Supportの意味。DATABASE、INSTANCE、SESSIONの3段階あり、使用する言語や日付書式を指定する。
+
+```sql
+-- 設定値の確認
+SQL> select * from v$nls_parameters;
+ 
+PARAMETER                  VALUE
+-------------------------- ------------------------------
+NLS_CALENDAR               GREGORIAN
+NLS_CHARACTERSET           JA16EUCTILDE
+NLS_COMP                   BINARY
+NLS_CURRENCY               \
+NLS_DATE_FORMAT            YYYY-MM-DD HH24:MI:SS
+NLS_DATE_LANGUAGE          JAPANESE
+NLS_DUAL_CURRENCY          \
+NLS_ISO_CURRENCY           JAPAN
+NLS_LANGUAGE               JAPANESE
+NLS_LENGTH_SEMANTICS       BYTE
+NLS_NCHAR_CHARACTERSET     AL16UTF16
+NLS_NCHAR_CONV_EXCP        FALSE
+NLS_NUMERIC_CHARACTERS     .,
+NLS_SORT                   BINARY
+NLS_TERRITORY              JAPAN
+NLS_TIMESTAMP_FORMAT       YYYY-MM-DD HH24:MI:SS
+NLS_TIMESTAMP_TZ_FORMAT    RR-MM-DD HH24:MI:SSXFF TZR
+NLS_TIME_FORMAT            HH24:MI:SSXFF
+NLS_TIME_TZ_FORMAT         HH24:MI:SSXFF TZR
+```
 
 <br>
 
@@ -258,7 +294,7 @@ SQL> SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 -- ヒント句についての補足
 /*+ parallel(8) */
 /*+ full(A) */
-★後でやってみる
+TBD 後でやってみる
 explain plan for 
   SELECT /*+ PARALLEL */ cust_first_name, cust_last_name 
    FROM customers c, sales s WHERE c.cust_id = s.cust_id;
@@ -308,7 +344,7 @@ SQL> CREATE TABLE 新テーブル名 AS SELECT * FROM 旧テーブル名 WHERE 1
 * 遅延セグメント作成<br>
   表作成でセグメントを作成せず、データが挿入された場合にセグメントを実体化する。デフォルトで有効になっている。
   ```sql
-  ★確認方法を追記する
+  TBD 確認方法を追記する
   ```
 
 #### 2.2.2. DROP
@@ -390,7 +426,7 @@ SCXXX111         MV0000                           @"LINK0000"
   SQL> col MASETER for a32
   SQL> col LOG_TABLE for a32
   SQL> SELECT maseter, log_table FROM user_mview_logs;
-  ★出力例を追記する
+  TBD 出力例を追記する
 
   -- テーブル確認
   SQL> col TABLE_NAME for a32
@@ -398,8 +434,8 @@ SCXXX111         MV0000                           @"LINK0000"
 
   TABLE_NAME
   --------------------------------
-  MLOG$_テーブル名　★差分格納テーブル
-  RUPD$_テーブル名　★差分格納一時テーブル
+  MLOG$_テーブル名　差分格納テーブル
+  RUPD$_テーブル名　差分格納一時テーブル
   テーブル名
   ```
 
