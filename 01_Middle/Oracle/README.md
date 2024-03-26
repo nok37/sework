@@ -61,8 +61,7 @@
     ```
 
 * 経験値
-  1. TBDやったことあるやつ書く
-  2. TBD
+  1. →Oracle19C
 
 ### 1.2. 構成
 
@@ -224,7 +223,10 @@ USERNAME         PRIVILEGE                        ADM COM INH
 
     -- 削除
     alter tablespace TEST_SMALL drop datafile size 4096M;
+    ```
 
+    ```sql
+    -- 容量の確認
     set lines 120
     set pages 100
     set term off
@@ -235,10 +237,7 @@ USERNAME         PRIVILEGE                        ADM COM INH
     col "USED(MB)" format a20
     col "FREE(MB)" format a20
     col "USED(%)" format 990.99
-    ```
     
-    ```sql
-    -- 容量の確認
     select
     tablespace_name,
     to_char(nvl(total_bytes / 1024 /1024,0),'999,999,999') as "size(MB)",
@@ -250,7 +249,6 @@ USERNAME         PRIVILEGE                        ADM COM INH
     (select tablespace_name free_tablespace_name,sum(bytes) free_total_bytes from dba_free_space group by tablespace_name)
     where tablespace_name = free_tablespace_name(+)
     /
-    TBD 表示例を追記する
     ```
 
 ### 1.6. NLSパラメータ
@@ -299,14 +297,9 @@ SQL> SELECT * FROM table A;
 -- テーブル件数を取得
 SQL> SELECT /*+ parallel(8) full(A) */ count(1) FROM table A;
 
--- ヒント句についての補足
+-- ヒント句
 /*+ parallel(8) */
 /*+ full(A) */
-TBD 後でやってみる
-explain plan for 
-  SELECT /*+ PARALLEL */ cust_first_name, cust_last_name 
-   FROM customers c, sales s WHERE c.cust_id = s.cust_id;
-
 ```
 
 #### 2.1.2. INSERT
@@ -352,7 +345,11 @@ SQL> CREATE TABLE 新テーブル名 AS SELECT * FROM 旧テーブル名 WHERE 1
 * 遅延セグメント作成<br>
   表作成でセグメントを作成せず、データが挿入された場合にセグメントを実体化する。デフォルトで有効になっている。
   ```sql
-  TBD 確認方法を追記する
+  SQL> show parameter DEFERRED_SEGMENT_CREATION
+ 
+  NAME                            TYPE        VALUE
+  ------------------------------- ----------- ------
+  deferred_segment_creation       boolean     TRUE
   ```
 
 #### 2.2.2. DROP
@@ -431,10 +428,16 @@ SCXXX111         MV0000                           @"LINK0000"
   SQL> CREATE MATERIALIZED VIEW LOG ON マテビュー名;
 
   -- マテビューログ作成確認
-  SQL> col MASETER for a32
+  SQL> col MASTER for a32
   SQL> col LOG_TABLE for a32
-  SQL> SELECT maseter, log_table FROM user_mview_logs;
-  TBD 出力例を追記する
+  SQL> SELECT master, log_table FROM user_mview_logs;
+
+  MASTER
+  LOG_TABLE
+  --------------------------------
+  テーブル名
+  MLOB$_テーブル名
+
 
   -- テーブル確認
   SQL> col TABLE_NAME for a32
