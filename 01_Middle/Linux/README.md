@@ -891,10 +891,25 @@ Message of the dayの略
   | オプション | 詳細 |
   | --- | --- |
   | -h | MBやGBなど、人間が読みやすい形式で表示する（--human-readable） |
+  | --time-style="xxx" | タイムスタンプ書式指定 |
 
 * 使い方
   ```bash
-  # 
+  $ ls -lh /usr/bin/vi*
+  lrwxrwxrwx 1 root root   20 May  2  2023 /usr/bin/vi -> /etc/alternatives/vi
+  lrwxrwxrwx 1 root root   22 May  2  2023 /usr/bin/view -> /etc/alternatives/view
+  -rwxr-xr-x 1 root root 2.6K Feb 17  2020 /usr/bin/vigpg
+  lrwxrwxrwx 1 root root   21 May  2  2023 /usr/bin/vim -> /etc/alternatives/vim
+  -rwxr-xr-x 1 root root 3.7M Mar 14 18:05 /usr/bin/vim.basic
+  -rwxr-xr-x 1 root root 1.5M Mar 14 18:05 /usr/bin/vim.tiny
+  lrwxrwxrwx 1 root root   25 May  2  2023 /usr/bin/vimdiff -> /etc/alternatives/vimdiff
+  -rwxr-xr-x 1 root root 2.2K Mar 14 18:05 /usr/bin/vimtutor
+  ```
+
+  ```bash
+  $ ls -l --time-style="+%Y-%m-%d %H:%M:%S"
+  total 64
+  -rwxrwxrwx 1 takahana takahana 62048 2024-06-24 20:59:03 README.md
   ```
 
 ### 3.27. 【md5sum】 MD5メッセージダイジェストの計算と照合を行う
