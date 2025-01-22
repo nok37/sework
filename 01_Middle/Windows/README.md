@@ -31,7 +31,9 @@
   - [5.3. 独自コマンドの実行](#53-独自コマンドの実行)
 - [6. PowerShell](#6-powershell)
   - [6.1. tnc　#テスト接続Test-NetConnection](#61-tncテスト接続test-netconnection)
-- [7. その他ツール](#7-その他ツール)
+- [7. ツール](#7-ツール)
+  - [7.1. 7zip](#71-7zip)
+  - [7.2. 他](#72-他)
 ---
 <br>
 <!-- /TOC -->
@@ -463,8 +465,23 @@ powershell.exe start shell:AppsFolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!Micr
 
 <br>
 
-## 7. その他ツール
+## 7. ツール
 
+### 7.1. 7zip
+* ファイルの使用用途
+    | exeファイル | 用途 |
+    | --- | --- |
+    | 7z.exe | 7-Zip Console |
+    | 7zG.exe | 7-Zip GUI |
+    | 7zFM.exe | 7-Zip File Manager |
+
+* 使用例
+    ```cmd
+    rem zipファイルの中身リスト取得
+    "C:\Program Files\7-Zip\7z.exe" l aaa.zip
+    ```
+
+### 7.2. 他
 ```cmd
 --SVNの指定日以降のログ履歴を取得
 svn log svn://xx.xx.xxx.xx/hoge -r {2024-01-01}:HEAD -v
